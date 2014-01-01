@@ -40,8 +40,7 @@ class HomeController extends BaseController {
 	}
 
   public function dogecoin() {
-    //$total = file_get_contents('http://dogechain.info/chain/CHAIN/q/addressbalance/D5fFGWRiDyGNHhDq6iWCQKCaHeMfExYCam');
-    $total = 10001;
+    $total = file_get_contents('/home/ebon/misc/out.txt');
     return View::make('dogecoin', array('total' => $total));
   }
 }
