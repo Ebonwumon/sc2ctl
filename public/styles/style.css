@@ -17,7 +17,7 @@ body, .pure-g [class *= "pure-u"],.pure-g-r [class *= "pure-u"] {
 	font-family: 'Open Sans', sans-serif;
 }
 
-.wow-so-comic-sans {
+.wow-so-comic-sans .pure-g [class *= "pure-u"], .wow-so-comic-sans .pure-g-r [class *= "pure-u"] {
   font-family: 'Comic Sans MS', sans-serif !important;
 }
 
