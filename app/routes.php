@@ -17,6 +17,7 @@ Route::get('about', array('as' => 'home.about', 'uses' => 'HomeController@about'
 Route::get('format', array('as' => 'home.format', 'uses' => 'HomeController@format'));
 Route::get('rules', array('as' => 'home.rules', 'uses' => 'HomeController@rules'));
 Route::get('finals', array('as' => 'home.finals', 'uses' => 'HomeController@finals'));
+Route::get('dogecoin', array('as' => 'dogecoin', 'uses' => 'HomeController@dogecoin'));
 Route::get('blog', array('as' => 'blog.index', 'uses' => 'BlogController@index'));
 Route::get('blog/{id}', array('as' => 'blog.profile', 'uses' => 'BlogController@show'));
 Route::get('stats', array('as' => 'stats', 'uses' => 'StatsController@index'));

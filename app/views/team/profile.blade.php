@@ -68,36 +68,9 @@ background-wrapper clown-background
 </div>
 </div>
 <div class="pure-control-panel">
-@if (Auth::check() && Auth::user()->canManageTeam($team->id))
-<a href="{{ URL::route('team.editinfo', $team->id) }}" class="pure-button pure-button-primary">Edit Info</a>
-<a href="{{ URL::route('team.edit', $team->id) }}" class="pure-button pure-button-secondary">Manage Team</a>
-@endif
 
-
-@if (Auth::check() && Auth::user()->team_id == $team->id)
-{{ Form::open(array('url' => 'user/leaveteam')) }}
-
-	{{ Form::submit('Leave Team', array('id' => 'leaveTeam', 'class' => 'pure-button pure-button-bad')) }}
-
-{{ Form::close() }}
-@else
-
-<button class="pure-button pure-button-good" disabled>Request to Join</button> 
-<span>Unimplemented. Contact your team captain to be added.</span>
-@endif
 <span class="error"></span>
 </div>
-
-@if (Entrust::hasRole('team_captain') && $team->members->count() > 1)
-<script>
-	$('#leaveTeam').click(function(e) {
-		e.preventDefault();
-		$(this).parents().closest('.pure-control-panel').find('.error').show('fast').html('You must promote another member to leader before leaving');
-
-	});
-</script>
-
-@endif
 </div>
 
 <script>

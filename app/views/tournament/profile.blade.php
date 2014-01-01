@@ -5,9 +5,9 @@ Tournament Profile
 @stop
 
 @section('content')
-<div class="pure-g-r">
-	<div class="splash">
-		<div class="pure-u-1-3">
+<div class="splash">
+  <div class="pure-g-r">
+    <div class="pure-u-1-3">
 			<div class="l-box">
 				<img width="300px" src="/img/{{$tournament->division}}.png" />
 			</div>
@@ -67,6 +67,9 @@ Tournament Profile
 	<h2>Hello everyone!</h2>
 	<h3>There was a problem with automatic bracket generation, but you can view the starting bracket here:
 	<a href="http://dev.sc2ctl.com/blog/10">http://dev.sc2ctl.com/blog/12</a>. Please report your match results (with replays) via email to adult@sc2ctl.com!</h3>
+@elseif ($tournament->phase == -1)
+  This tournament is completed. Open data on the tournament will be available
+  soon &trade;
 @else 
 <br />
 <br />

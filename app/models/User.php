@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Auth\UserInterface;
-use Zizaco\Entrust\HasRole;
 
 class User extends Eloquent implements UserInterface {
 	
@@ -84,8 +83,6 @@ class User extends Eloquent implements UserInterface {
 		$this->team_id = null;
 		$this->save();
 	}
-
-	use HasRole;
 
 	static function getCaptains() {
 		$arr = array();

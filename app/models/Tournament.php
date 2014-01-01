@@ -177,6 +177,7 @@ class Tournament extends Eloquent {
 
 	public function getPhase() {
 		switch($this->phase) {
+      case '-1': return "Completed";
 			case '0': return "Not yet started";
 			case '1': return "Group Stage 1";
 			case '2': return "Group Stage 2";

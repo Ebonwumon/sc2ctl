@@ -38,7 +38,6 @@
 					</li>
 					<li><a href="{{ URL::route('user.logout') }}">Log Out</a></li>
 				@else
-					<li><a href="{{ URL::route('login', urlencode(Request::url())) }}">Log In/Register</a></li>
 				@endif
 			</ul>
 		</nav>

@@ -46,7 +46,7 @@ class TournamentController extends \BaseController {
 	{
 		$tournament = Tournament::find($id);
 		$phase = ($phase) ? $phase : $tournament->phase;
-		if ($tournament->phase <= 3) {
+    if ($tournament->phase <= 3) {
 			$data = $tournament->filterPhase($tournament->groups()->get(), $phase);
 		} else {
 			$data = array(); //TODO MAKE BRACKETS

@@ -1,9 +1,6 @@
 <?php
 
-use Zizaco\Entrust\EntrustRole;
-
-class Role extends EntrustRole
-{
+class Role extends Eloquent {
 	const CAPTAIN = 2;
 	const MEMBER = 3;
 	const OFFICER = 4;

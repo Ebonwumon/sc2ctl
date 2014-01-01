@@ -17,6 +17,10 @@ body, .pure-g [class *= "pure-u"],.pure-g-r [class *= "pure-u"] {
 	font-family: 'Open Sans', sans-serif;
 }
 
+.wow-so-comic-sans {
+  font-family: 'Comic Sans MS', sans-serif !important;
+}
+
 .background-wrapper {
 	background-attachment: fixed;
 	background-size:cover;
@@ -30,12 +34,22 @@ body, .pure-g [class *= "pure-u"],.pure-g-r [class *= "pure-u"] {
 	background-image:url('../img/clown.jpg');
 }
 
+.doge-background {
+  background-image:url('../img/doge.jpg');
+}
+
+
+
 .pure-u-1-3.main-content-box:nth-child(3) .floating-color {
 	margin-right: 1em;
 }
 
 .content-box-title {
 	color: rgb(247, 250, 165);
+}
+
+.title-massive {
+  font-size:300%;
 }
 
 .floating-color {
@@ -50,7 +64,7 @@ body, .pure-g [class *= "pure-u"],.pure-g-r [class *= "pure-u"] {
 	padding-left: 1em;
 	padding-right: 1em;
 }
-#mainpage .pure-u-1-3 .floating-color {
+#mainpage [class *= "pure-u"] .floating-color {
 		margin-left:1em;
 }
 
@@ -267,9 +281,14 @@ color: #013194;
 		cursor: pointer;
 	}
 
+
 .splash {
 	background: #eee;
 	padding: 3em 0.5em;
+}
+
+#mainpage .splash {
+  background: rgba(238,238,238, 0.6);
 }
 
 .splash-head {
@@ -285,6 +304,15 @@ color: #013194;
 
 .l-box {
 	padding: 1em;
+           text-align:left;
+}
+.r-box {
+	padding: 1em;
+           text-align:right;
+}
+
+.l-box img {
+max-width: 100%;
 }
 
 hr {

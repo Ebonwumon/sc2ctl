@@ -38,4 +38,9 @@ class HomeController extends BaseController {
 	public function finals() {
 		return View::make('tournament/finals');
 	}
+
+  public function dogecoin() {
+    $total = file_get_contents('http://dogechain.info/chain/CHAIN/q/addressbalance/D5fFGWRiDyGNHhDq6iWCQKCaHeMfExYCam');
+    return View::make('dogecoin', array('total' => $total));
+  }
 }

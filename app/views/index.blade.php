@@ -51,8 +51,15 @@ background-wrapper sc2ctl-main-logo
 	<div class="pure-g">
 		<div class="pure-u-1-3 main-content-box">
 			<div class="floating-color">
-				<h2 class="content-box-title">Latest Posts</h2>
-			  Blog is down, friend	
+				<h2 class="content-box-title">Dogecoin Showmatch</h2>
+        Jan 7th, 7PM EST<br />
+        Clarity Gaming vs ROOT SEED<br />
+        <strong>10, 000 DOGE Pot</strong>
+        <p>
+          <a href="{{ URL::route('dogecoin') }}" class="pure-button pure-button-primary">
+          More Info
+          </a>
+        </p>
 			</div>
 		</div>
 		<div class="pure-u-1-3 main-content-box">

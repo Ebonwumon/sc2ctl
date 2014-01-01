@@ -78,3 +78,16 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+View::composer('team/profile', function($view) {
+  if (!isset($view['edit'])) {
+    $view->with('edit', false);
+  } else {
+    $select = array();
+
+    foreach ($view['team']->members as $member) {
+      $select[$member->id] = $member->bnet_name . "#" . $member->char_code;
+    }
+    $view->with('select', $select);
+  }
+});
+
