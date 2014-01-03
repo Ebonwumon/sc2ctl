@@ -104,34 +104,34 @@ doge-background background-wrapper
           <thead>
           </thead>
           <tr>
-            <td>TBD</td>
+            <td>Elhaym (T)</td>
             <td>Yeonsu LE</td>
-            <td>TBD</td>
+            <td>Heiwa (T)</td>
           </tr>
           <tr>
-            <td>TBD</td>
+            <td>Reborn (Z)</td>
             <td>Polar Night LE</td>
-            <td>TBD</td>
+            <td>Astrea (P)</td>
           </tr>
           <tr>
-            <td>TBD</td>
+            <td>Silky (Z)</td>
             <td>Star Station TE</td>
-            <td>TBD</td>
+            <td>Prebs (Z)</td>
           </tr>
           <tr>
-            <td>TBD</td>
+            <td>Shew (P)</td>
             <td>Frost LE</td>
-            <td>TBD</td>
+            <td>Bones (P)</td>
           </tr>
           <tr>
-            <td>TBD</td>
+            <td>Sarovati (P)</td>
             <td>Bel'Shir Vestige LE</td>
-            <td>TBD</td>
+            <td>Arium (P)</td>
           </tr>
           <tr>
-            <td>TBD</td>
+            <td>Poo (P)</td>
             <td>Fruitland</td>
-            <td>TBD</td>
+            <td>Intense (T)</td>
           </tr>
           <tr>
             <td>ACE</td>
