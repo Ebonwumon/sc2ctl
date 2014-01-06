@@ -27,7 +27,7 @@ About the League
 					@if (Auth::check())
 					<a href="{{ URL::route('team.create') }}" class="pure-button pure-button-primary pure-button-large">Register a Team</a>
 					@else
-					<a href="{{ URL::route('user.create') }}" class="pure-button pure-button-primary pure-button-large">Register Now</a>
+					<a href="{{ URL::route('user.register') }}" class="pure-button pure-button-primary pure-button-large">Register Now</a>
 					@endif
 				</p>
 			</div>

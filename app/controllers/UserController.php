@@ -8,17 +8,8 @@ class UserController extends \BaseController {
      * @return Response
      */
     public function index() {
-        $users = User::all();
-		return View::make('user/index', array('users' => $users));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create() {
-        return View::make('user/create');
+      $users = User::all();
+		  return View::make('user/index', array('users' => $users));
     }
 
     /**
@@ -27,13 +18,23 @@ class UserController extends \BaseController {
      * @return Response
      */
     public function store() {
-        $user = User::create(Input::all());
-
-        $user->save();
-		Session::forget('email');
-		Session::put('uid', $user->id);
-		Session::put('username', $user->username);
-        return Redirect::action('HomeController@index');
+      $v = User::validates(Input::all());
+      if ($v->passes()) {
+        $args = Input::only(
+                'email', 
+                'username', 
+                'password', 
+                'bnet_id', 
+                'bnet_name', 
+                'char_code', 
+                'league',
+                'bnet_url'
+                );
+        $user = Sentry::register($args, true);
+        Sentry::login($user, false);
+        return Redirect::route('user.profile', $user->id);
+      }
+      return Redirect::route('user.register')->withErrors($v)->withInput(); 
     }
 
     /**
@@ -43,12 +44,12 @@ class UserController extends \BaseController {
      * @return Response
      */
     public function show($id) {
-        $user = User::find($id);
+      $user = User::find($id);
 		
-		if (Request::ajax()) {
-			$response = ($user) ? $user->toArray() : array('username' => "Not Found");
-			return Response::json($response);
-		}
+      if (Request::ajax()) {
+        $response = ($user) ? $user->toArray() : array('username' => "Not Found");
+        return Response::json($response);
+      }
 		
 		$notifications = $user->notifications()->orderBy('created_at', 'desc')->orderBy('read', 'desc')->take(5)->get();
 			
@@ -110,21 +111,31 @@ class UserController extends \BaseController {
 	}
 	
 
-	public function login($return_url) {
+	public function login($return_url = false) {
 		if ($return_url) {
 			Session::put('redirect', urldecode($return_url));
 		}
+	  return View::make('user/login');
+  }
 
-		return Redirect::route('hybridauth');
-	}
+  public function auth() {
+    //Todo catch exceptions
+    Sentry::authenticateAndRemember(Input::only('email', 'password'));
+    if (Session::has('redirect')) {
+      $url = Session::get('redirect');
+      Session::forget('redirect');
+      return Redirect::to($url);
+    }
+    return Redirect::route('home');
+  }
+
+  public function register() {
+    return View::make('user/create'); 
+  }
 
 	public function logout() {
-		$hybrid = new Hybrid_Auth(Config::get('hybridauth'));
-		$hybrid->restoreSessionData($hybrid->getSessionData());
-		$hybrid->getAdapter("Google")->logout();
-		Auth::logout();
-		Session::flush();
-		return Redirect::action('HomeController@index');
+    Sentry::logout();
+    return Redirect::action('HomeController@index');
 	}
 
 	public function leaveteam() {

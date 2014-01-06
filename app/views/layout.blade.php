@@ -22,8 +22,8 @@
 				<li><a href="{{ URL::route('tournament.index') }}">Tournaments</a></li>
 				<li><a href="http://reddit.com/r/sc2ctl">Subreddit</a></li>
         <li><a href="{{ URL::route('stream') }}">Stream</a></li>
-				@if (Auth::check())
-				<?php $user = Auth::user(); ?>
+				@if (Sentry::check())
+				<?php $user = Sentry::getUser(); ?>
 					<li>
 						<div class="notification-container">
 							<a href="{{ URL::route('user.profile', $user->id) }}">
@@ -39,6 +39,7 @@
 					</li>
 					<li><a href="{{ URL::route('user.logout') }}">Log Out</a></li>
 				@else
+          <li><a href="{{ URL::route('user.login', urlencode(Request::url())) }}">Sign In</a></li>
 				@endif
 			</ul>
 		</nav>

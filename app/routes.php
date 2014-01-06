@@ -11,7 +11,7 @@
 |
 */
 Route::get('/', array('as' => 'home', "uses" => 'HomeController@index')); 
-Route::get('login/{return_url}', array('as' => 'login', 'uses' => 'UserController@login'));
+Route::get('login/{return_url?}', array('as' => 'user.login', 'uses' => 'UserController@login'));
 Route::get('contact', array('as' => 'home.contact', "uses" => 'HomeController@contact'));
 Route::get('about', array('as' => 'home.about', 'uses' => 'HomeController@about'));
 Route::get('format', array('as' => 'home.format', 'uses' => 'HomeController@format'));
@@ -25,6 +25,10 @@ Route::get('stats/highest_median_winrate', 'StatsController@highestMedianWR');
 Route::get('stats/every_man_on_the_field/{id}', 'StatsController@allPlayedInTournament');
 Route::get('stream', array('as' => 'stream', 'uses' => 'HomeController@stream'));
 //Authenticated methods
+Route::group(array('before' => 'guest'), function() {
+  Route::get('register', array('as' => 'user.register', 'uses' => 'UserController@register'));
+  Route::post('login', array('as' => 'user.auth', 'uses' => 'UserController@auth'));
+    });
 Route::group(array('before' => 'auth'), function() {
 	
 	Route::get('code', array('as' => 'code.index', 'uses' => 'CodeController@index'));
@@ -80,7 +84,6 @@ Route::get('game/forfeit', array('as' => 'game.forfeit', function() { return Vie
 Route::get('user/checktaken/{type}/{val}', 'UserController@checkTaken');
 Route::get('user/search/{term}', 'UserController@search');
 Route::get('user', array('as' => 'user.index', 'uses' => 'UserController@index'));
-Route::get('user/create', array('as' => 'user.create', 'uses' => 'UserController@create'));
 Route::post('user', array('as' => 'user.store', 'uses' => 'UserController@store'));
 Route::get('user/{id}', array('as' => 'user.profile', 'uses' => 'UserController@show'));
 

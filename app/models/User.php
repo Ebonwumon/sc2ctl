@@ -1,8 +1,8 @@
 <?php
-
+use Cartalyst\Sentry\Users\Eloquent\User as SentryUserModel;
 use Illuminate\Auth\UserInterface;
 
-class User extends Eloquent implements UserInterface {
+class User extends SentryUserModel implements UserInterface {
 	
 	protected $fillable = array('username', 'email', 'bnet_url', 'bnet_id', 'bnet_name', 'char_code', 'league', 'img_url', 'team_id');
 
@@ -25,6 +25,20 @@ class User extends Eloquent implements UserInterface {
 	public function team() {
 		return $this->belongsTo('Team');
 	}
+
+  public static function validates($input) {
+    $rules = array(
+      'username' => 'required|alpha_dash|between:3,80|unique:users',
+      'email' => 'email|unique:users|required',
+      'bnet_name' => 'required|alpha_num|between:3,80',
+      'bnet_id' => 'required|numeric|unique:users',
+      'char_code' => 'required|numeric',
+      'league' => 'required|in:Bronze,Silver,Gold,Platinum,Diamond,Master,Grandmaster',
+      'bnet_url' => 'required|url',
+      'password' => 'required|confirmed',
+        );
+    return Validator::make($input, $rules);
+  }
 
 	/**
 	* Takes an array of tournament ids
