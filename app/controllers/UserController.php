@@ -30,6 +30,10 @@ class UserController extends \BaseController {
                 'league',
                 'bnet_url'
                 );
+        /*$args = array(
+            'Password' => 'green',
+            'email' => 'farts@tarts.de'
+            );*/
         $user = Sentry::register($args, true);
         Sentry::login($user, false);
         return Redirect::route('user.profile', $user->id);

@@ -1,26 +1,19 @@
 <?php
 use Cartalyst\Sentry\Users\Eloquent\User as SentryUserModel;
-use Illuminate\Auth\UserInterface;
 
-class User extends SentryUserModel implements UserInterface {
+class User extends SentryUserModel {
 	
-	protected $fillable = array('username', 'email', 'bnet_url', 'bnet_id', 'bnet_name', 'char_code', 'league', 'img_url', 'team_id');
+	protected $fillable = array('username', 'password', 'email', 'bnet_url', 'bnet_id', 'bnet_name', 'char_code', 'league', 'img_url', 'team_id');
 
 	protected $guarded = array('id');
-
-	
-	public function getAuthIdentifier()
-	{
-		return $this->getKey();
-	}
-
-	public function getAuthPassword() {
-		return Hash::make($this->email);
-	}
-
+		
 	public function notifications() {
 		return $this->belongsToMany('Notification')->withPivot('read')->withTimestamps();
 	}
+
+  public function getPassword() {
+    return $this->password;
+  }
 
 	public function team() {
 		return $this->belongsTo('Team');
