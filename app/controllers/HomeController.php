@@ -43,4 +43,19 @@ class HomeController extends BaseController {
     $total = file_get_contents('/home/ebon/misc/out.txt');
     return View::make('dogecoin', array('total' => $total));
   }
+
+  public function stream() {
+    $id = Config::get('stream.current_match');
+    $players = false;
+    $match = false;
+    if ($id) {
+      $match = Match::find($id);
+      $players = $match->getPlayers();
+    }
+    return View::make('stream', array(
+          'match' => $match, 
+          'channel' => Config::get('stream.channel'),
+          'players' => $players,
+       ));
+  }
 }

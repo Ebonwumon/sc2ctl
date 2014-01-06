@@ -19,7 +19,8 @@ class MatchController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('match/create');
+		$select = DB::table('teams')->lists('name', 'id');
+    return View::make('match/create', array('teams' => $select));
 	}
 
 	/**
@@ -29,17 +30,14 @@ class MatchController extends \BaseController {
 	 */
 	public function store()
 	{
-		$match = Match::make(Input::all());
-		//should be refactored to generate games
-		/*for ($i = 0; $i < $match->bo; $i++) {
-			$game = new Game;
-			$game->player1 = $match->team1->leader;
-			$game->player2 = $match->team2->leader;
-			$game->winner = 0;
-		}*/
+    $match = new Match;
 
-		$match->generateGames();
-		return "done";
+    $match->bo = Input::get('bo');
+
+    $match->save();
+    $match->teams()->sync(Input::get('teams'));
+
+    return Redirect::route('match.edit', $match->id);
 	}
 
 	/**
@@ -65,7 +63,16 @@ class MatchController extends \BaseController {
 	{
 		$match = Match::find($id);
 		$teams = $match->teams()->get();
-		return View::make('match/edit', array('match' => $match, 'teams' => $teams));	
+    $team1Players = $teams[0]->playerSelect();
+    $team1Players[0] = "Ace Player";
+    $team2Players = $teams[1]->playerSelect();
+    $team2Players[0] = "Ace Player";
+		return View::make('match/edit', array(
+          'match' => $match, 
+          'teams' => $teams,
+          'team1Players' => $team1Players,
+          'team2Players' => $team2Players
+       ));	
 	}
 
 	/**
@@ -84,8 +91,12 @@ class MatchController extends \BaseController {
 		if (Input::has('doodle_id')) {
 			$match->doodle_id = Input::get('doodle_id');
 		}
+
 		$match->save();
-		
+	  
+    if (Input::has('team1Players') && Input::has('team2Players')) {
+      $match->generateGames(Input::get('team1Players'), Input::get('team2Players'));
+    }
 		if (Input::has('team1') && Input::has('team2')) {
 			$match->teams()->sync(array(Input::get('team1'), Input::get('team2')));
 		}

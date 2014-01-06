@@ -21,6 +21,7 @@
 				<li><a href="{{ URL::route('team.index') }}">Teams</a></li>
 				<li><a href="{{ URL::route('tournament.index') }}">Tournaments</a></li>
 				<li><a href="http://reddit.com/r/sc2ctl">Subreddit</a></li>
+        <li><a href="{{ URL::route('stream') }}">Stream</a></li>
 				@if (Auth::check())
 				<?php $user = Auth::user(); ?>
 					<li>

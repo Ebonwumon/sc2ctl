@@ -61,7 +61,7 @@
 	</div>
 </div>
 </div>
-@if (Entrust::can('edit_users') || (Auth::check() && Auth::user()->id == $user->id))
+@if (Auth::check() && Auth::user()->id == $user->id)
 <a href="{{ URL::route('user.edit', $user->id) }}" class="pure-button pure-button-primary">
 	Edit Profile
 </a>

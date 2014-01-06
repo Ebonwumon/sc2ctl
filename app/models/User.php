@@ -96,4 +96,14 @@ class User extends Eloquent implements UserInterface {
 	static function getAll() {
 		return DB::table('users')->lists('id');
 	}
+
+  static function listAll() {
+    $list = array();
+    $users = DB::table('users')->select('id', 'bnet_name', 'char_code')->get();
+    foreach ($users as $user) {
+      $list[$user->id] = $user->bnet_name . "#" . $user->char_code;
+    }
+    return $list;
+  }
+
 }

@@ -1,13 +1,13 @@
 <style>
 .won { font-weight: bold; }
 </style>
-<div class='match mid{{$match->id}}'>
+<div class='match' data-match-id="{{ $match->id }}">
 	<div class='pure-g'>
-		<div class="match-top tid" data-tid="{{$teams->first()->id}}">
-			<div class="pure-u-7-8 @if($win && $win == $teams->first()->id) won @endif team-name">
+		<div class="match-top tid" data-team-id="{{$match->teams->first()->id}}">
+			<div class="pure-u-7-8 @if(isset($win) && $win && $win == $match->teams->first()->id) won @endif team-name">
 				<span>
-			<?php $profile = ($teams->first()->id == 0) ? "#" : URL::route('team.profile', $teams->first()->id); ?>
-					<a href="{{ $profile }}">[{{ $teams->first()->tag}}]</a>
+			<?php $profile = ($match->teams->first()->id == 0) ? "#" : URL::route('team.profile', $match->teams->first()->id); ?>
+					<a href="{{ $profile }}">[{{ $match->teams->first()->tag}}]</a>
 				</span>
 			</div>
 			<div class="pure-u-1-8">
@@ -16,11 +16,11 @@
 				</div>
 			</div>
 		</div>
-		<div class="match-bottom tid" data-tid="{{$teams->last()->id}}">
-			<div class="pure-u-7-8 @if($win && $win == $teams->last()->id) won @endif team-name">
+		<div class="match-bottom tid" data-team-id="{{$match->teams->last()->id}}">
+			<div class="pure-u-7-8 @if(isset($win) && $win && $win == $match->teams->last()->id) won @endif team-name">
 				<span>
-			<?php $profile = ($teams->last()->id == 0) ? "#" : URL::route('team.profile', $teams->last()->id); ?>
-					<a href="{{ $profile }}">[{{ $teams->last()->tag }}]</a>
+			<?php $profile = ($match->teams->last()->id == 0) ? "#" : URL::route('team.profile', $match->teams->last()->id); ?>
+					<a href="{{ $profile }}">[{{ $match->teams->last()->tag }}]</a>
 				</span>
 			</div>
 			<div class="pure-u-1-8">

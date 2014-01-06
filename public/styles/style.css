@@ -254,7 +254,7 @@ color: #013194;
 
 .centered {
 	text-align:center; 
-	margin 0px auto;
+  margin: 0px auto;
 }
 
 .centered .pure-card {
@@ -433,6 +433,10 @@ blockquote {
 }
 .pure-button-xlarge {
   font-size: 150%;
+}
+
+.pure-button-massive {
+  font-size: 200%;
 }
 .pure-button[data-loading] {
 	border-color: rgba( 0, 0, 0, 0.07 );
@@ -634,4 +638,58 @@ blockquote {
 .plus {
 	font-size: 150%;
 	margin-right: 0.5em;
+}
+
+#stream-container {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  width:1200px;
+  margin:0px auto;
+  text-align:center;
+}
+
+.stream-container object {
+  text-align:center;
+  margin: 0px auto;
+  width:768px;
+}
+
+.profile-card { 
+  width: 200px; 
+  position:relative; 
+  display:inline-block;
+  border: 2px solid black; 
+  overflow: hidden; 
+  height:80px;
+  margin-bottom:0.5em;
+  box-shadow: 0px 0px 3px 2px rgb(223, 117, 20);
+  color:white;
+  background: rgba(243, 255, 133, 0.8);
+}
+
+.profile-card-small {
+  width:150px;
+  height: 60px;
+}
+
+.profile-card-small > span {
+  font-size: 80%;
+}
+
+.logo-img { width :40%; }
+
+.logo-img img { width: 100%; }
+
+.impact {
+  text-shadow: 0px 0px 9px darkblue;
+}
+.primary-name { position:absolute; top: 0.3em; left:20%; font-size: 150%; }
+
+.secondary-name { position:absolute; top:2em; left:20%; font-size:110%; }
+.full-height { height: 100%; display:inline-block;}
+.tip-button { 
+  position:relative; 
+  top: -40px; 
+  background:rgb(223, 117, 20);
+color:white;
 }

@@ -1,33 +1,12 @@
-<?php if (!isset($winner)) $winner = 0; ?>
-<div class="pure-card uid{{ $member->id }} @if ($winner && $member->id == $winner->id) winner @endif">
-	<div class="pure-g-r">
-		<div class="pure-u-1-3">
-			<img src="{{ $member->img_url }}" />
-		</div>
-		<div class="pure-u-1-6"></div>
-		<div class="pure-u-1-2">
-			<h3>
-				<a class="nolink" href="{{ URL::route('user.profile', $member->id) }}">
-					<span class="username">{{ $member->username }}</span>
-				</a>
-			</h3>
-			@if (isset($team))
-					@if ($team->leader == $member->id)
-						<em class="team-captain">Team Captain</em><br />
-					@elseif ($team->contact == $member->id)
-						<em class="team-contact">Team Contact</em><br />
-					@endif
-			@endif
-			{{ $member->league }}
-		</div>
-	</div>
-</div>
-<div class="pure-control-panel panel-hidden">
-	@if (Entrust::can('delete_users'))
-	{{ Form::open(array('route' => array('user.destroy', $member->id), 'method' => 'DELETE')) }}
-		{{ Form::submit('Delete', array('class' => "pure-button pure-button-bad")) }}
-	{{ Form::close() }}
-	@endif
-
-</div>
-
+<a href="{{ URL::route('user.profile', $user->id) }}" class="nolink">
+  <div class="profile-card @if($smallCard) profile-card-small @endif centered">
+    <div class="logo-img">
+      <img src="{{ $user->img_url }}" />
+    </div>
+    <span class="primary-name impact">{{ $user->username }}</span>
+    <span class="secondary-name impact">{{ $user->bnet_name }}#{{ $user->char_code }}</span>
+  </div>
+</a>
+@if ($dispTip)
+  <a target="_blank" href="{{ URL::route('dogetip.create', $user->id) }}" class="pure-button tip-button">Tip!</a>
+@endif

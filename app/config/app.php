@@ -175,4 +175,8 @@ return array(
 
 	),
 
+  'doge_api_key' => '10b587c1u3gtoq15flyxk1hjqnnw',
+  'doge_widget_key' => 'iog38k16c1z50uqns8cokmacm',
+  'future_event_donation' => 'D7TBQzYdb3kHvtVyNUzDdcna52zgwuYhf8',
+
 );

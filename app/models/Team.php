@@ -36,6 +36,14 @@ class Team extends Eloquent {
 		return false;
 	}
 
+  public function playerSelect() {
+    $list = array();
+    foreach ($this->members as $user) {
+      $list[$user->id] = $user->bnet_name . "#" . $user->char_code;
+    }
+    return $list;
+  }
+
 	public function getMedianWinrate() {
 		$arr = array();
 		foreach ($this->members as $member) {

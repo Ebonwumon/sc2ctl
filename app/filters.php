@@ -91,3 +91,18 @@ View::composer('team/profile', function($view) {
   }
 });
 
+View::composer('user/profileCardPartial', function($view) {
+    if (!isset($view['smallCard'])) {
+      $view->with('smallCard', false);
+    }
+    if (!isset($view['dispTip'])) {
+      $view->with('dispTip', false);
+    }
+});
+
+View::composer('dogetip/create', function($view) {
+  $default = ($view['user_id']) ? $view['user_id'] : null;
+  $view->with('default', $default);
+  $view->with('players', User::listAll());
+});
+

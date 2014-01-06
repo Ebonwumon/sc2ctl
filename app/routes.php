@@ -23,7 +23,7 @@ Route::get('blog/{id}', array('as' => 'blog.profile', 'uses' => 'BlogController@
 Route::get('stats', array('as' => 'stats', 'uses' => 'StatsController@index'));
 Route::get('stats/highest_median_winrate', 'StatsController@highestMedianWR');
 Route::get('stats/every_man_on_the_field/{id}', 'StatsController@allPlayedInTournament');
-
+Route::get('stream', array('as' => 'stream', 'uses' => 'HomeController@stream'));
 //Authenticated methods
 Route::group(array('before' => 'auth'), function() {
 	
@@ -113,7 +113,7 @@ Route::get('game/{id}', array('as' => 'game.profile', 'uses' => 'GameController@
 	Route::post('match', array('as' => 'match.store', 'uses' => 'MatchController@store'));
 	Route::get('match/{id}/edit', array('as' => 'match.edit', 'uses' => 'MatchController@edit'));
 
-Route::put('match/{id}', array('as' => 'match.update', 'uses' => 'MatchController@update'));
+Route::post('match/{id}', array('as' => 'match.update', 'uses' => 'MatchController@update'));
 
 Route::get('match/{id}', array('as' => 'match.profile', 'uses' => 'MatchController@show'));
 Route::get('match/{id}/landing', array('as' => 'match.landing', 'uses' => 'MatchController@landing'));
@@ -148,53 +148,8 @@ Route::post('tournament/{id}/addteam', array('as' => 'tournament.addteam', 'uses
 Route::post('tournament/{id}/removeteam', array('as' => 'tournament.removeteam', 'uses' => 'TournamentController@removeteam'));
 Route::post('tournament/{id}/leave', array('as' => 'tournament.leave', 'uses' => 'TournamentController@leave'));
 
-Route::get('social/{action?}', array("as" => "hybridauth", function($action = "")
-
-{
-	// check URL segment
-    if ($action == "auth") {
-        // process authentication
-        try {
-            Hybrid_Endpoint::process();
-        }
-        catch (Exception $e) {
-            // redirect back to http://URL/social/
-            return Redirect::route('hybridauth');
-        }
-        return;
-    }
-    try {
-        // create a HybridAuth object
-        $socialAuth = new Hybrid_Auth(Config::get("hybridauth"));
-        
-		// authenticate with Facebook
-		$provider = $socialAuth->authenticate("Google");
-        
-		// fetch user profile
-		
-        $userProfile = $provider->getUserProfile();
-    }
-    catch(Exception $e) {
-			 return "Something has gone very wrong. Please <a href='" . URL::route('home.contact') . "'>Contact an Adult</a>";
-			 // exception codes can be found on HybBridAuth's web site
-        return "Error!";
-    }
-	
-	
-	if (!Auth::attempt(array('password' => $userProfile->email, 'email' => $userProfile->email))) {
-		Session::put('email', $userProfile->email);
-
-		if ($userProfile->photoURL) {
-			Session::put('img_url', $userProfile->photoURL);
-		} else {
-			Session::put('img_url', '/img/uid_0.gif');
-		}
-		return Redirect::action('UserController@create');
-	}
-	$fallback = URL::route('home');
-	if (Session::has('redirect')) {
-		$fallback = Session::get('redirect');
-		Session::forget('redirect');
-	}
-	return Redirect::intended($fallback);
-}));
+Route::get('dogetip/create/{id?}', array('as' => 'dogetip.create', 'uses' => 'DogetipController@create'));
+Route::get('dogetip/list/{confirmation?}', array('as' => 'dogetip.list', 'uses' => 'DogetipController@index'));
+Route::post('dogetip', array('as' => 'dogetip.store', 'uses' => 'DogetipController@store'));
+Route::get('dogetip/scan', array('as' => 'dogetip.scan', 'uses' => 'DogetipController@scan'));
+Route::get('dogetip/{id}', array('as' => 'dogetip.show', 'uses' => 'DogetipController@show'));

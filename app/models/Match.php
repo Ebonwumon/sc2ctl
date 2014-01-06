@@ -10,7 +10,7 @@ class Match extends Eloquent {
 	}
 
 	public function teams() {
-		return $this->belongsToMany('Team');
+		return $this->belongsToMany('Team')->orderBy('team_id');
 	}
 
 	public function group() {
@@ -42,6 +42,32 @@ class Match extends Eloquent {
 			break;
 		}
 	}
+
+  public function getPlayers() {
+    $prev = true;
+    $players = array();
+    $team1 = $this->teams->first()->id ;
+    $team2 = $this->teams->last()->id;
+    $i = 0;
+    foreach ($this->games as $game) {
+      if (!$game->winner && $prev) {
+        $players[0][] = [ 
+                          $game->players()->wherePivot('team_id', '=', $team1)->get()[0],
+                          $game->players()->wherePivot('team_id', '=', $team2)->get()[0]
+                         ];
+        $prev = false;
+      } else {
+        $players[$i][] = [ 
+                         $game->players()->wherePivot('team_id', '=', $team1)->get()[0], 
+                         $game->players()->wherePivot('team_id', '=', $team2)->get()[0], 
+                       ];
+
+      }
+      $i++;
+    }
+
+    return $players;
+  }
 
 	public function getTournament() {
 		if ($this->round_id) {
@@ -94,15 +120,18 @@ class Match extends Eloquent {
 	public function hasTeams() {
 		return $this->teams()->count();
 	}
-	
-	public function generateGames() {
+  
+	public function generateGames($team1, $team2) {
 		$teams = $this->teams()->get();
 		for ($i = 0; $i < $this->bo; $i++) {
 			$game = new Game;
-			$game->player1 = $teams->first()->leader;
-			$game->player2 = $teams->last()->leader;
 			$game->match_id = $this->id;
 			$game->save();
+      $player1 = (array_key_exists($i, $team1) && $team1[$i]) ? $team1[$i]: null;
+			$player2 = (array_key_exists($i, $team2) && $team2[$i]) ? $team2[$i]: null;
+      $game->players()->attach($player1, array('team_id' => $teams[0]->id));
+      $game->players()->attach($player2, array('team_id' => $teams[1]->id));
+
 		}
 	}
 }
