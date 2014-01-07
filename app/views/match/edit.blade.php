@@ -22,7 +22,7 @@ Edit Match
   ?>
   @for ($i = 0; $i < $match->bo; $i++)
     <div class="pure-u-1-3">
-      <?php $default = ($i < $matchCount) ? $games[$i] : array_keys($team1Players)[$i % count($team1Players)];
+      <?php $default = array_keys($team1Players)[$i % count($team1Players)];
       if ($i == $match->bo -1) $default = 0;
       ?>
       {{ Form::select('team1Players[]', $team1Players, $default) }}
@@ -31,7 +31,7 @@ Edit Match
       Game {{ $i + 1 }}
     </div>
     <div class="pure-u-1-3">
-      <?php $default = ($i < $matchCount) ? $games[$i] : array_keys($team2Players)[$i % count($team2Players)]; 
+      <?php $default = array_keys($team2Players)[$i % count($team2Players)]; 
       if ($i == $match->bo -1) $default = 0;
       ?>
       {{ Form::select('team2Players[]', $team2Players, $default) }}

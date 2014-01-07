@@ -58,4 +58,12 @@ class HomeController extends BaseController {
           'players' => $players,
        ));
   }
+
+  public function getTeams() {
+    $match = Match::find(Config::get('stream.current_match'));
+    return View::make('user/streamDisplayPartial', array (
+          'players' => $match->getPlayers(),
+          'match' => $match
+          ));
+  }
 }

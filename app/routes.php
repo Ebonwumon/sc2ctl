@@ -24,6 +24,7 @@ Route::get('stats', array('as' => 'stats', 'uses' => 'StatsController@index'));
 Route::get('stats/highest_median_winrate', 'StatsController@highestMedianWR');
 Route::get('stats/every_man_on_the_field/{id}', 'StatsController@allPlayedInTournament');
 Route::get('stream', array('as' => 'stream', 'uses' => 'HomeController@stream'));
+Route::get('stream/teams', array('as' => 'stream.getTeams', 'uses' => 'HomeController@getTeams'));
 //Authenticated methods
 Route::group(array('before' => 'guest'), function() {
   Route::get('register', array('as' => 'user.register', 'uses' => 'UserController@register'));

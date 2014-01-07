@@ -48,8 +48,10 @@ class Match extends Eloquent {
     $players = array();
     $team1 = $this->teams->first()->id ;
     $team2 = $this->teams->last()->id;
-    $i = 0;
+    $i = 1;
     foreach ($this->games as $game) {
+      // Todo handle one player
+      if ($game->players()->count() < 2) { continue; }
       if (!$game->winner && $prev) {
         $players[0][] = [ 
                           $game->players()->wherePivot('team_id', '=', $team1)->get()[0],
@@ -62,10 +64,9 @@ class Match extends Eloquent {
                          $game->players()->wherePivot('team_id', '=', $team2)->get()[0], 
                        ];
 
+        $i++;
       }
-      $i++;
     }
-
     return $players;
   }
 
@@ -129,8 +130,8 @@ class Match extends Eloquent {
 			$game->save();
       $player1 = (array_key_exists($i, $team1) && $team1[$i]) ? $team1[$i]: null;
 			$player2 = (array_key_exists($i, $team2) && $team2[$i]) ? $team2[$i]: null;
-      $game->players()->attach($player1, array('team_id' => $teams[0]->id));
-      $game->players()->attach($player2, array('team_id' => $teams[1]->id));
+      if ($player1 != null) $game->players()->attach($player1, array('team_id' => $teams[0]->id));
+      if ($player2 != null) $game->players()->attach($player2, array('team_id' => $teams[1]->id));
 
 		}
 	}

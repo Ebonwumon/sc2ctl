@@ -43,29 +43,7 @@ Stream
   <br />
     <div class="pure-g">
       <div class="pure-u-2-3">
-        <div class="pure-g">
-          <div class="pure-u-1-2">
-            <h2>{{ $match->teams->first()->name }}</h2>
-          </div>
-          <div class="pure-u-1-2">
-            <h2>{{ $match->teams->last()->name }}</h2>
-          </div>
-          <?php $first = true; ?> 
-          @foreach($players as $row) 
-            @foreach ($row as $arr)
-              @foreach ($arr as $player)
-                <div class="pure-u-1-2">
-                  @if(!$first)
-                    @include('user/profileCardPartial', array('user' => $player, 'dispTip' => true, 'smallCard' => true))
-                  @else
-                    @include('user/profileCardPartial', array('user' => $player, 'dispTip' => true))
-                  @endif
-                </div>
-              @endforeach
-              <?php $first = false; ?>
-            @endforeach
-          @endforeach
-        </div>
+        @include('user/streamDisplayPartial')
       </div>
       <div class="pure-u-1-3">
         <h2>Staff</h2>
@@ -94,4 +72,20 @@ Stream
     View All Submitted Tips
   </a>
 </div>
+
+<script>
+  setInterval(function() {
+      $.ajax({
+type: "GET",
+url: "{{ URL::route('stream.getTeams') }}",
+dataType: "html",
+success: function(data) {
+  $('.stream-teams').replaceWith(data);
+},
+error: function(jqxhr) {
+  console.log(jqxhr);
+}
+        });
+      }, 60000);
+</script>
 @stop

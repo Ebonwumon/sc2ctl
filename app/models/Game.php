@@ -19,7 +19,7 @@ class Game extends Eloquent {
 	}
 
   public function players() {
-    return $this->belongsToMany('User')->withPivot('team_id')->orderBy('team_id');
+    return $this->belongsToMany('User')->withPivot('team_id')->orderBy('game_user.team_id');
   }
 
 	public function map() {

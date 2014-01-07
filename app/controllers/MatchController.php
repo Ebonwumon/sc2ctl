@@ -93,7 +93,6 @@ class MatchController extends \BaseController {
 		}
 
 		$match->save();
-	  
     if (Input::has('team1Players') && Input::has('team2Players')) {
       $match->generateGames(Input::get('team1Players'), Input::get('team2Players'));
     }
