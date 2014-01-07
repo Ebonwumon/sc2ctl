@@ -1,6 +1,6 @@
 <?php
 
 return array(
-    'current_match' => 300,
+    'current_match' => 302,
     'channel' => 'sc2ctl',
 );
