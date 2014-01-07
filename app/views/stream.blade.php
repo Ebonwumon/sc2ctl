@@ -71,7 +71,7 @@ Stream
         <h2>Staff</h2>
         <h4>Casters</h4>
         @include('user/profileCardPartial', array('user' => User::find(854), 'dispTip' => true))
-        @include('user/profileCardPartial', array('user' => User::find(854), 'dispTip' => true))
+        @include('user/profileCardPartial', array('user' => User::find(1038), 'dispTip' => true))
         <h4>Tournament Organizer/Programmer</h4>
         @include('user/profileCardPartial', array('user' => User::find(14), 'dispTip' => true))
         <h4>Future Events</h4>
