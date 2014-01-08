@@ -43,15 +43,15 @@ Stream
   <br />
     <div class="pure-g">
       <div class="pure-u-2-3">
-        @include('user/streamDisplayPartial')
+        @include('user/streamDisplayPartial', array('dispCharcode' => false))
       </div>
       <div class="pure-u-1-3">
         <h2>Staff</h2>
         <h4>Casters</h4>
-        @include('user/profileCardPartial', array('user' => User::find(899), 'dispTip' => true))
-        @include('user/profileCardPartial', array('user' => User::find(1038), 'dispTip' => true))
+        @include('user/profileCardPartial', array('user' => User::find(899), 'dispTip' => true, 'dispCharcode' => false))
+        @include('user/profileCardPartial', array('user' => User::find(1038), 'dispTip' => true, 'dispCharcode' => false))
         <h4>Tournament Organizer/Programmer</h4>
-        @include('user/profileCardPartial', array('user' => User::find(14), 'dispTip' => true))
+        @include('user/profileCardPartial', array('user' => User::find(14), 'dispTip' => true, 'dispCharcode' => false))
         <h4>Future Events</h4>
         <br />
         <br />

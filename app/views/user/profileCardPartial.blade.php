@@ -4,8 +4,10 @@
       <img src="{{ $user->img_url }}" />
     </div>
     <span class="primary-name impact">{{ $user->username }}</span>
-    <span class="secondary-name impact">{{ $user->bnet_name }}#{{ $user->char_code }}</span>
-  </div>
+    @if ($dispCharcode)
+      <span class="secondary-name impact">{{ $user->bnet_name }}#{{ $user->char_code }}</span>
+    @endif
+   </div>
 </a>
 @if ($dispTip)
   <a target="_blank" href="{{ URL::route('dogetip.create', $user->id) }}" class="pure-button tip-button">Tip!</a>

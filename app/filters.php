@@ -98,6 +98,10 @@ View::composer('user/profileCardPartial', function($view) {
     if (!isset($view['dispTip'])) {
       $view->with('dispTip', false);
     }
+
+    if (!isset($view['dispCharcode'])) {
+      $view->with('dispCharcode', true);
+    }
 });
 
 View::composer('dogetip/create', function($view) {
