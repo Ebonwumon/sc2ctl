@@ -78,6 +78,21 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+Route::filter('is_user', function($route, $request) {
+    if(!Sentry::getUser()->hasAccess('edit_profiles')) {
+      if (Sentry::getUser()->id != $route->getParameter('id')) {
+        App::abort('401', "You're not Authorized to do that");
+      }
+    }
+});
+
+View::composer('index', function($view) {
+  $randTeam = Team::orderBy(DB::raw('RAND()'))->take(1)->get();
+  $randUser = User::orderBy(DB::raw('RAND()'))->take(1)->get();
+  $view->with('randTeam', $randTeam->first());
+  $view->with('randUser', $randUser->first());
+    });
 View::composer('team/profile', function($view) {
   if (!isset($view['edit'])) {
     $view->with('edit', false);
@@ -90,7 +105,11 @@ View::composer('team/profile', function($view) {
     $view->with('select', $select);
   }
 });
-
+View::composer('team/profileCardPartial', function($view) {
+    if (!isset($view['smallCard'])) {
+      $view->with('smallCard', false);
+    }
+    });
 View::composer('user/profileCardPartial', function($view) {
     if (!isset($view['smallCard'])) {
       $view->with('smallCard', false);

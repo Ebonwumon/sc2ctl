@@ -6,7 +6,7 @@
 <div class="padded-content">
 <?php $member = $user; ?>
 <div class="pure-g-r">
-	@if (Auth::check() && Auth::user()->id == $user->id)
+	@if (Sentry::check() && Sentry::getUser()->id == $user->id)
 	<div class="pure-u-1">
 		<h3>Notifications</h3>
 		<div class="notification-box">
@@ -18,16 +18,10 @@
 	<div class="pure-u-1-3">
 		<h3>User</h3>
 		@include('user/profileCardPartial')
-		Battle.net Name: {{ $user->bnet_name }}.{{ $user->char_code }}
 		@if ($user->team_id != 0)
 			<h3>Team</h3>
 			@include('team/profileCardPartial', array('team' => $user->team))
-			@if ($user->team->contact == $user->id || $user->team->leader == $user->id)
-				<a href="mailto:{{$user->email}}" class="pure-button pure-button-primary">
-					Contact
-				</a>
-			@endif
-		@endif
+	  @endif
 	</div>
 	<div class="pure-u-1-3">
 		<h3>Recent Games</h3>
@@ -61,7 +55,7 @@
 	</div>
 </div>
 </div>
-@if (Auth::check() && Auth::user()->id == $user->id)
+@if (Sentry::check() && Sentry::getUser()->id == $user->id)
 <a href="{{ URL::route('user.edit', $user->id) }}" class="pure-button pure-button-primary">
 	Edit Profile
 </a>

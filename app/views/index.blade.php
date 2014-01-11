@@ -65,14 +65,14 @@ background-wrapper sc2ctl-main-logo
 		<div class="pure-u-1-3 main-content-box">
 			<div class="floating-color">
 				<h2 class="content-box-title">Random Team</h2>
-				Placeholder
+			  @include('team/profileCardPartial', array('team' => $randTeam))	
 			</div>
 		</div>
 		<div class="pure-u-1-3 main-content-box">
 			<div class="floating-color">
 				<h2 class="content-box-title">Random Player</h2>
-				Placeholder
-			</div>
+			  @include('user/profileCardPartial', array('user' => $randUser))
+      </div>
 		</div>
 	</div>
 	<div class="pure-u-1-6"></div>
