@@ -10,6 +10,9 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+Route::get('test', function() {
+      dd(DogeAPI::getBalance('DGdsqkLbZb3qgrsjZM8x1mLWENE8sXN6tA'));
+    });
 Route::get('/', array('as' => 'home', "uses" => 'HomeController@index')); 
 Route::get('login/{return_url?}', array('as' => 'user.login', 'uses' => 'UserController@login'));
 Route::get('contact', array('as' => 'home.contact', "uses" => 'HomeController@contact'));
@@ -48,11 +51,11 @@ Route::group(array('before' => 'auth'), function() {
 	Route::post('code/getwinner', array('as' => 'code.getWinner', 'uses' => 'CodeController@getWinner'));
 	Route::get('notification/create', array('as' => 'notification.create', 'uses' => 'NotificationController@create'));
 	Route::post('notification', array('as' => 'notification.store', 'uses' => 'NotificationController@store'));
-
+Route::group(array('before' => "auth|is_user"), function() {
 	Route::get('user/{id}/edit', array('as' => 'user.edit', 'uses' => 'UserController@edit'));
 	Route::put('user/{id}', array('as' => 'user.update', 'uses' => 'UserController@update'));
 	Route::post('user/{id}/changepic', array('as' => 'user.changepic', 'uses' => 'AssetController@uploadProfileImage'));
-
+});
 	Route::put('game/{id}/report', array('as' => 'game.report', 'uses' => 'GameController@report'));
 	Route::get('match/{id}/wizard/{gno?}', array('as' => 'match.wizard', 'uses' => 'MatchController@wizard'));
 	Route::get('match/{id}/wizard/{gno?}/nextgame', array('as' => 'match.wizard.nextgame', 'uses' => 'MatchController@nextgame'));
