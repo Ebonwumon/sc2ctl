@@ -90,6 +90,8 @@ Route::filter('is_user', function($route, $request) {
 View::composer('index', function($view) {
   $randTeam = Team::orderBy(DB::raw('RAND()'))->take(1)->get();
   $randUser = User::orderBy(DB::raw('RAND()'))->take(1)->get();
+  $vod = VOD::orderBy(DB::raw('RAND()'))->take(1)->get();
+  $view->with('vod', $vod->first());
   $view->with('randTeam', $randTeam->first());
   $view->with('randUser', $randUser->first());
     });

@@ -75,6 +75,20 @@ background-wrapper sc2ctl-main-logo
       </div>
 		</div>
 	</div>
+
+  <!-- new row -->
+  <div class="pure-u-1-6"></div>
+  <div class="pure-u-2-3 main-content-box">
+    <div class="floating-color">
+      <h2 class="content-box-title">{{ $vod->title }}</h2>
+      <p>
+        {{ $vod->description }}
+      </p>
+      {{ $vod->embed() }}
+    </div>
+  </div>
+  
+  <!-- new row -->
 	<div class="pure-u-1-6"></div>
 	<div class="pure-u-2-3 main-content-box">
 		<div class="floating-color">
@@ -84,14 +98,14 @@ background-wrapper sc2ctl-main-logo
 					do it all alone, however. If you're interested in helping out in the league or if you are a 
 					<strong>sponsor or interested entity</strong> drop me an email and we can chat - I'd love to work
 					with you and have you be a part of the Starcraft Community's largest Team League!
-				</p>
-				<a href="{{URL::route('home.contact')}}" class="pure-button pure-button-primary pure-button-large">
-					Contact
-				</a>
-			</div>
-		</div>
-		<div class="pure-u-1-6"></div>
+      </p>
+      <a href="{{URL::route('home.contact')}}" class="pure-button pure-button-primary pure-button-large">
+        Contact
+      </a>
+	  </div>
 	</div>
+	<div class="pure-u-1-6"></div>
+</div>
 
 	<br />
 	<br />

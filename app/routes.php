@@ -26,6 +26,13 @@ Route::get('blog/{id}', array('as' => 'blog.profile', 'uses' => 'BlogController@
 Route::get('stats', array('as' => 'stats', 'uses' => 'StatsController@index'));
 Route::get('stats/highest_median_winrate', 'StatsController@highestMedianWR');
 Route::get('stats/every_man_on_the_field/{id}', 'StatsController@allPlayedInTournament');
+
+//caster authenticated
+Route::group(array('before' => 'auth'), function() {
+  Route::get('vod/create', array('as' => 'vod.create', 'uses' => 'VODController@create'));
+  Route::post('vod', array('as' => 'vod.store', 'uses' => 'VODController@store'));
+});
+
 Route::get('stream', array('as' => 'stream', 'uses' => 'HomeController@stream'));
 Route::get('stream/teams', array('as' => 'stream.getTeams', 'uses' => 'HomeController@getTeams'));
 //Authenticated methods
