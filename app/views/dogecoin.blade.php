@@ -84,9 +84,11 @@ doge-background background-wrapper
           <strong>DCqMrhmJf7no3eW5fqpsH4fU8cDsKBiqSR</strong>
           <br />
           <br/>
-          The current prize pool (with donations) is: 
-          <span style="font-size:150%; font-weight:bold;">{{ $total }} doge.</span>
+          The total prize pool (with donations) was: 
+          <span style="font-size:150%; font-weight:bold;">1006545.68156911 doge.</span>
           <br />
+          If you want to fund future events (since this one is already a great success!) use the address:
+          <strong>D7TBQzYdb3kHvtVyNUzDdcna52zgwuYhf8</strong>
           <span style="font-size:70%;">
             totals pulled from <a href="http://dogeapi.com">dogeapi.com</a>
           </span>

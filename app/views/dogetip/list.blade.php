@@ -31,4 +31,8 @@ All Dogetips
     </tr>
   @endforeach
 </table>
+if you haven't yet paid your doge, your transaction is unconfirmed. View it and pay below
+<a href="{{ URL::route('dogetip.list', 'unconfirmed') }}" class="pure-button pure-button-secondary">
+  Show Unconfirmed Transactions
+</a>
 @stop

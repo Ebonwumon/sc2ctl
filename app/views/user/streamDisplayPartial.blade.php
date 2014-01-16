@@ -11,9 +11,9 @@
       @foreach ($arr as $player)
         <div class="pure-u-1-2">
           @if(!$first)
-            @include('user/profileCardPartial', array('user' => $player, 'dispTip' => true, 'smallCard' => true))
+            @include('user/profileCardPartial', array('user' => $player, 'dispTip' => true, 'smallCard' => true, 'dispCharcode' => false))
           @else
-            @include('user/profileCardPartial', array('user' => $player, 'dispTip' => true))
+            @include('user/profileCardPartial', array('user' => $player, 'dispTip' => true, 'dispCharcode' => false))
           @endif
         </div>
       @endforeach
