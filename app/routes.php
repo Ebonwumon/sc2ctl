@@ -13,6 +13,7 @@
 Route::get('test', function() {
       dd(DogeAPI::getBalance('DGdsqkLbZb3qgrsjZM8x1mLWENE8sXN6tA'));
     });
+Route::get('refreshdoges', 'HomeController@refreshdoges');
 Route::get('/', array('as' => 'home', "uses" => 'HomeController@index')); 
 Route::get('login/{return_url?}', array('as' => 'user.login', 'uses' => 'UserController@login'));
 Route::get('contact', array('as' => 'home.contact', "uses" => 'HomeController@contact'));

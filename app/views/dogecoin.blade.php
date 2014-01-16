@@ -79,13 +79,15 @@ doge-background background-wrapper
           <br />
           The prize pool will be awarded per-win. So, if a player wins a game, their team will take home 1/7th
           of the prize pool. This means that, no matter what, <strong>all seven games will be played</strong>!
-          If you wish you contribute, head over to the donate page on <a href="https://dogeapi.com">dogeapi</a>
+          If you wish you contribute, you can: 
+          <a class="pure-button pure-button-orange" href="https://dogeapi.com">donate on dogeapi</a>
           or you can send directly to the address: 
           <strong>DCqMrhmJf7no3eW5fqpsH4fU8cDsKBiqSR</strong>
           <br />
           <br/>
           The total prize pool (with donations) is: 
           <span style="font-size:150%; font-weight:bold;">{{ $total }} doge.</span>
+          <br />
           <span style="font-size:70%;">
             totals pulled from <a href="http://dogeapi.com">dogeapi.com</a>
           </span>
