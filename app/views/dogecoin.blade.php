@@ -84,14 +84,16 @@ doge-background background-wrapper
           <strong>DCqMrhmJf7no3eW5fqpsH4fU8cDsKBiqSR</strong>
           <br />
           <br/>
-          The total prize pool (with donations) was: 
-          <span style="font-size:150%; font-weight:bold;">1006545.68156911 doge.</span>
-          <br />
-          If you want to fund future events (since this one is already a great success!) use the address:
-          <strong>D7TBQzYdb3kHvtVyNUzDdcna52zgwuYhf8</strong>
+          The total prize pool (with donations) is: 
+          <span style="font-size:150%; font-weight:bold;">{{ $total }} doge.</span>
           <span style="font-size:70%;">
             totals pulled from <a href="http://dogeapi.com">dogeapi.com</a>
           </span>
+
+          <br />
+          <br />
+          If you want to fund future events use the address:
+          <strong>D7TBQzYdb3kHvtVyNUzDdcna52zgwuYhf8</strong>
         </h3>
       </div>
       <div class="pure-u-1-3">
@@ -108,7 +110,7 @@ doge-background background-wrapper
     <div class="pure-g">
       <div class="pure-u-1-6">
         <div class="l-box">
-          <img src="/img/claritygaming.png" />          
+          <img src="/img/deimos.png" />          
         </div>
       </div>
       <div class="pure-u-2-3">
@@ -117,34 +119,34 @@ doge-background background-wrapper
           <thead>
           </thead>
           <tr>
-            <td>Elhaym (T)</td>
+            <td>TBD</td>
             <td>Yeonsu LE</td>
-            <td>Heiwa (T)</td>
+            <td>TBD</td>
           </tr>
           <tr>
-            <td>Reborn (Z)</td>
+            <td>TBD</td>
             <td>Polar Night LE</td>
-            <td>Astrea (P)</td>
+            <td>TBD</td>
           </tr>
           <tr>
-            <td>Silky (Z)</td>
+            <td>TBD</td>
             <td>Star Station TE</td>
-            <td>Prebs (Z)</td>
+            <td>TBD</td>
           </tr>
           <tr>
-            <td>Shew (P)</td>
+            <td>TBD</td>
             <td>Frost LE</td>
-            <td>Bones (P)</td>
+            <td>TBD</td>
           </tr>
           <tr>
-            <td>Sarovati (P)</td>
+            <td>TBD</td>
             <td>Bel'Shir Vestige LE</td>
-            <td>Arium (P)</td>
+            <td>TBD</td>
           </tr>
           <tr>
-            <td>Poo (P)</td>
+            <td>TBD</td>
             <td>Fruitland</td>
-            <td>Intense (T)</td>
+            <td>TBD</td>
           </tr>
           <tr>
             <td>ACE</td>
@@ -157,7 +159,7 @@ doge-background background-wrapper
       </div>
       <div class="pure-u-1-6">
         <div class="r-box">
-          <img src="/img/seedgaming.jpg" />
+          <img src="/img/lygf.png" />
         </div>
       </div>
 
