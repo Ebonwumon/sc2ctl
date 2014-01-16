@@ -12,7 +12,7 @@ class DogetipController extends \BaseController {
     if ($confirmation == "unconfirmed") {
       $dogetips = Dogetip::where('confirmed', '=', false)->get();
     } else {
-      $dogetips = Dogetip::where('confirmed', '=', true)->get();
+      $dogetips = Dogetip::where('confirmed', '=', true)->where('paid', '=', 0)->get();
     }
     return View::make('dogetip/list', array('dogetips' => $dogetips));
 	}

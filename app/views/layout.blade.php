@@ -9,7 +9,7 @@
 		<title>SC2CTL : @yield('title')</title>
 	</head>
 	<body>
-		<div class="wrapper @yield('background')">
+		<div class="wrapper @yield('background', 'background-wrapper sc2ctl-main-logo')">
 			<nav class="pure-menu pure-menu-open pure-menu-horizontal">
 				<a href="{{ URL::action('HomeController@index') }}" class="pure-menu-heading">
 					SC2CTL

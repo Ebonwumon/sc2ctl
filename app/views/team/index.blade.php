@@ -13,7 +13,6 @@ All Teams
 			<th>#</th>
 			<th>Name</th>
 			<th>Owner</th>
-			<th>Tournaments</th>
 		</tr>
 	</thead>
 <?php $i=1; ?>
@@ -31,20 +30,15 @@ All Teams
 			{{ $owner->username }}
 		</a>
 	</td>
-	<td>
-		@foreach ($team->tournaments as $tournament)
-			<a href="{{ URL::route('tournament.profile', $tournament->id) }}" class="pure-button pure-button-primary">
-				{{$tournament->name}}
-			</a>
-		@endforeach
-	</td>
 </tr>
 <?php $i++; ?>
 @endforeach
 </table>
 <br />
-@if (Auth::check())
-<a href="{{ URL::route('team.create') }}" @if (Auth::user()->team_id) disabled @endif class="pure-button pure-button-good">
+@if (Sentry::check())
+<a href="{{ URL::route('team.create') }}" 
+        @if (Sentry::getUser()->team_id) disabled @endif 
+        class="pure-button pure-button-good">
 	Create Team
 </a>
 @endif

@@ -30,16 +30,15 @@ class TeamController extends \BaseController {
 	 */
 	public function store()
 	{
-		$team = Team::create(Input::all());
+		// Todo model validation
+    $team = new Team;
+    $team->tag = Input::get('tag');
+    $team->name = Input::get('name');
+    $team->user_id = Sentry::getUser()->id;
 		$team->description = "This team is really cool and loves both crayons and Starcraft";
 		$team->save();
-		$user = User::find(Input::get('leader'));
-
-		$user->attachRole(ROLE_TEAM_CAPTAIN);
-		$user->team_id = $team->id;
-
-		$user->save();
-		return Redirect::action('TeamController@index');
+		
+    return Redirect::action('TeamController@index');
 	}
 
 	/**

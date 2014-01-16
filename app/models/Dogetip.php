@@ -11,6 +11,11 @@ class Dogetip extends Eloquent {
     if ($balance >= $this->amount) {
       $this->confirmed = true;
       $this->save();
+      return;
+    }
+
+    if ($this->created_at->diff(new DateTime('NOW'), true)->days > Config::get('app.tip_expiry')) {
+      $this->delete();
     }
   }
 

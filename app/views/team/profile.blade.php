@@ -62,13 +62,23 @@ background-wrapper clown-background
 			<a href="{{ URL::route('lineup.create', $team->id) }}" class="pure-button pure-button-primary">
 				Add Lineup
 			</a>
-		@endif
+      <br />
+      <br />
+      {{ Form::open(array('class' => 'pure-form')) }}
+        <div class="pure-controls">
+          {{ Form::select('user_id', User::listAll()) }}
+          <br />
+          <input type="submit" class="pure-button pure-button-primary" value="Quick Add Player" />
+        </div>
+      {{ Form::close() }}
+    @endif
 		</div>
-	</div>	
-</div>
+  </div>
 </div>
 <div class="pure-control-panel">
-
+<a class="pure-button pure-button-primary" href="{{ URL::route('team.edit', $team->id) }}">
+  Alter Roster 
+</a>
 <span class="error"></span>
 </div>
 </div>

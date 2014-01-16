@@ -19,12 +19,7 @@ class LineupController extends \BaseController {
 	public function create($id)
 	{
 		$team = Team::find($id);
-		$select = array();
-
-		foreach ($team->members as $member) {
-			$select[$member->id] = $member->bnet_name . "#" . $member->char_code;
-		}
-		return View::make('team/lineup/create', array('select' => $select, 'team' => $team));
+		return View::make('team/lineup/create', array('team' => $team));
 	}
 
 	/**

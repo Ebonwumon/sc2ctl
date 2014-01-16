@@ -52,7 +52,7 @@ background-wrapper sc2ctl-main-logo
 		<div class="pure-u-1-3 main-content-box">
 			<div class="floating-color">
 				<h2 class="content-box-title">Dogecoin Showmatch</h2>
-        Date TBD<br />
+        Thursday, Jan 23 <strong>8PM EST</strong><br />
         LYGF vs Deimos<br />
         <strong>20, 000 DOGE Starting Pot</strong>
         <p>

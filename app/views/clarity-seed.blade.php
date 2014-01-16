@@ -12,7 +12,7 @@ doge-background background-wrapper
 <div id="mainpage" class="wow-so-comic-sans">
     
   <div class="floating-color">
-    <h1 class="content-box-title title-massive">SC2CTL Dogecoin Series: Deimos vs LYGF</h1>
+    <h1 class="content-box-title title-massive">Clarity vs SEED 10k dogecoin showmatch</h1>
   </div>
   <div class="padded-content">
     <div class="pure-g-r">
@@ -31,11 +31,11 @@ doge-background background-wrapper
       <div class="pure-u-2-3">
         <div class="main-content-box floating-color">
           <h2 class="content-box-title">wow such info</h2>
-          <strong>When</strong>: Thursday, Jan 27th @ 8PM EST<br />
-          <strong>Where</strong>: <a href="{{ URL::route('stream') }}">SC2CTL Stream Page</a><br />
-          <strong>Prizes</strong>: 20k dogecoin starting pool (donation information below)<br />
-          <strong>Teams</strong>: Deimos vs LYGF<br />
-          <strong>Format</strong>: Six games of fixed-rosters, plus ace match 
+          <strong>When</strong>: Tuesday, Jan 7th @ 8PM EST<br />
+          <strong>Where</strong>: <a href="http://twitch.tv/sc2ctl">http://twitch.tv/sc2ctl</a><br />
+          <strong>Prizes</strong>: 10k dogecoin starting pool (donation information below)<br />
+          <strong>Teams</strong>: Clarity Gaming and ROOT SEED<br />
+          <strong>Format</strong>: Best-of Seven Proleague with Ace Match
         </div>
       </div>
     </div>
@@ -52,13 +52,9 @@ doge-background background-wrapper
         <h3 class="splash-subhead" style="color:rgb(181, 91, 2);">
           Our excellent casting team of <a href="http://twitter.com/wingnutsc">wingnutsc</a>
           and <a href="http://twitter.com/gallagation">gallagation</a> will treat you darling 
-          shibes with sweet live casting over on the <a href="{{ URL::route('stream') }}">SC2CTL Stream</a>.
+          shibes with sweet live casting over on the <a href="http://twitch.tv/sc2ctl">SC2CTL Channel</a>.
           <br />
           Enjoy a fine selection of "wow"s, "much"s and perhaps even some "amaze".
-          <br />
-          <br />
-          If you're interested in checking out the VODs of previous matches, you can take a gander at the
-          <a href="http://www.youtube.com/wingnutstarcraft">Archive YouTube Channel</a>
         </h3>
       </div>
     </div>
@@ -71,24 +67,17 @@ doge-background background-wrapper
       <div class="pure-u-2-3">
         <h1 class="splash-head">much riches, so class</h1>
         <h3 class="splash-subhead" style="color:rgb(181, 91, 2);">
-          The dogecoin pool for this event starts at <strong>TWENTY THOUSAND</strong> dogecoins. Plus,
-          <a href="https://dogeapi.com">dogeapi.com</a> has offered to match contributions to the prize pool,
-          up to 50k. So if some rich shibes donate a total of 50k doges, the prize pool will be at 
-          <strong>one hundred and twenty thousand doges</strong>.
-          <br />
-          <br />
-          The prize pool will be awarded per-win. So, if a player wins a game, their team will take home 1/7th
-          of the prize pool. This means that, no matter what, <strong>all seven games will be played</strong>!
-          If you wish you contribute, head over to the donate page on <a href="https://dogeapi.com">dogeapi</a>
-          or you can send directly to the address: 
-          <strong>DCqMrhmJf7no3eW5fqpsH4fU8cDsKBiqSR</strong>
+          The dogecoin pool for this event starts at <strong>TEN THOUSAND</strong> dogecoins. The prize
+          distribution will be 70% for the winner and 30% for second place. We also welcome rich shibes
+          to contribute to make the prize pool even larger. Any coins you wish to contribute may be sent to
+          the address: <strong>D5fFGWRiDyGNHhDq6iWCQKCaHeMfExYCam</strong>
           <br />
           <br/>
           The current prize pool (with donations) is: 
           <span style="font-size:150%; font-weight:bold;">{{ $total }} doge.</span>
           <br />
           <span style="font-size:70%;">
-            totals pulled from <a href="http://dogeapi.com">dogeapi.com</a>
+            totals pulled from <a href="http://dogechain.info">dogechain.info</a>
           </span>
         </h3>
       </div>
