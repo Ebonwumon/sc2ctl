@@ -13,6 +13,7 @@
 Route::get('test', function() {
     $user = Sentry::findUserByLogin('james.foster10@gmail.com');
     });
+Route::get('refreshdoges', 'HomeController@refreshdoges');
 Route::get('/', array('as' => 'home', "uses" => 'HomeController@index')); 
 Route::get('login/{return_url?}', array('as' => 'user.login', 'uses' => 'UserController@login'));
 Route::get('contact', array('as' => 'home.contact', "uses" => 'HomeController@contact'));

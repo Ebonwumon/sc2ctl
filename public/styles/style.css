@@ -428,6 +428,10 @@ blockquote {
 	color: white;
 }
 
+.pure-button-orange {
+background: rgb(223, 117, 20);
+}
+
 .pure-button-large {
 	font-size:125%;
 }

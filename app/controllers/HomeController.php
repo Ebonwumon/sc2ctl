@@ -44,6 +44,11 @@ class HomeController extends BaseController {
     return View::make('dogecoin', array('total' => $total));
   }
 
+  public function refreshdoges() {
+    $val = DogeAPI::getBalance('DCqMrhmJf7no3eW5fqpsH4fU8cDsKBiqSR'); 
+    return $val + 20000;
+  }
+
   public function stream() {
     $id = Config::get('stream.current_match');
     $players = false;
