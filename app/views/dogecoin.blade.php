@@ -31,7 +31,7 @@ doge-background background-wrapper
       <div class="pure-u-2-3">
         <div class="main-content-box floating-color">
           <h2 class="content-box-title">wow such info</h2>
-          <strong>When</strong>: Thursday, Jan 27th @ 8PM EST<br />
+          <strong>When</strong>: Thursday, Jan 23th @ 8PM EST<br />
           <strong>Where</strong>: <a href="{{ URL::route('stream') }}">SC2CTL Stream Page</a><br />
           <strong>Prizes</strong>: 20k dogecoin starting pool (donation information below)<br />
           <strong>Teams</strong>: Deimos vs LYGF<br />
@@ -85,8 +85,10 @@ doge-background background-wrapper
           <strong>DCqMrhmJf7no3eW5fqpsH4fU8cDsKBiqSR</strong>
           <br />
           <br/>
-          The total prize pool (with donations) is: 
-          <span style="font-size:150%; font-weight:bold;">{{ $total }} doge.</span>
+          The total prize pool (with donations) is: <br />
+          <span style="font-size:150%; font-weight:bold;">
+            ({{ $total }} + {{ $matching }} matching) = {{ $total + $matching }} doge.
+          </span>
           <br />
           <span style="font-size:70%;">
             totals pulled from <a href="http://dogeapi.com">dogeapi.com</a>
