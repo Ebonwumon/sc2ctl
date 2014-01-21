@@ -11,7 +11,7 @@
 |
 */
 Route::get('test', function() {
-      dd(DogeAPI::getBalance('DGdsqkLbZb3qgrsjZM8x1mLWENE8sXN6tA'));
+    $user = Sentry::findUserByLogin('james.foster10@gmail.com');
     });
 Route::get('/', array('as' => 'home', "uses" => 'HomeController@index')); 
 Route::get('login/{return_url?}', array('as' => 'user.login', 'uses' => 'UserController@login'));
@@ -39,6 +39,8 @@ Route::get('stream/teams', array('as' => 'stream.getTeams', 'uses' => 'HomeContr
 Route::group(array('before' => 'guest'), function() {
   Route::get('register', array('as' => 'user.register', 'uses' => 'UserController@register'));
   Route::post('login', array('as' => 'user.auth', 'uses' => 'UserController@auth'));
+  Route::get('login/reset_password', array('as' => 'login.reset', 'uses' => 'UserController@reset_password'));
+  Route::post('login/reset_password', array('as' => 'login.do_reset', 'uses' => 'UserController@do_reset'));
     });
 Route::group(array('before' => 'auth'), function() {
 	
