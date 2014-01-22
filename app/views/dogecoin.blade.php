@@ -123,34 +123,34 @@ doge-background background-wrapper
           <thead>
           </thead>
           <tr>
-            <td>TBD</td>
+            <td>Bails (P)</td>
             <td>Yeonsu LE</td>
-            <td>TBD</td>
+            <td>Tassadar (P)</td>
           </tr>
           <tr>
-            <td>TBD</td>
+            <td>DeeMo (T)</td>
             <td>Polar Night LE</td>
-            <td>TBD</td>
+            <td>dynamite (T)</td>
           </tr>
           <tr>
-            <td>TBD</td>
+            <td>KoMA (T)</td>
             <td>Star Station TE</td>
-            <td>TBD</td>
+            <td>MotoK (T)</td>
           </tr>
           <tr>
-            <td>TBD</td>
+            <td>Guitarcheese (Z)</td>
             <td>Frost LE</td>
-            <td>TBD</td>
+            <td>Believe (P)</td>
           </tr>
           <tr>
-            <td>TBD</td>
+            <td>Drunkenboi (T)</td>
             <td>Bel'Shir Vestige LE</td>
-            <td>TBD</td>
+            <td>Badcop (T)</td>
           </tr>
           <tr>
-            <td>TBD</td>
+            <td>Siphonn (P)</td>
             <td>Fruitland</td>
-            <td>TBD</td>
+            <td>StuN (P)</td>
           </tr>
           <tr>
             <td>ACE</td>
