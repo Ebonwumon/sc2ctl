@@ -55,9 +55,16 @@ background-wrapper clown-background
 		</div>
 	<div class="pure-u-1-3">
 		<div class="team-rosters">
-			@foreach($team->lineups as $lineup)
-				@include('team/lineupPartial')
-			@endforeach
+			@if ($team->lineups->count() == 0)
+        @foreach ($team->members as $user)
+          @include('user/profileCardPartial')
+          <br />
+        @endforeach
+      @else
+        @foreach($team->lineups as $lineup)
+          @include('team/lineupPartial')
+        @endforeach
+      @endif
 		@if ($edit)
 			<a href="{{ URL::route('lineup.create', $team->id) }}" class="pure-button pure-button-primary">
 				Add Lineup
@@ -75,12 +82,14 @@ background-wrapper clown-background
 		</div>
   </div>
 </div>
+@if (Sentry::check()) //TODO check that the user can edit this team's roster
 <div class="pure-control-panel">
-<a class="pure-button pure-button-primary" href="{{ URL::route('team.edit', $team->id) }}">
-  Alter Roster 
-</a>
-<span class="error"></span>
+  <a class="pure-button pure-button-primary" href="{{ URL::route('team.edit', $team->id) }}">
+    Alter Roster 
+  </a>
+  <span class="error"></span>
 </div>
+@endif
 </div>
 
 <script>
