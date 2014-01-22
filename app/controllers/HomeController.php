@@ -41,12 +41,13 @@ class HomeController extends BaseController {
 
   public function dogecoin() {
     $total = file_get_contents('/home/ebon/misc/out.txt');
-    return View::make('dogecoin', array('total' => $total));
+    $matching = ($total - 20000 > 50000) ? 50000 : $total - 20000;
+    return View::make('dogecoin', array('total' => $total, 'matching' => $matching));
   }
 
   public function refreshdoges() {
     $val = DogeAPI::getBalance('DCqMrhmJf7no3eW5fqpsH4fU8cDsKBiqSR'); 
-    return $val + 20000;
+    return $val;
   }
 
   public function stream() {
