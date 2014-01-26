@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700);
+@import url(https://fonts.googleapis.com/css?family=Merriweather+Sans:400,800,300);
 * {
 	margin: 0;
 }
@@ -54,18 +55,18 @@ body, .pure-g [class *= "pure-u"],.pure-g-r [class *= "pure-u"] {
 
 .floating-color {
 	color:white;
-	text-align:center;
 	background: rgba(75, 66, 107, 0.8);
 	border-radius: 5px;
-}
-
-#mainpage .floating-color {
 	padding-bottom:0.5em;
-	padding-left: 1em;
+	padding-top:0.5em;
+  padding-left: 1em;
 	padding-right: 1em;
 }
+
 #mainpage [class *= "pure-u"] .floating-color {
 		margin-left:1em;
+    padding-top: 0;
+    text-align:center;
 }
 
 .floating-color a {
@@ -398,13 +399,12 @@ blockquote {
   margin: 0px auto;
 }
 
-.pure-button {
-	position:relative;
-	margin-top:0.3em;
-}
 .pure-button-good {
   background: rgb(76, 201, 71);
 }
+
+.pure-button-cancel { background: #949494; color:white; }
+.pure-button-cancel:hover { background: rgb(202, 60, 60); color:white;}
 
 .pure-button-bad {
 	background: rgb(202, 60, 60);
@@ -697,3 +697,92 @@ background: rgb(223, 117, 20);
   background:rgb(223, 117, 20);
 color:white;
 }
+.pure-button {
+	text-transform: uppercase;
+	font-size: 115%;
+	font-weight: bold;
+	font-family: 'Merriweather Sans', sans-serif;
+	letter-spacing: 0.5px;
+	cursor: pointer;
+	border-radius: 0;
+}
+.pure-form { font-family: 'Merriweather Sans', sans-serif; }
+
+.pure-form .pure-control-group { margin-top: 0.5em; margin-bottom: 0.5em;}
+
+.pure-form .form-label { color: grey; text-transform: uppercase; font-weight: bold; letter-spacing: 1px;}
+
+.pure-form legend { font-weight: bold; text-transform:uppercase; font-size: 150%; margin-top: 0.5em;}
+
+.pure-form  label{ font-family: 'Merriweather Sans', sans-serif;}
+
+.pure-form input[type=text], .pure-form input[type=password], .pure-form input[type=number], .pure-form select {
+        -moz-border-radius: 0;
+        -webkit-border-radius: 0;
+        border: 1px solid #a0a6af;
+        border-radius: 0;
+        border-radius: 0 !important;
+        box-shadow: 0 1px 0 #fff;
+        font-size: 1em !important;
+        line-height: 30px;
+        padding-left: 15px;
+        transition: none;
+		margin-bottom: 1em;
+    }
+	
+	.pure-form label {
+		font-size: 110%;
+	}
+	
+	.select2-arrow {
+	background: none !important;
+	border-left: none !important;
+	}
+
+    .pure-form ::-webkit-input-placeholder {
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+
+    .pure-form ::-moz-placeholder {
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+    /* firefox 19+ */
+    .pure-form :-ms-input-placeholder {
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+    /* ie */
+    .pure-form input:-moz-placeholder {
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+
+    .pure-form input[type=text], .pure-form input[type=password], .pure-form input[type=number] { width: 300px; }
+
+    .pure-form select {
+        font-weight: bold;
+        color: grey;
+        text-transform: uppercase;
+        width: 300px;
+    }
+
+    option {
+        text-transform: none;
+    }
+
+.loginbox {
+  margin-top: 1em;
+}
+.error-box {
+        background: rgba(153, 0, 0, 0.8);
+        border: 1px solid rgb(122, 2, 2);
+        color: white;
+        margin-bottom: 1em;
+        padding-bottom: 0.5em;
+        padding-left: 0.8em;
+    }

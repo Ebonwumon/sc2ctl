@@ -30,10 +30,6 @@ class UserController extends \BaseController {
                 'league',
                 'bnet_url'
                 );
-        /*$args = array(
-            'Password' => 'green',
-            'email' => 'farts@tarts.de'
-            );*/
         $user = Sentry::register($args, true);
         Sentry::login($user, false);
         return Redirect::route('user.profile', $user->id);
@@ -59,7 +55,7 @@ class UserController extends \BaseController {
 			
 		$games = Game::whereRaw('(player1 = ? OR player2 = ?) AND replay_url IS NOT NULL', 
 							       array($id, $id))->take(5)->get();
-        $wins = Game::where('winner', '=', $id)->count();
+    $wins = Game::where('winner', '=', $id)->count();
 		$losses = Game::whereRaw('(player1 = ? OR player2 = ?) AND winner > 0 AND winner <> ?',
 		                          array($id, $id, $id))->count();
 		if ($losses == 0) {
@@ -73,14 +69,7 @@ class UserController extends \BaseController {
 												'notifications' => $notifications));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
     public function edit($id) {
-        //Authorize
         $user = User::find($id);
 
         return View::make('user/edit', array('user' => $user));
@@ -123,14 +112,112 @@ class UserController extends \BaseController {
   }
 
   public function auth() {
-    //Todo catch exceptions
-    Sentry::authenticateAndRemember(Input::only('email', 'password'));
+    $errors = new \Illuminate\Support\MessageBag;
+    try {
+      Sentry::authenticate(Input::only('email', 'password'), true);
+      
+    } catch (Cartalyst\Sentry\Users\LoginRequiredException $e) {
+      $errors->add('error', "Email field is required to log in");
+    }
+    catch (Cartalyst\Sentry\Users\PasswordRequiredException $e) {
+      $errors->add('error', "Password field is required to log in");
+    }
+    catch (Cartalyst\Sentry\Users\UserNotActivatedException $e)
+    {
+      $errors->add('error', "User not activated");
+    }
+    catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+    {
+      $errors->add('error', "User not found");
+    }
+    catch (Cartalyst\Sentry\Users\WrongPasswordException $e) {
+      $errors->add('error', "Could not authenticate. Email/Password incorrect");
+    }
+    catch (Cartalyst\Sentry\Throttling\UserSuspendedException $e) {
+      $errors->add('error', 'User is suspended due to too many login attempts');
+    }
+    catch (Cartalyst\Sentry\Throttling\UserBannedException $e) {
+      $errors->add('error', 'User is banned due to too many login attempts');
+    }
+
+    if ($errors->count() > 0) {
+      return View::make('user/login', array('errors' => $errors));  
+    }
     if (Session::has('redirect')) {
       $url = Session::get('redirect');
       Session::forget('redirect');
       return Redirect::to($url);
     }
     return Redirect::route('home');
+  }
+
+  public function start_reset() {
+    return View::make('login/start_reset');
+  }
+
+  public function send_token() {
+    $email = Input::get('email');
+    $errors = new \Illuminate\Support\MessageBag;
+    try {
+      $user = Sentry::findUserByLogin($email);
+      $resetCode = $user->getResetPasswordCode();
+
+    } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+      $errors->add('error', "Email not found in database");  
+    }
+
+    if ($errors->count() > 0) {
+      return View::make('user/start_reset', array('errors' => $errors));  
+    }
+
+    $mailResult = mail($email, 
+        "SC2CTL Password Reset", 
+        "Hello! \r\n\r\nYou are receiving this email because a user at this adddress requested a password
+          reset on http://sc2ctl.com. If this is in error, please ignore this email. To reset your password
+          simply follow this link: " . 
+          URL::route('login.finalize_password', array('user_id' => $user->id, 'token' => $resetCode)),
+        "From: adult@sc2ctl.com");
+
+    if (!$mailResult) {
+      $errors->add('error', "We couldn't successfully send an email to that address");
+    }
+
+    if ($errors->count() > 0)
+      return View::make('login/start_reset', array('errors' => $errors));
+    return Redirect::route('home');
+  }
+
+  public function finalize_password($user_id, $token) {
+    return View::make('login/finalize_password', array('token' => $token, 'user_id' => $user_id));
+  }
+
+  public function complete_reset() {
+    $errors = new \Illuminate\Support\MessageBag;
+    
+    try {
+      $user = Sentry::findUserById(Input::get('user_id'));
+      if ($user->checkResetPasswordCode(Input::get('token'))) {
+        if ($user->attemptResetPassword(Input::get('token'), Input::get('password'))) {
+          Sentry::loginAndRemember($user);
+          return Redirect::route('home');
+        } else {
+          $errors->add('error', "Password Reset failed");
+        }
+      } else {
+        // The password reset code is invalid
+        $errors->add('error', "Password reset code was invalid, please try again");
+        return View::make('login/start_reset', array('errors', $errors));
+      }
+    } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+      $errors->add('error', "User record was not found");
+    }
+
+      return View::make('login/finalize_password', array(
+          'errors' => $errors,
+          'token' => Input::get('token'),
+          'user_id' => Input::get('user_id')
+          )
+      );
   }
 
   public function register() {

@@ -16,7 +16,7 @@ Register
     </div>
   @endif
   {{ Form::open(array('route' => 'user.store', 'method' => 'post', 'class' => 'pure-form pure-form-aligned')) }}
-    <div id="login1"/>
+    <div id="login1" class="floating-color loginbox">
       <h3>Step 1</h3>
       <p>First, let's some identifying information for you</p>
       <div class="pure-control-group">
@@ -30,7 +30,7 @@ Register
 
     </div>
 
-    <div id="login2">
+    <div id="login2" class="floating-color loginbox">
       <h3>Step 2</h3>
       <p>Choose a password that you'll use to login. We don't enforce any rules about password security, but
         don't be stupid
@@ -48,7 +48,7 @@ Register
       </div>
     </div>
 
-    <div id="login3">
+    <div id="login3" class="floating-color loginbox">
       <h3>Step 3</h3>
       <p>Now let's get your battle.net information settled. Unfortunately, this information is required
       to register. If you want to participate, go out and get Starcraft II!</p>
@@ -61,7 +61,8 @@ Register
 
       <div class="pure-control-group">
         {{ Form::label('bnet_url') }}
-        {{ Form::text('bnet_url', null, array('class' => 'validates val-bnet_url')) }} 
+        {{ Form::text('bnet_url', null, array('class' => 'validates val-bnet_url', 
+              'placeholder' => "Paste then click Fill Form" )) }} 
         <span class="feedback"></span>
         
         {{ Form::button('Fill Form', array('id' => 'fillBnet', 'class' => 'pure-button pure-button-secondary')) }}
@@ -93,6 +94,7 @@ Register
     </div>
     <div class="pure-controls">
     {{ Form::submit('Register', array('class' => 'pure-button pure-button-good')) }}
+    <a href="{{ URL::route('home') }}" class="pure-button pure-button-cancel">Cancel</a>
     </div>
   {{ Form::close() }}
 </div>

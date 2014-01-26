@@ -15,6 +15,10 @@ Tournament Profile
 		<div class="pure-u-2-3">
 			<h1 class="splash-head">{{ $tournament->name }}</h1>
 			<h2 class="splash-subhead">Current Phase: {{$tournament->getPhase() }}</h2>
+      @if ($tournament->getPhase() == "Completed")
+        <span class="splash-subhead" style="font-size: 150%; font-weight:bold;">Winner:</span><br/>
+        @include('team/profileCardPartial', array('team' => Team::find($tournament->winner)))
+      @endif
 		</div>
 	</div>
 </div>

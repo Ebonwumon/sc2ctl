@@ -43,6 +43,7 @@
 				@endif
 			</ul>
 		</nav>
+    @include('errors/errorPartial')
 		@yield('content')
 		<!--<div class="push"></div>
 		</div>

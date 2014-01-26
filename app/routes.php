@@ -15,7 +15,6 @@ Route::get('test', function() {
     });
 Route::get('refreshdoges', 'HomeController@refreshdoges');
 Route::get('/', array('as' => 'home', "uses" => 'HomeController@index')); 
-Route::get('login/{return_url?}', array('as' => 'user.login', 'uses' => 'UserController@login'));
 Route::get('contact', array('as' => 'home.contact', "uses" => 'HomeController@contact'));
 Route::get('about', array('as' => 'home.about', 'uses' => 'HomeController@about'));
 Route::get('format', array('as' => 'home.format', 'uses' => 'HomeController@format'));
@@ -27,6 +26,8 @@ Route::get('blog/{id}', array('as' => 'blog.profile', 'uses' => 'BlogController@
 Route::get('stats', array('as' => 'stats', 'uses' => 'StatsController@index'));
 Route::get('stats/highest_median_winrate', 'StatsController@highestMedianWR');
 Route::get('stats/every_man_on_the_field/{id}', 'StatsController@allPlayedInTournament');
+Route::get('stream', array('as' => 'stream', 'uses' => 'HomeController@stream'));
+Route::get('stream/teams', array('as' => 'stream.getTeams', 'uses' => 'HomeController@getTeams'));
 
 //caster authenticated
 Route::group(array('before' => 'auth'), function() {
@@ -34,15 +35,17 @@ Route::group(array('before' => 'auth'), function() {
   Route::post('vod', array('as' => 'vod.store', 'uses' => 'VODController@store'));
 });
 
-Route::get('stream', array('as' => 'stream', 'uses' => 'HomeController@stream'));
-Route::get('stream/teams', array('as' => 'stream.getTeams', 'uses' => 'HomeController@getTeams'));
-//Authenticated methods
+
 Route::group(array('before' => 'guest'), function() {
   Route::get('register', array('as' => 'user.register', 'uses' => 'UserController@register'));
+  Route::get('login/{return_url?}', array('as' => 'user.login', 'uses' => 'UserController@login'));
   Route::post('login', array('as' => 'user.auth', 'uses' => 'UserController@auth'));
-  Route::get('login/reset_password', array('as' => 'login.reset', 'uses' => 'UserController@reset_password'));
-  Route::post('login/reset_password', array('as' => 'login.do_reset', 'uses' => 'UserController@do_reset'));
-    });
+  Route::get('login/reset/begin', array('as' => 'login.start_reset', 'uses' => 'UserController@start_reset'));
+  Route::post('login/reset/send_token', array('as' => 'login.send_token', 'uses' => 'UserController@send_token'));
+  Route::get('login/reset/finalize_password/{user_id}/{token}', array('as' => 'login.finalize_password', 'uses' => 'UserController@finalize_password'));
+  Route::post('login/reset/finalize_password', array('as' => 'login.complete_reset', 'uses' => 'UserController@complete_reset'));
+});
+
 Route::group(array('before' => 'auth'), function() {
 	
 	Route::get('code', array('as' => 'code.index', 'uses' => 'CodeController@index'));
