@@ -2,9 +2,9 @@
 @section('title')
 	{{ $user->username }}'s Profile
 @stop
+
 @section('content')
-<div class="padded-content">
-<?php $member = $user; ?>
+<div class="padded-content splash colour-purple">
 <div class="pure-g-r">
 	@if (Sentry::check() && Sentry::getUser()->id == $user->id)
 	<div class="pure-u-1">
@@ -26,12 +26,26 @@
 	<div class="pure-u-1-3">
 		<h3>Recent Games</h3>
 		@if ($games->count())
+      <table class="pure-table">
+        <thead>
+          <tr>
+            <th>Vs.</th>
+            <th>Result</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
 			@foreach ($games as $game)
-				<a class="pure-button pure-button-primary" href="{{ URL::route('game.profile', $game->id) }}">
-					View Game
-				</a>
-
+        <tr>
+          <td>{{ $game->opponent($user->id)->bnetInfo() }}</td>
+          <td>{{ $game->won($user->id) }}</td>
+          <td>
+            <a class="pure-button pure-button-primary" href="{{ URL::route('game.profile', $game->id) }}">
+					    View Game
+				    </a>
+          </td>
+        </tr>
 			@endforeach
+      </table>
 		@else
 			<span class="splash-subhead">No games played yet</span>
 		@endif
@@ -56,8 +70,8 @@
 </div>
 </div>
 @if (Sentry::check() && Sentry::getUser()->id == $user->id)
-<a href="{{ URL::route('user.edit', $user->id) }}" class="pure-button pure-button-primary">
-	Edit Profile
-</a>
+  <a href="{{ URL::route('user.edit', $user->id) }}" class="pure-button pure-button-primary">
+	  Edit Profile
+  </a>
 @endif
 @stop

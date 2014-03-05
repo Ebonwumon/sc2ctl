@@ -284,12 +284,12 @@ color: #013194;
 
 
 .splash {
-	background: #eee;
 	padding: 3em 0.5em;
+  background: rgba(238,238,238, 0.6);
 }
 
-#mainpage .splash {
-  background: rgba(238,238,238, 0.6);
+.colour-purple {
+	background: rgba(75, 66, 107, 0.8);
 }
 
 .splash-head {
@@ -769,6 +769,11 @@ color:white;
         color: grey;
         text-transform: uppercase;
         width: 300px;
+    }
+
+    .pure-form .pure-controls a {
+      position:relative;
+      top: 2px;
     }
 
     option {

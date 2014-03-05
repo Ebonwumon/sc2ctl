@@ -169,21 +169,13 @@ class UserController extends \BaseController {
     if ($errors->count() > 0) {
       return View::make('user/start_reset', array('errors' => $errors));  
     }
-
-    $mailResult = mail($email, 
-        "SC2CTL Password Reset", 
-        "Hello! \r\n\r\nYou are receiving this email because a user at this adddress requested a password
-          reset on http://sc2ctl.com. If this is in error, please ignore this email. To reset your password
-          simply follow this link: " . 
-          URL::route('login.finalize_password', array('user_id' => $user->id, 'token' => $resetCode)),
-        "From: adult@sc2ctl.com");
-
-    if (!$mailResult) {
-      $errors->add('error', "We couldn't successfully send an email to that address");
-    }
-
+    Mail::later(2, 'emails.reminder', array('id' => $user->id, 'token' => $resetCode), function($m) use ($user) {
+      $m->to($user->email)->subject("SC2CTL Password Reset");
+    });
+    
     if ($errors->count() > 0)
       return View::make('login/start_reset', array('errors' => $errors));
+    
     return Redirect::route('home');
   }
 

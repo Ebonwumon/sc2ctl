@@ -33,7 +33,7 @@ class User extends SentryUserModel {
     return Validator::make($input, $rules);
   }
 
-	/**
+  /**
 	* Takes an array of tournament ids
 	*/
 	public function hasPlayedGamesInTournaments($ids) {
@@ -73,6 +73,10 @@ class User extends SentryUserModel {
 		}
 		return false;
 	}
+
+  public function bnetInfo() {
+    return $this->bnet_name . "#" . $this->char_code;
+  }
 	
 	public function leaveTeam() {
 		$team = $this->team;

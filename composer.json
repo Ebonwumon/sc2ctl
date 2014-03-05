@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.1.*",
     "cartalyst/sentry": "2.0.*",
-    "intervention/image": "dev-master"
+    "intervention/image": "dev-master",
+    "pda/pheanstalk": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

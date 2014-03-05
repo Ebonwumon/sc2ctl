@@ -6,7 +6,7 @@ About the League
 
 @section('content')
 
-<div class="pure-g-r">
+<div class="pure-g-r" id="mainpage">
 	<div class="splash">
 		<div class="pure-u-1-3">
 			<div class="l-box">

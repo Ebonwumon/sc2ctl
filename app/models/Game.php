@@ -22,9 +22,19 @@ class Game extends Eloquent {
     return $this->belongsToMany('User')->withPivot('team_id')->orderBy('game_user.team_id');
   }
 
+  public function opponent($id) {
+    if ($this->player1 == $id) return User::find($this->player2);
+    if ($this->player2 == $id) return User::find($this->player1);
+  }
+
 	public function map() {
 		return $this->belongsTo('Map');
 	}
+  
+  public function won($id) {
+    if (!$this->winner) return false;
+    return ($this->winner == $id);
+  }
 
 	public function winner() {
 		if($this->winner) {

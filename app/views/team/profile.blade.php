@@ -82,7 +82,7 @@ background-wrapper clown-background
 		</div>
   </div>
 </div>
-@if (Sentry::check()) //TODO check that the user can edit this team's roster
+@if (Sentry::check() && Sentry::getUser()->hasAccess('edit_roster')) 
 <div class="pure-control-panel">
   <a class="pure-button pure-button-primary" href="{{ URL::route('team.edit', $team->id) }}">
     Alter Roster 
