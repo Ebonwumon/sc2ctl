@@ -47,7 +47,12 @@ class LineupController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+    $lineup = Lineup::findOrFail($id);
+    
+	  if (Request::ajax()) {
+      return View::make('team/lineupPartial', array('lineup' => $lineup));
+    }
+    return Redirect::route('home');
 	}
 
 	/**
@@ -99,15 +104,24 @@ class LineupController extends \BaseController {
 
 		if ($lineup->historicalPlayers->contains($uid)) {
 			$entry = $lineup->historicalPlayers()->where('user_id', '=', $uid)->get()[0];
-			$entry->pivot->active = true;
+      $entry->pivot->active = true;
 			$entry->pivot->role_id = Role::MEMBER;
 			$entry->pivot->save();
-			return Response::json(array('status' => 0));
+			
+      if (Request::ajax()) {
+        return Response::json(array('status' => 0));
+      }
+
+      return Redirect::route('team.edit', $lineup->team->id);
 		}
 		
 		$lineup->players()->attach($uid);
-		return Response::json(array('status' => 0));
+		
+    if (Request::ajax()) {
+      return Response::json(array('status' => 0));
+    }
 
+    return Redirect::route('team.profile', $lineup->team->id);
 	}
 
 	public function remove_user($id) {

@@ -2,7 +2,7 @@
 
 class Tournament extends Eloquent {
 
-	protected $fillable = array('name', 'phase', 'division', 'winner');
+	protected $fillable = array('name', 'phase', 'division', 'winner', 'season_id');
 	
 	protected $guarded = array('id');
 
@@ -15,15 +15,27 @@ class Tournament extends Eloquent {
 	}
 	
 	public function teams() {
-		return $this->belongsToMany('Team');
+		return $this->belongsToMany('Lineup');
 	}
+
+  public function swissRounds() {
+    return $this->hasMany('SwissRound');
+  }
+
+  public function currentRound() {
+    return $this->hasMany('SwissRound')->orderBy('id')->take(1);
+  }
+
+  public function season() {
+    return $this->belongsTo('Season');
+  }
 
 	public function teamsWithAllMembersPlaying() {
 		$arr = array();
-		foreach ($this->teams as $team) {
+		foreach ($this->teams as $lineup) {
 			$playing = true;
-			foreach ($team->members as $member) {
-				if (!$member->hasPlayedGamesInTournaments(array($this->id))) {
+			foreach ($lineup->players as $player) {
+				if (!$player->hasPlayedGamesInTournaments(array($this->id))) {
 					$playing = false;
 					break;
 				}
@@ -36,18 +48,71 @@ class Tournament extends Eloquent {
 		return $arr;
 	}
 
-	public function isInTournament($id) {
-		$teams = $this->teams()->get()->toArray();
+  public function filterEnrolledLineups($lineup_arr, $inverse = false) {
+    if (count($lineup_arr) == 0) return array();
+    
+    if ($inverse) {
+      $ret = array();
+      foreach ($lineup_arr as $id => $lineup) {
+        if ($this->teams->contains($id)) continue;
+        $ret[$id] = $lineup;
+      }
+      return $ret;
+    }
+    return $this->teams()->whereIn('lineup_id', array_keys($lineup_arr))
+                ->lists('name', 'id');
+  }
+
+  // Todo what if I want to call this without the context of a user?
+  public function isInTournament($id) {
+		$teams = $this->teams->toArray();
 		foreach ($teams as $team) {
 			$registered = array_first($team, function($key, $value) {
-				return ($key == 'id' && $value == Auth::user()->team_id);
+				return ($key == 'id' && $value == Sentry::getUser()->team_id);
 			});
 			if ($registered) return true;
 		}
 
 		return false;
 	}
+  
+  public function initial_swiss_round($due) {
+    DB::transaction(function() use ($due) {
+      $swiss_round = SwissRound::create(array('due_date' => $due,
+                                              'tournament_id' => $this->id));
+      $teams = $this->teams()->orderBy(DB::raw('RAND()'))->get()->toArray();
+      $numMatches = floor(count($teams) / 2);
+      $odd = count($teams) % 2 != 0;
 
+      // we generate all the full matches
+      for ($i = 0; $i < $numMatches; $i++) {
+        $match = new Match;
+        $match->bo = 7;
+        $match->swiss_round_id = $swiss_round->id;
+        $match->save();
+        $match->teams()->sync(array(array_pop($teams)['id'], array_pop($teams)['id']));
+      }
+      if ($odd) {
+        // We have an odd number of teams, so we'll need to generate a bye
+        $team = array_pop($teams)['id'];
+        $match = Match::create(array('bo' => 7, 
+                                     'swiss_round_id' => $swiss_round->id,
+                                     'is_default' => $team,
+                                     ));
+        $match->teams()->attach($team);
+      }
+      $this->phase = 1;
+      $this->save();
+    });
+    DB::commit();
+  }
+
+  /*public function next_swiss_round($due) {
+    $swiss_round = new SwissRound;
+    $swiss_round->due_date = $due;
+    $swiss_round->save();
+
+  }*/
 	public static function filterPhase($args, $phase) {
 		$filter = array();
 		foreach ($args as $arg) {
@@ -58,9 +123,9 @@ class Tournament extends Eloquent {
 		return $filter;
 	}
 
-	
+	/* Deprecated functions
 	public function generateGroups() {
-		$count = $this->teams()->count();
+		$count = $this->teams->count();
 		
 		switch ($count % 4) {
 			case 0: $numThrees = 0; 
@@ -155,6 +220,7 @@ class Tournament extends Eloquent {
 			}
 		}
 	}
+  */
 
 	public function getGlobalStandings() {
 		$globalStandings = array();

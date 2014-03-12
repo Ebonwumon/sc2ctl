@@ -2,20 +2,12 @@
 
 class Game extends Eloquent {
 
-	protected $fillable = array('player1', 'player2', 'winner', 'match_id', 'replay_url');
+	protected $fillable = array('winner', 'match_id', 'replay_url');
 
 	protected $guarded = array('id');
 	
 	public function match() {
 		return $this->belongsTo('Match');
-	}
-
-	public function playerone() {
-		return $this->belongsTo('User', 'player1');
-	}
-
-	public function playertwo() {
-		return $this->belongsTo('User', 'player2');
 	}
 
   public function players() {
@@ -27,6 +19,16 @@ class Game extends Eloquent {
     if ($this->player2 == $id) return User::find($this->player1);
   }
 
+  public function getWinner() {
+    return $this->belongsTo('User', 'winner');
+  }
+
+  // TODO untested
+  public function getWinningTeam() {
+    $team_id = $this->players()->wherePivot('user_id', '=', $this->winner)->pivot->team_id;
+    return $team_id;
+  }
+
 	public function map() {
 		return $this->belongsTo('Map');
 	}
@@ -35,13 +37,6 @@ class Game extends Eloquent {
     if (!$this->winner) return false;
     return ($this->winner == $id);
   }
-
-	public function winner() {
-		if($this->winner) {
-			return User::find($this->winner);
-		}
-		return 0;
-	}
 
 	public function reportWinner($id) {
 		$this->winner = $id;

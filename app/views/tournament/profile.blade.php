@@ -14,7 +14,7 @@ Tournament Profile
 		</div>
 		<div class="pure-u-2-3">
 			<h1 class="splash-head">{{ $tournament->name }}</h1>
-			<h2 class="splash-subhead">Current Phase: {{$tournament->getPhase() }}</h2>
+			<h2 class="splash-subhead">Current Phase: {{ $tournament->getPhase() }}</h2>
       @if ($tournament->getPhase() == "Completed")
         <span class="splash-subhead" style="font-size: 150%; font-weight:bold;">Winner:</span><br/>
         @include('team/profileCardPartial', array('team' => Team::find($tournament->winner)))
@@ -22,37 +22,48 @@ Tournament Profile
 		</div>
 	</div>
 </div>
-<div class="padded-content">
-@if ($tournament->phase == 0)
-
-	<h3>Registered Teams</h3>
-	<div class="box">
-		@include('team/multipleCardPartial', array('teams' => $tournament->teams()->get()))
-	</div>
-	<br />
-	@if (Entrust::hasRole('team_captain'))
-		@if (!$tournament->isInTournament(Auth::user()->team_id))
-			{{ Form::open(array('route' => array('tournament.register', $tournament->id))) }}
-				{{ Form::submit('Register', array('class' => "pure-button pure-button-good")) }}
-			{{ Form::close() }}
-		@else
-			{{ Form::open(array('route' => array('tournament.leave', $tournament->id))) }}
-				{{ Form::submit('Leave', array('class' => 'pure-button pure-button-bad')) }}
-			{{ Form::close() }}
-		@endif
-	@endif
-
-@elseif ($tournament->phase == 1)
 <br />
-<br />
-<div class="box">
-	<h3>Total Standings</h3>
-	@include('tournament/globalStandings', array('groups' => $data))
-</div>
-	@include('ad')
-<hr />
-@include('group/multipleGroupDisplay', array('groups' => $data))
+<div class="splash">
+  @if ($tournament->phase == 0)
+    @include('tournament/registrationPhase')
 
+  @elseif ($tournament->phase == 1)
+    <div class="pure-g-r">
+      <div class="pure-u-1-3">
+        <table class="pure-table pure-table-striped">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Team</th>
+              <th>Wins</th>
+              <th>Losses</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+
+          @foreach ($summary as $score)
+            <tr>
+              <td>1</td>
+              <td>{{ $score->name }}</td>
+              <td>{{ $score->wins }}</td>
+              <td>{{ $score->losses }}</td>
+              <td>{{ $score->score() }}</td>
+            </tr>
+          @endforeach
+        </table>
+      </div>
+      <div class="pure-u-2-3">
+        <div class="pure-g-r">
+          <div class="pure-u-1-2">
+            @foreach($data->first()->matches as $match)
+              @include('match/matchCardPartial')
+            @endforeach
+          </div> 
+        </div>
+      </div>
+    </div>
+    
+      
 @elseif ($tournament->phase == 3)
 	@if ($phase)
 	<br />

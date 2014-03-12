@@ -100,6 +100,13 @@ Route::filter('is_user', function($route, $request) {
     }
 });
 
+Route::filter('lineup_captain', function($route, $request) {
+    $lineup = Lineup::findOrFail($route->getParameter('id'));
+    if (!$lineup->canRename(Sentry::getUser())) {
+      App::abort('401', "You're not Authorized to do that");
+    }
+  });
+
 View::composer('index', function($view) {
   $randTeam = Team::orderBy(DB::raw('RAND()'))->take(1)->get();
   $randUser = User::orderBy(DB::raw('RAND()'))->take(1)->get();
@@ -120,11 +127,19 @@ View::composer('team/profile', function($view) {
     $view->with('select', $select);
   }
 });
-View::composer('team/profileCardPartial', function($view) {
+View::composer(array('team/profileCardPartial', 'team/lineup/profileCardPartial'), function($view) {
     if (!isset($view['smallCard'])) {
       $view->with('smallCard', false);
     }
-    });
+});
+
+View::composer(array('match/matchCardPartial'), function($view) {
+  $score = $view['match']->score();
+  $view->with('matchScore', $score);
+  $view->with('keys', array_keys($score));
+
+});
+
 View::composer('user/profileCardPartial', function($view) {
     if (!isset($view['smallCard'])) {
       $view->with('smallCard', false);

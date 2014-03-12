@@ -11,13 +11,6 @@
 |
 */
 Route::get('test', function() {
-    Sentry::createGroup(array(
-        'name' => 'Admins',
-        'permissions' => array(
-          'superuser' => 1
-          ),
-        ));
-    
     });
 Route::get('refreshdoges', 'HomeController@refreshdoges');
 Route::get('/', array('as' => 'home', "uses" => 'HomeController@index')); 
@@ -37,6 +30,7 @@ Route::get('stream/teams', array('as' => 'stream.getTeams', 'uses' => 'HomeContr
 
 Route::get('game/{id}', array('as' => 'game.profile', 'uses' => 'GameController@show'));
 
+Route::get('lineup/{id}', array('as' => 'lineup.show', 'uses' => 'LineupController@show'));
 //caster authenticated
 Route::group(array('before' => 'auth|perm:vods'), function() {
   Route::get('vod/create', array('as' => 'vod.create', 'uses' => 'VODController@create'));
@@ -106,6 +100,7 @@ Route::group(array('before' => 'auth|team_owner'), function() {
 });
 
 Route::group(array('before' => 'auth|lineup_captain'), function() {
+  Route::post('lineup/{id}', array('as' => 'lineup.edit', 'uses' => 'LineupController@edit'));
 	Route::post('team/{id}/addmembers', 'TeamController@add');
 	Route::put('team/evict', array('as' => 'team.evict', 'uses' => "TeamController@evict"));
 	Route::get('/team/{id}/edit', array('as' => 'team.edit', "uses" => "TeamController@edit"));
@@ -195,6 +190,7 @@ Route::group(array('before' => 'auth|perm:create_rounds'), function() {
 Route::group(array('before' => 'auth|perm:create_tournaments'), function() {
   Route::get('tournament/create', array('as' => 'tournament.create', 'uses' => 'TournamentController@create'));
 	Route::post('tournament', array('as' => 'tournament.store', 'uses' => 'TournamentController@store'));
+  Route::post('season', array('as' => 'tournament.store_season', 'uses' => 'TournamentController@store_season'));
 });
 
 //TODO maybe editing of groups and rounds should be moved elsewhere?
@@ -203,7 +199,7 @@ Route::group(array('before' => 'auth|perm:edit_tournaments'), function() {
 	Route::get('tournament/{id}/edit/groups', array('as' => 'tournament.groups', 'uses' => 'TournamentController@groups'));
 	Route::get('tournament/{id}/edit/round', array('as' => 'tournament.round', 'uses' => 'TournamentController@round'));
 	Route::put('tournament/{id}', array('as' => 'tournament.update', 'uses' => 'TournamentController@update'));
-	Route::post('tournament/{id}/generategroups', array('as' => 'tournament.generategroups', 'uses' => 'TournamentController@generateGroups'));
+	Route::post('tournament/{id}/start', array('as' => 'tournament.start', 'uses' => 'TournamentController@start'));
 });
 
 // TODO I give up
@@ -211,8 +207,6 @@ Route::get('tournament', array('as' => 'tournament.index', 'uses' => 'Tournament
 Route::get('tournament/{id}', array('as' => 'tournament.profile', 'uses' => 'TournamentController@show'));
 Route::get('tournament/{id}/phase/{phase}', array('as' => 'tournament.filterphase', 'uses' => 'TournamentController@show'));
 
-Route::post('tournament/{id}/addteam', array('as' => 'tournament.addteam', 'uses' => 'TournamentController@addteam'));
-Route::post('tournament/{id}/removeteam', array('as' => 'tournament.removeteam', 'uses' => 'TournamentController@removeteam'));
 Route::post('tournament/{id}/leave', array('as' => 'tournament.leave', 'uses' => 'TournamentController@leave'));
 
 Route::get('dogetip/create/{id?}', array('as' => 'dogetip.create', 'uses' => 'DogetipController@create'));

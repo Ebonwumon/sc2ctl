@@ -5,20 +5,22 @@ Tournaments
 @stop
 
 @section('content')
-@include('ad')
-<div class="padded-content">
-	<h3>SC2CTL Season 1</h3>
-	<div class="box">
-		@foreach ($tournaments as $tournament)
+@foreach ($tournaments as $season)
+  <div class="splash about">
+    <h3>{{ $season[0]->season->name }}</h3>
+    <div class="box">
+      @foreach ($season as $tournament)
 
-			{{ $tournament->name }} 
-	
-			<a href="{{URL::route('tournament.profile', $tournament->id)}}" class="pure-button pure-button-primary">
-				View Tournament
-			</a>
-			<br />
-			<br />
-		@endforeach
-	</div>
-</div>
+        {{ $tournament->name }} 
+
+        <a href="{{URL::route('tournament.profile', $tournament->id)}}" 
+           class="pure-button pure-button-primary">
+          View Tournament
+        </a>
+        <br />
+        <br />
+      @endforeach
+    </div>
+  </div>
+@endforeach
 @stop

@@ -128,7 +128,7 @@ class UserController extends \BaseController {
     }
     catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
     {
-      $errors->add('error', "User not found");
+      $errors->add('error', "Username/Password incorrect");
     }
     catch (Cartalyst\Sentry\Users\WrongPasswordException $e) {
       $errors->add('error', "Could not authenticate. Email/Password incorrect");
@@ -169,7 +169,7 @@ class UserController extends \BaseController {
     if ($errors->count() > 0) {
       return View::make('user/start_reset', array('errors' => $errors));  
     }
-    Mail::later(2, 'emails.reminder', array('id' => $user->id, 'token' => $resetCode), function($m) use ($user) {
+    Mail::queue('emails.reminder', array('id' => $user->id, 'token' => $resetCode), function($m) use ($user) {
       $m->to($user->email)->subject("SC2CTL Password Reset");
     });
     

@@ -33,9 +33,9 @@ About the League
 			</div>
 		</div>
 	</div>
-
-	<div class="padded-content about">
-	<div class="pure-u-3-4">
+<br />
+<div class="splash about">
+  <div class="pure-u-3-4">
 		<h2>League Format Summary</h2>
 		<p class="l-box">
 			The league has three phases, two group phases and a playoff bracket. In the group phases
@@ -56,24 +56,23 @@ About the League
 			</a>
 		</div>
 	</div>
-
+</div>
+<div class="splash about">
 	<div class="pure-u-3-4">
 		<h2>Maps</h2>
 		<div class="l-box">
 			<p>
-				The map pool for the SC2CTL is quite similar to the ladder map pool. We have
-				removed a couple maps that we deemed not fun or competitive. We've also added
-				the maps ESV Phoenix Cluster and Gwangalli Beach. The reasoning behind this is that while we want
-				people to be comfortable with the maps being played so that we get the best game
-				possible, there's also fun to be had with playing new maps, and especially
-				practicing one that your opponents may not be practicing to get an upper hand.
-				<br />
-				<br />
-				Maps need not be played in this order. The number represents the "starting map" for each week. 
-				eg. Week one, the bo9 starts on Akilon Wastes, Week 5 the bo9 starts on Newkirk Precinct. From
-				there, it is loser choses from the remaining maps in the map pool. Maps may not be repeated in a
-				bo9.
-			</p>
+        The SC2CTL map pool is designed to be reminicent of the current ladder map
+        pool, with key variations that allow for exciting play. We tend to use the
+        best core maps from the map pool, and add a couple additional maps from the
+        community to round out our pool of seven. This setup allows us to get the
+        best play possible through showing the maps that people are comfortable with
+        while adding an extra competitive element: if one practices the unique maps
+        and their opponent does not, one might get the upper hand!
+      </p>
+      <strong>
+        Map pool for Season 2 is TBD currently
+      </strong>
 		</div>
 	</div>
 	<div class="pure-u-1-4">
@@ -86,91 +85,55 @@ About the League
 			</thead>
 			<tr>
 				<td>1</td>
-				<td>Akilon Wastes</td>
+				<td>TBD</td>
 			</tr>
 			<tr>
 				<td>2</td>
-				<td>Bel'Shir Vestige</td>
+				<td>TBD</td>
 			</tr>
 			<tr>
 				<td>3</td>
-				<td>Derelict Watcher</td>
+				<td>TBD</td>
 			</tr>
 			<tr>
 				<td>4</td>
-				<td>Neo Planet S</td>
+				<td>TBD</td>
 			</tr>
 			<tr>
 				<td>5</td>
-				<td>Newkirk Redevelopment Precint</td>
+				<td>TBD</td>
 			</tr>
 			<tr>
 				<td>6</td>
-				<td>Star Station</td>
+				<td>TBD</td>
 			</tr>
 			<tr>
 				<td>7</td>
-				<td>Whirlwind</td>
-			</tr>
-			<tr>
-				<td>8</td>
-				<td>Gwangalli Beach</td>
-			</tr>
-			<tr>
-				<td>9</td>
-				<td>ESV Phoenix Cluster</td>
+				<td>TBD</td>
 			</tr>
 		</table>
 	</div>
-	<hr />
-	
+</div>
+
+
+<div class="splash about">	
 	<div class="pure-u-1">
 		<h2 style="display:inline;">Prizes</h2>
-			<span class="splash-subhead">Proudly sponsored by Das Keyboard</span>
+			<span class="splash-subhead">Awaiting on sponsorship</span>
 		</h2>
 		<br />
-		<div class="pure-g-r">
-		<div class="pure-u-1-4">
-			<h3 class="splash-subhead">Masters/Grandmasters</h3>
-			<p class="l-box">The winning team of the Masters/Grandmasters global finals will be awarded 
-				<strong>five (5) Das Keyboards!</strong>
-			</p>
-		</div>
-		<div class="pure-u-3-4">
-			<h3 class="splash-subhead">Bronze/Silver/Gold & Platinum/Diamond</h3>
-			<p>The winning team of each of the lower divisions will recieve their choice of:
-			A Das Keyboard T-Shirt
-			or A Das Keyboard WASD Keycap set. But that's not all! We will also be awarding an additional
-			8 prizes (from our pool of 5 keycap sets and 5 t-shirts) based on each of the following
-			achievements.</p>
-			<div class="pure-g-r">
-			<div class="pure-u-1-2">
-				<p class="l-box">
-				<strong>Most Improved</strong>: Three prizes, awarded to a Terran, a Zerg and a Protoss who have
-					shown great improvement in Macro, Micro, and overall gameplay. We will be liberally
-					using GGTracker's wonderful features to determine this
-					<br/>
-				<strong>Every Man on the Field</strong>: Every team who at some point in the league fields
-					<em>every</em> player on their team at least once will be entered in a raffle for a prize
-					<br/>
-				<strong>CombatEXtreme</strong>: Awarded for best or most interesting cheese, allin or altogether
-					gimmicky play.
-					</p>
-			</div>
-			<div class="pure-u-1-2">
-				<p class="l-box">
-				<strong>Group Killer</strong>: Best overall record in the group stages<br/>
-				<strong>Playoff MVP</strong>: MVP in the playoff stage, things like incredible play or reverse
-					allkills.<br/>
-				<strong>No Team-mate Left Behind (The Bellcurve Award)</strong>: Awarded to the team with the
-					highest median win-rate.
-				</p>
-			</div>
-			</div>
-		</div>
-		</div>
-	</div>
+    <p>
+      SC2CTL does its best to provide the community with the best possible prizes to award
+      the considerable dedication that we see every team put in every week. This prizing
+      is only made possible through the generousity of our sponsors.
+    </p>
+    <strong>
+      Prizes for Season 2 are still TBD and should be announced before the start date
+    </strong>
+  </div>
+</div>
 
+<div class="splash about">
 	<div class="pure-u-1">
 		<h2>Features</h2>
 	</div>
@@ -197,9 +160,9 @@ About the League
 			Starcraft II.
 		</p>
 	</div>
-	
-	<hr />
-	
+</div>
+
+<div class="splash about">	
 	<div class="pure-u-1">
 		<h2>Rules</h2>
 	</div>
@@ -254,9 +217,8 @@ About the League
 			<li>Zerg is IMBA, Hellbats are OP, Protoss EZ A-Move Race</li>
 		</ul>
 	</div>
+</div>		
 		
-		
-</div>
 </div>
 
 @stop

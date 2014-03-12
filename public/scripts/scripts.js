@@ -1,18 +1,19 @@
 $(document).ready(function() {
-	$('.tid').mouseenter(function() {
-		var tid = $(this).data('tid');
-		$('.tid').each(function() {
-			if ($(this).data('tid') == tid) {
-				$(this).addClass('selected');
+	$('.hoverable').mouseenter(function() {
+		var id_elem = $(this).data('id-elem');
+    var id = $(this).data(id_elem);
+		$('.hoverable').each(function() {
+			if ($(this).data(id_elem) == id) {
+        $(this).addClass('selected');
 			}
 		});
 	});
 
-	$('.tid').mouseleave(function() {
-		var tid = $(this).data('tid');
-
-		$('.tid').each(function() {
-			if ($(this).data('tid') == tid) {
+	$('.hoverable').mouseleave(function() {
+		var id_elem = $(this).data('id-elem');
+    var id = $(this).data(id_elem);
+		$('.hoverable').each(function() {
+			if ($(this).data(id_elem) == id) {
 				$(this).removeClass('selected');
 			}
 		});

@@ -67,7 +67,7 @@ background-wrapper clown-background
       @endif
 		@if ($edit)
 			<a href="{{ URL::route('lineup.create', $team->id) }}" class="pure-button pure-button-primary">
-				Add Lineup
+				New Lineup
 			</a>
       <br />
       <br />
@@ -75,13 +75,14 @@ background-wrapper clown-background
         <div class="pure-controls">
           {{ Form::select('user_id', User::listAll()) }}
           <br />
-          <input type="submit" class="pure-button pure-button-primary" value="Quick Add Player" />
+          <input type="submit" class="pure-button pure-button-primary" value="Quick Add To Team" />
         </div>
       {{ Form::close() }}
     @endif
 		</div>
   </div>
 </div>
+<br />
 @if (Sentry::check() && Sentry::getUser()->hasAccess('edit_roster')) 
 <div class="pure-control-panel">
   <a class="pure-button pure-button-primary" href="{{ URL::route('team.edit', $team->id) }}">
@@ -95,7 +96,7 @@ background-wrapper clown-background
 <script>
 	function bindRemoteCallback(obj) {
 		if ($(obj).hasClass('delete')) {
-			$(obj).parent().hide('fast');
+			$(obj).parents('tr:first').hide('fast');
 			return true;
 		}
 		deselect($(obj).parent().find('.remoteAction'));

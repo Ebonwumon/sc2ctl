@@ -99,18 +99,17 @@ class User extends SentryUserModel {
     switch ($asset) {
       case "Lineup": 
         if ($this->hasAccess('register_lineups')) {
-          return Lineup::lists('name', 'id');
+          return Lineup::lists('name');
         }
         // Only team-based access remaining, if user is not on a team, return
-        if (!$this->team_id) return array();
+        if (!Sentry::getUser()->team_id) return array();
         
         if ($this->hasAccess('register_team_lineups')) {
-          return Lineup::where('team_id', '=', $this->team_id)->lists('name', 'id');
+          return Lineup::where('team_id', '=', Sentry::getUser()->team_id)->lists('name');
         }
         if ($this->hasAccess('register_team_lineup')) {
-          return Lineup::wherePivot('user_id', '=', $this->id)->lists('name', 'id');
+          if (
         }
-      break;
     }
   }
 
