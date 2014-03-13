@@ -31,6 +31,14 @@ class Lineup extends Eloquent {
     return $this->tournaments()->whereIn('season_id', $active_seasons)->get();
   }
 
+  public function activeMatchesForTournament($id) {
+    return $this->belongsToMany('Match')->whereHas('swissRound', function($q) use ($id) {
+          $q->whereHas('tournament', function($q) use ($id) {
+              $q->where('id', '=', $id);
+            });
+        });
+  }
+
   public function getQualifiedNameAttribute() {
     return $this->attributes['name'] . "#" . "[" . $this->team->tag . "]";
   }

@@ -11,6 +11,7 @@
 |
 */
 Route::get('test', function() {
+    
     });
 Route::get('refreshdoges', 'HomeController@refreshdoges');
 Route::get('/', array('as' => 'home', "uses" => 'HomeController@index')); 
@@ -103,14 +104,24 @@ Route::group(array('before' => 'auth|lineup_captain'), function() {
   Route::post('lineup/{id}', array('as' => 'lineup.edit', 'uses' => 'LineupController@edit'));
 	Route::post('team/{id}/addmembers', 'TeamController@add');
 	Route::put('team/evict', array('as' => 'team.evict', 'uses' => "TeamController@evict"));
-	Route::get('/team/{id}/edit', array('as' => 'team.edit', "uses" => "TeamController@edit"));
 	Route::post('lineup/{id}/change_rank', array('as' => 'lineup.change_rank', 'uses' => "LineupController@change_rank"));
+});
+
+Route::group(array('before' => 'auth|lineup_captain_on_team'), function() {
+	Route::get('/team/{id}/edit', array('as' => 'team.edit', "uses" => "TeamController@edit"));
 });
 
 Route::group(array('before' => 'auth|lineup_officer'), function() {
   Route::get('team/{id}/modify', array('as' => 'team.editinfo', "uses" => "TeamController@editinfo"));
 	Route::post('lineup/{id}/add_user', array('as' => 'lineup.add_user', 'uses' => "LineupController@add_user"));
 	Route::post('lineup/{id}/remove_user', array('as' => 'lineup.remove_user', 'uses' => "LineupController@remove_user"));
+});
+
+Route::group(array('before' => 'auth|lineup_officer'), function() {
+  Route::get('tournament/{id}/manage_rosters', array('as' => 'roster.index', 'uses' => 'RosterController@index'));
+  Route::get('roster/create/{match_id}/{lineup_id}', array('as' => 'roster.create',
+      'uses' => 'RosterController@create'));
+  Route::post('roster', array('as' => 'roster.store', 'uses' => 'RosterController@store'));
 });
   
 Route::group(array('before' => 'auth|perm:create_games'), function() {

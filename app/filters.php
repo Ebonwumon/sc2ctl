@@ -107,6 +107,15 @@ Route::filter('lineup_captain', function($route, $request) {
     }
   });
 
+Route::filter('lineup_captain_on_team', function($route, $request) {
+    $team = Team::findOrFail($route->getParameter('id'));
+    /*if (!$lineup->canRename(Sentry::getUser())) {
+      App::abort('401', "You're not Authorized to do that");
+    }*/
+    //Todo
+  });
+
+
 View::composer('index', function($view) {
   $randTeam = Team::orderBy(DB::raw('RAND()'))->take(1)->get();
   $randUser = User::orderBy(DB::raw('RAND()'))->take(1)->get();

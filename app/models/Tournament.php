@@ -63,6 +63,15 @@ class Tournament extends Eloquent {
                 ->lists('name', 'id');
   }
 
+  public function userInTournament($user) {
+    foreach ($user->lineups()->lists('lineup_id') as $lineup_id) {
+      if ($this->teams->contains($lineup_id)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   // Todo what if I want to call this without the context of a user?
   public function isInTournament($id) {
 		$teams = $this->teams->toArray();

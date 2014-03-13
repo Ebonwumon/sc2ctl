@@ -4,7 +4,7 @@ use Cartalyst\Sentry\Users\Eloquent\User as SentryUserModel;
 class User extends SentryUserModel {
 	
 	protected $fillable = array('username', 'password', 'email', 'bnet_url', 'bnet_id', 'bnet_name', 'char_code', 'league', 'img_url', 'team_id');
-
+  protected $hidden = array('password');
 	protected $guarded = array('id');
 		
 	public function notifications() {
@@ -18,6 +18,20 @@ class User extends SentryUserModel {
 	public function team() {
 		return $this->belongsTo('Team');
 	}
+
+  public function lineups() {
+    return $this->belongsToMany('Lineup');
+  }
+
+  public function lineupsForTournament($id) {
+    $tournament = Tournament::findOrFail($id);
+    $ids = $tournament->teams()->lists('lineup_id');
+    return $this->belongsToMany('Lineup')->whereIn('lineup_id', $ids);
+  }
+
+  public function getQualifiedNameAttribute() {
+    return $this->bnet_name . "#" . $this->char_code;
+  }
 
   public static function validates($input) {
     $rules = array(

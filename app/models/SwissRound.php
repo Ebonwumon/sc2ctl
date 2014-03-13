@@ -9,6 +9,10 @@ class SwissRound extends Eloquent {
     return $this->hasMany('Match');
   }
 
+  public function tournament() {
+    return $this->belongsTo('Tournament');
+  }
+
   public function summarize() {
     $summary = array();
     foreach ($this->matches as $match) {

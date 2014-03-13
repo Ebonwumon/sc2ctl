@@ -13,14 +13,31 @@ class Match extends Eloquent {
 		return $this->belongsToMany('Lineup')->orderBy('team_id');
 	}
 
+  public function swissRound() {
+    return $this->belongsTo('SwissRound');
+  }
+
+  public function rosterForLineup($id) {
+    return $this->hasOne('Roster')->where('lineup_id', '=', $id);
+  }
+
 	public function getDates() {
 		return array('created_at', 'updated_at');
 	}
 
+  public function getQualifiedNameAttribute() {
+    return $this->teams->first()->qualified_name . " vs. " . $this->teams->last()->qualified_name;
+  }
+
 	public function getFinishedGames() {
 		return $this->games()->where('winner', '>', 0)->get();
 	}
+  
 
+  public function rosterStatus($lineup_id) {
+    if ($this->rosterForLineup($lineup_id)->count() == 0) return Roster::STATUS_UNSTARTED; 
+  }
+  
   public function canReport($user) {
     // Todo
     return true;
