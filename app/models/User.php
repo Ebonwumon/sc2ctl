@@ -162,7 +162,7 @@ class User extends SentryUserModel {
     if (!$this->team_id) return new Illuminate\Database\Eloquent\Collection;
     
     if ($this->hasAccess('register_team_lineups')) {
-      return Lineup::where('team_id', '=', $this->team_id);
+      return Lineup::where('team_id', '=', $this->team_id)->get();
     }
     if ($this->hasAccess('register_team_lineup')) {
       return Lineup::whereHas('players', function($query) {

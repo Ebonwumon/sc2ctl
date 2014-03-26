@@ -147,7 +147,6 @@ class TournamentController extends \BaseController {
       $errors = array('You do not have authorization to register that lineup in this tournament');
       return Redirect::route('tournament.profile', $tournament->id)->withErrors($errors);
     }
-
     if ($tournament->teams->contains($lineup_id)) {
       $errors = array("That lineup is already registered for this tournament!");
       return Redirect::route('tournament.profile', $tournament->id)->withErrors($errors);
