@@ -7,7 +7,10 @@
     @endif
   </div>
   <br />
-  @if (Sentry::check() && Sentry::getUser()->hasAccess('tournament_signup'))
+  @if (Sentry::check() && Sentry::hasAnyAccess(array(
+                                                      'register_lineups', 
+                                                      'register_team_lineups', 
+                                                      'register_team_lineup')))
     <div class="pure-g-r">
       <div class="pure-u-1-2">
         <?php

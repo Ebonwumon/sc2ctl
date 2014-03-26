@@ -21,13 +21,24 @@ Manage Rosters
           <td>{{ $match->qualified_name }}</td>
           <td>{{ Roster::displayStatus($match->rosterStatus($lineup->id)) }}</td>
           <td>
-            @if ($match->rosterStatus($lineup->id) == Roster::STATUS_UNSTARTED)
+            <?php $roster_status = $match->rosterStatus($lineup->id); ?>
+            @if ($roster_status == Roster::STATUS_UNSTARTED)
               <a href="{{ URL::route('roster.create', 
                             array('match_id' => $match->id, 'lineup_id' => $lineup->id)) }}"
                  class="pure-button pure-button-good">
                 Create
               </a>
-            @endif
+            @elseif ($roster_status == Roster::STATUS_UNCONFIRMED)
+              <a href="{{ URL::route('roster.edit',
+                                     Roster::getIdFromMatchLineup($match->id, $lineup->id)) }}"
+                                     class="pure-button pure-button-primary">
+                Edit
+              </a>
+            @else
+              <a href="{{ URL::route('match.profile', $match->id) }}" class="pure-button pure-button-primary">
+                View Roster
+              </a>
+            @endif 
           </td>
         </tr>
       @endforeach

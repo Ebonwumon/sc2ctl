@@ -96,7 +96,8 @@ function bindRemoteActions() { //TODO refactor for more general case
 				bindRemoteCallback(obj);
 			},
 			error: function(jqxhr) {
-				console.log(jqxhr);
+				alert("There was an error! " + jqxhr.responseJSON.error.message);
+        console.log(jqxhr);
 				// TODO handle	
 			}
 		});

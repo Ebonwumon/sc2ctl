@@ -91,7 +91,39 @@ Route::filter('perm', function($route, $request, $value) {
       }
     }
 });
+Route::filter('register_lineup', function($route, $request) {
+  $lineup_id = Input::get('lineup_id');
+  if (!Sentry::getUser()->registerableLineups()->contains($lineup_id)) {
+    App::abort('401', "You're not authorized to do that");
+  }
+  
+});
+Route::filter('can_report', function($route, $request, $value) {
+  if ($value == "match") {
+    $obj = Match::findOrFail($route->getParameter('id'));
+  } else if ($value == "game") {
+    $obj = Game::findOrFail($route->getParameter('id'));
+  }
+  if (!$obj->canReport(Sentry::getUser())) {
+    App::abort('401', "You're not Authorized to do that");
+  }
+});
 
+Route::filter('remove_member', function($route, $request) {
+  $team = Team::findOrFail($route->getParameter('id'));
+  if(!$team->canRemoveMembers(Sentry::getUser())) {
+    if (!Input::get('user_id') == Sentry::getUser()->id) {
+      App::abort('401', "You're not Authorized to do that");
+    }
+  }
+});
+
+Route::filter('change_rank', function($route, $request) {
+  $lineup = Lineup::findOrFail($route->getParameter('id'));
+  if (!$lineup->canChangeRanks(Sentry::getUser())) {
+    App::abort('401', "You're not Authorized to do that"); 
+  }
+});
 Route::filter('is_user', function($route, $request) {
     if(!Sentry::getUser()->hasAccess('edit_profiles')) {
       if (Sentry::getUser()->id != $route->getParameter('id')) {
@@ -128,12 +160,6 @@ View::composer('team/profile', function($view) {
   if (!isset($view['edit'])) {
     $view->with('edit', false);
   } else {
-    $select = array();
-
-    foreach ($view['team']->members as $member) {
-      $select[$member->id] = $member->bnet_name . "#" . $member->char_code;
-    }
-    $view->with('select', $select);
   }
 });
 View::composer(array('team/profileCardPartial', 'team/lineup/profileCardPartial'), function($view) {
@@ -142,8 +168,15 @@ View::composer(array('team/profileCardPartial', 'team/lineup/profileCardPartial'
     }
 });
 
+View::composer(array('team/lineupPartial'), function($view) {
+  $view->with('select', $view['lineup']->team->availablePlayers()->lists('qualified_name', 'id'));   
+});
+
 View::composer(array('match/matchCardPartial'), function($view) {
   $score = $view['match']->score();
+  while(count($score) < 2) {
+    $score['NULL#' . uniqid()] = array('wins' => 0, 'losses' => 0, 'id' => 0, 'won' => false);
+  }
   $view->with('matchScore', $score);
   $view->with('keys', array_keys($score));
 
@@ -159,6 +192,14 @@ View::composer('user/profileCardPartial', function($view) {
 
     if (!isset($view['dispCharcode'])) {
       $view->with('dispCharcode', true);
+    }
+
+    if (!isset($view['win'])) {
+      $view->with('win', false);
+    }
+
+    if(!isset($view['loss'])) {
+      $view->with('loss', false);
     }
 });
 

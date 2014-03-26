@@ -20,7 +20,7 @@ class User extends SentryUserModel {
 	}
 
   public function lineups() {
-    return $this->belongsToMany('Lineup');
+    return $this->belongsToMany('Lineup')->withPivot("role_id");
   }
 
   public function lineupsForTournament($id) {
@@ -29,20 +29,65 @@ class User extends SentryUserModel {
     return $this->belongsToMany('Lineup')->whereIn('lineup_id', $ids);
   }
 
+  public function lineupsForMatch($id) { 
+    return $this->belongsToMany('Lineup')->whereHas('matches', function($query) {
+          $query->wherePivot('match_id', '=', $id);
+        }); 
+  }
+
   public function getQualifiedNameAttribute() {
     return $this->bnet_name . "#" . $this->char_code;
   }
 
+  public function recalculateGroups() {
+    $groups = $this->getGroups();
+    $team_owner = Team::where('user_id', '=', $this->id)->count();
+    if ($team_owner) {
+      try {
+        $owner_group = Sentry::findGroupById(Role::TEAM_OWNER);
+        if (!$this->inGroup($owner_group)) {
+          $this->addGroup($owner_group);
+        }
+      } catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e) {
+        //TODO should probably do something
+      }
+    }
+
+    $unmovable_groups = $this->groups()->where('persistent', '=', false)->get();
+    foreach ($unmovable_groups as $ugroup) {
+      $this->removeGroup($ugroup);
+    }
+
+    $role_pivots = $this->lineups()->lists('role_id');
+    if (in_array(Role::CAPTAIN, $role_pivots)) $new_group = Role::CAPTAIN;
+    else if (in_array(Role::OFFICER, $role_pivots)) $new_group = Role::OFFICER;
+    else if (in_array(Role::MEMBER, $role_pivots)) $new_group = Role::MEMBER;
+    else return;
+    
+    switch($new_group) {
+      case Role::CAPTAIN: 
+        $group = Sentry::findGroupById(Role::CAPTAIN);
+        $this->addGroup($group);
+      case Role::OFFICER:
+        $group = Sentry::findGroupById(Role::OFFICER);
+        $this->addGroup($group);
+      case Role::MEMBER: 
+        $group = Sentry::findGroupById(Role::MEMBER);
+        $this->addGroup($group);
+        break;
+    }
+  }
+
   public static function validates($input) {
     $rules = array(
-      'username' => 'required|alpha_dash|between:3,80|unique:users',
-      'email' => 'email|unique:users|required',
-      'bnet_name' => 'required|alpha_num|between:3,80',
-      'bnet_id' => 'required|numeric|unique:users',
-      'char_code' => 'required|numeric',
-      'league' => 'required|in:Bronze,Silver,Gold,Platinum,Diamond,Master,Grandmaster',
-      'bnet_url' => 'required|url',
-      'password' => 'required|confirmed',
+      'username' => 'sometimes|required|alpha_dash|between:3,80|unique:users',
+      'email' => 'sometimes|email|unique:users|required',
+      'bnet_name' => 'sometimes|required|alpha_num|between:3,80',
+      'bnet_id' => 'sometimes|required|numeric|unique:users',
+      'char_code' => 'sometimes|required|numeric',
+      'league' => 'sometimes|required|in:Bronze,Silver,Gold,Platinum,Diamond,Master,Grandmaster',
+      'bnet_url' => 'sometimes|required|url',
+      'password' => 'sometimes|required|confirmed',
         );
     return Validator::make($input, $rules);
   }
@@ -109,20 +154,54 @@ class User extends SentryUserModel {
 		$this->save();
 	}
 
+  public function registerableLineups() {
+    if ($this->hasAccess('register_lineups')) {
+      return Lineup::all();
+    }
+    // Only team-based access remaining, if user is not on a team, return
+    if (!$this->team_id) return new Illuminate\Database\Eloquent\Collection;
+    
+    if ($this->hasAccess('register_team_lineups')) {
+      return Lineup::where('team_id', '=', $this->team_id);
+    }
+    if ($this->hasAccess('register_team_lineup')) {
+      return Lineup::whereHas('players', function($query) {
+            $query->where('user_id', '=', $this->id);
+          })->get();
+    }
+
+  }
+  
   public function listAccess($asset) {
     switch ($asset) {
       case "Lineup": 
         if ($this->hasAccess('register_lineups')) {
-          return Lineup::lists('name', 'id');
+          return Lineup::get()->lists('qualified_name', 'id');
         }
         // Only team-based access remaining, if user is not on a team, return
         if (!$this->team_id) return array();
         
         if ($this->hasAccess('register_team_lineups')) {
-          return Lineup::where('team_id', '=', $this->team_id)->lists('name', 'id');
+          return Lineup::where('team_id', '=', $this->team_id)->get()->lists('qualified_name', 'id');
         }
         if ($this->hasAccess('register_team_lineup')) {
-          return Lineup::wherePivot('user_id', '=', $this->id)->lists('name', 'id');
+          return Lineup::whereHas('players', function($query) {
+                $query->where('user_id', '=', $this->id);
+              })->get()->lists('qualified_name', 'id');
+        }
+      break;
+
+      case "Lineup-Report":
+        if ($this->hasAccess('report_matches')) {
+          return Lineup::lists('id');
+        }
+        if (!$this->team_id) return array();
+        if ($this->hasAccess('report_team_matches')) {
+          return Lineup::where('team_id', '=', $this->team_id)->lists('id');
+        }
+
+        if ($this->hasAccess('report_team_match')) {
+          return Lineup::wherePivot('user_id', '=', $this->id)->lists('id');
         }
       break;
     }
@@ -140,7 +219,10 @@ class User extends SentryUserModel {
 	static function getAll() {
 		return DB::table('users')->lists('id');
 	}
-
+  
+  static function listTeamless() {
+    return User::where('team_id', '=', 0)->get()->lists('qualified_name', 'id');
+  }
   static function listAll() {
     $list = array();
     $users = DB::table('users')->select('id', 'bnet_name', 'char_code')->get();

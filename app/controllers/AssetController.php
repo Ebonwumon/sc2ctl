@@ -2,18 +2,21 @@
 
 class AssetController extends \BaseController {
 
-	public function uploadReplay($gid) {
-		if (!Input::hasFile('replay'))
+	public function uploadReplay($id) {
+		$game = Game::findOrFail($id);
+		if (!Input::hasFile('replay')) {
 			return Response::json(array("status" => 1, "message" => "You didn't upload a replay"));
-		
+	  }
+
 		$file = Input::file('replay');
 		$data = base64_encode(file_get_contents($file->getRealPath()));
 		if (!$data) {
 			return Response::json(array('status' => 1, "message" => "Error encoding replay"));
 		}
+
 		$post = array("fileName" => Input::file('replay')->getClientOriginalName(),
 		              "fileContent" => $data,
-					  "token" => Config::get('app.ggtrackertoken'));
+					        "token" => Config::get('app.ggtrackertoken'));
 		
 		$ch = curl_init("http://ggtracker.com/replays/drop");
 		curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -31,11 +34,11 @@ class AssetController extends \BaseController {
 		$uploadResult = new SimpleXMLElement($response);
 		$replayUrl = (string)$uploadResult->replayUrl;
 
-		$game = Game::find($gid);
-		$game->replay_url = $replayUrl;
+		
+    $game->replay_url = $replayUrl;
 		$game->save();
 	
-		$url_array = explode("/", $replayUrl);
+		/*$url_array = explode("/", $replayUrl);
 		$match_id = $url_array[count($url_array) -1];
 		$url = "http://api.ggtracker.com/api/v1/matches/" . $match_id . ".json";
 		sleep(4);
@@ -65,7 +68,9 @@ class AssetController extends \BaseController {
 		}
 
 		return Response::json(array('status' => 3, 
-		                            'replay_url' => $replayUrl, 'message' => 'Please ensure this information is correct'));
+		                            'replay_url' => $replayUrl, 'message' => 'Please ensure this information is correct'));*/
+
+    return Response::json(array('status' => 0));
 	}
 	
 	public function uploadProfileImage($id) {

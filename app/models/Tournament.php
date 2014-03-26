@@ -47,7 +47,10 @@ class Tournament extends Eloquent {
 
 		return $arr;
 	}
-
+  
+  /**
+    Filters the array
+   */
   public function filterEnrolledLineups($lineup_arr, $inverse = false) {
     if (count($lineup_arr) == 0) return array();
     
@@ -100,6 +103,7 @@ class Tournament extends Eloquent {
         $match->swiss_round_id = $swiss_round->id;
         $match->save();
         $match->teams()->sync(array(array_pop($teams)['id'], array_pop($teams)['id']));
+        $match->generateGames();
       }
       if ($odd) {
         // We have an odd number of teams, so we'll need to generate a bye

@@ -19,7 +19,7 @@ Tournament Profile
         <span class="splash-subhead" style="font-size: 150%; font-weight:bold;">Winner:</span><br/>
         @include('team/profileCardPartial', array('team' => Team::find($tournament->winner)))
       @endif
-      @if (Sentry::check() && $tournament->userInTournament(Sentry::getUser()))
+      @if (Sentry::check() && $tournament->phase > 0 && $tournament->userInTournament(Sentry::getUser()))
         <a href="{{ URL::route('roster.index', $tournament->id) }}" 
            class="pure-button pure-button-large pure-button-primary">
           Manage Roster Submissions

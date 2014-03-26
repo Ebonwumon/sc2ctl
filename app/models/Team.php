@@ -1,7 +1,16 @@
 <?php
 class Team extends Eloquent { 
 
-	protected $fillable = array('name', 'user_id', 'contact', 'img_url', 'tag');
+	protected $fillable = array('name', 
+                              'user_id', 
+                              'img_url', 
+                              'tag',
+                              'description',
+                              'social_fb',
+                              'social_twitter',
+                              'social_twitch',
+                              'website',
+                              );
 	protected $guarded = array('id');
 
 	public function user() {
@@ -11,6 +20,20 @@ class Team extends Eloquent {
 	public function members() {
 		return $this->hasMany('User');
 	}
+
+  public function getQualifiedNameAttribute() {
+    return "[" . $this->tag . "] " . $this->name;
+  }
+
+  public function availablePlayers() {
+    $players = new Illuminate\Database\Eloquent\Collection;
+    foreach ($this->members as $player) {
+      if ($player->lineups()->count() == 0) {
+        $players->add($player);
+      }
+    }
+    return $players;
+  }
 
 	public function lineups() {
 		return $this->hasMany('Lineup');
@@ -35,6 +58,57 @@ class Team extends Eloquent {
 
 		return false;
 	}
+
+  public function canEditTeam($user) {
+    if ($user->hasAccess('edit_teams')) return true;
+
+    //requires team
+    if (!$user->team_id) return false;
+    if ($user->hasAccess('edit_team')) {
+      return ($user->team_id == $this->id);
+    }
+  }
+  
+  public function canAddMembers($user) {
+    if ($user->hasAccess('add_members')) return true;
+
+    //requires team
+    if (!$user->team_id) return false;
+    if ($user->hasAccess('add_team_members')) {
+      return ($user->team_id == $this->id);
+    }
+  }
+
+  public function canRemoveMembers($user) {
+    if ($user->hasAccess('remove_members')) return true;
+
+    //requires team
+    if (!$user->team_id) return false;
+    if ($user->hasAccess('remove_team_members')) {
+      return ($user->team_id == $this->id);
+    }
+  }
+  
+  public function canCreateLineups($user) {
+    if ($user->hasAccess('create_lineups')) return true;
+
+    //requires team
+    if (!$user->team_id) return false;
+    if ($user->hasAccess('create_team_lineups')) {
+      return ($user->team_id == $this->id);
+    }
+  }
+
+  public function canEditLineups($user) {
+    if ($user->hasAccess('edit_lineups')) return true;
+
+    //requires team
+    if (!$user->team_id) return false;
+    if ($user->hasAccess('edit_team_lineups') || $user->hasAccess('edit_team_lineup')) {
+      return ($user->team_id == $this->id);
+    }
+  }
+
 
   public function playerSelect() {
     $list = array();
@@ -66,4 +140,17 @@ class Team extends Eloquent {
 		$team->id = 0;
 		return $team;
 	}
+
+  public static function validate($input) {
+    $rules = array(
+        'name' => 'sometimes|Required|unique:teams|Between:3,128',
+        'tag' => 'sometimes|Required|unique:teams|Between:3,6|alpha',
+        'social_fb' => 'sometimes|url',
+        'social_twitter' => 'sometimes|url',
+        'social_twitch' => 'sometimes|url', 
+        'website' => 'sometimes|url'
+        );
+
+    return Validator::make($input, $rules);
+  }
 }

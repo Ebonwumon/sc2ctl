@@ -104,10 +104,36 @@ class GameController extends \BaseController {
 	}
 
 	public function report($id) {
-		$game = Game::find($id);
+		$game = Game::findOrFail($id);
+    if (!Input::has('winner') || Input::get('winner') == null) {
+      $errors = array('You must select a winner');
+      return Redirect::route('match.report', $game->match->id)->withErrors($errors);
+    }
+
+    if (Input::has('is_default') && Input::get('is_default') != null) {
+      $game->is_default = true;
+      $game->save();
+    }
+
+    if (Input::has('loser') && Input::get('loser') != null) {
+      if (Input::get('winner') == Input::get('loser')) {
+        $errors = array("The winner and loser cannot be the same");
+        return Redirect::route('match.report', $game->match->id)->withErrors($errors);
+      }
+
+      // Assumption, a user can only be a on a single lineup
+      $winner = User::findOrFail(Input::get('winner'));
+      $loser = User::findOrFail(Input::get('loser'));
+      if ($winner->lineups->first()->id == $loser->lineups->first()->id) {
+        $errors = array("The winner and loser cannot be on the same Lineup");
+        return Redirect::route('match.report', $game->match->id)->withErrors($errors);
+      }
+
+      $game->match->registerAce($winner, $loser);
+    }
 		$game->reportWinner(Input::get('winner'));
 		
-		return Response::json(array('status' => 0));
-	}
+	  return Redirect::route('match.report', $game->match->id);
+  }
 
 }

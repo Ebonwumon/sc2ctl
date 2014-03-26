@@ -48,7 +48,7 @@ class MatchController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$match = Match::find($id);
+		$match = Match::findOrFail($id);
 		
 		return View::make('match/profile', array('match' => $match));
 	}
@@ -117,6 +117,30 @@ class MatchController extends \BaseController {
 	{
 		//
 	}
+
+  public function report($id) {
+    $match = Match::findOrFail($id);
+    $lineups = $match->teams;
+    
+    foreach ($lineups as $lineup) {
+      if (!$match->canReport(Sentry::getUser())) continue;
+
+      $roster_status = $match->rosterStatus($lineup->id);
+      if ($roster_status == Roster::STATUS_UNSTARTED) {
+        return Redirect::route('roster.create', array('match_id' => $match->id, 
+                                                      'lineup_id' => $lineup->id))
+                              ->withErrors(array("You must create a roster for this match first"));
+      }
+
+      if ($roster_status == Roster::STATUS_UNCONFIRMED) {
+        return Redirect::route('roster.edit', Roster::getIdFromMatchLineup($match->id, $lineup->id))
+                              ->withErrors(array("You must confirm this roster first"));
+
+      }
+    }
+    
+    return View::make('match/report', array('match' => $match));
+  }
 	
 	public function wizard($id, $gno = 1) {
 		$match = Match::find($id);

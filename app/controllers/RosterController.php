@@ -38,6 +38,7 @@ class RosterController extends \BaseController {
     $match_id = Input::get('match_id');
     $lineup_id = Input::get('lineup_id');
     $confirmed = (Input::get('confirmed') != null);
+    $match = Match::findOrFail($match_id);
 
     if (count(array_unique($user_ids)) < count($user_ids)) {
       $errors = array("You are not allowed to play the same player twice");
@@ -45,7 +46,24 @@ class RosterController extends \BaseController {
                                                     'lineup_id' => $lineup_id))
           ->withInput()->withErrors($errors);
     }
-	  dd(Input::all());	
+   
+    $roster = new Roster;
+    $roster->match_id = $match_id;
+    $roster->lineup_id = $lineup_id;
+    $roster->confirmed = $confirmed;
+    $roster->save();
+
+    $i = 1;
+    foreach ($user_ids as $user_id) {
+      $entry = new RosterEntry;
+      $entry->player_id = $user_id;
+      $entry->map = $i;
+      $entry->roster_id = $roster->id;
+      $entry->save();
+
+      $i++;
+    }
+    return Redirect::route('roster.index', $match->tournament->id); 
 	}
 
 	/**
@@ -67,8 +85,20 @@ class RosterController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
-	}
+	  $roster = Roster::findOrFail($id);
+    if ($roster->confirmed) {
+      $errors = array("You cannot edit a confirmed roster");
+      return Redirect::route('roster.index', $roster->match->tournament->id)->withErrors($errors);
+    }
+    $player_list = array();
+    foreach ($roster->entries as $entry) {
+      $player_list[$entry->player->id] = $entry->player->qualified_name;
+    }
+    if (count($player_list) == 0) {
+      $player_list = $roster->lineup->players->lists('qualified_name', 'id');
+    }
+    return View::make('roster/edit', array('roster' => $roster, 'player_list' => $player_list));
+  }
 
 	/**
 	 * Update the specified resource in storage.
@@ -78,7 +108,28 @@ class RosterController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+    $roster = Roster::findOrFail($id);
+    if ($roster->confirmed) {
+      $errors = array("You cannot edit a confirmed roster");
+      return Redirect::route('roster.index', $roster->match->tournament->id)->withErrors($errors);
+    }
+    $user_ids = Input::get('user_id');
+
+    if (count(array_unique($user_ids)) < count($user_ids)) {
+      $errors = array("You are not allowed to play the same player twice");
+      return Redirect::route('roster.edit', $roster->id)->withErrors($errors);
+    }
+   
+    $i = 0;
+    foreach ($roster->entries as $entry) {
+      $entry->player_id = $user_ids[$i];
+      $entry->save();
+      $i++;
+    }
+    $roster->confirmed = (Input::get('confirmed') != null);
+    $roster->save();
+
+    return Redirect::route('match.profile', $roster->match_id);
 	}
 
 	/**

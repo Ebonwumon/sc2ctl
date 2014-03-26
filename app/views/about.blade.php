@@ -24,11 +24,20 @@ About the League
 					and every team involved will play a minimum of six weeks
 				</h2>
 				<p>
-					@if (Auth::check())
-					<a href="{{ URL::route('team.create') }}" class="pure-button pure-button-primary pure-button-large">Register a Team</a>
-					@else
+					@if (Sentry::check())
+					<a href="{{ URL::route('team.create') }}" 
+             class="pure-button pure-button-primary pure-button-large">
+            Register a Team
+          </a>
+         	@else
 					<a href="{{ URL::route('user.register') }}" class="pure-button pure-button-primary pure-button-large">Register Now</a>
 					@endif
+          <br />
+          <a href="{{ URL::route('help') }}"
+             class="pure-button pure-button-secondary pure-button-large">
+            Help
+          </a>
+
 				</p>
 			</div>
 		</div>
@@ -70,8 +79,9 @@ About the League
         while adding an extra competitive element: if one practices the unique maps
         and their opponent does not, one might get the upper hand!
       </p>
+
       <strong>
-        Map pool for Season 2 is TBD currently
+        Map pools change each week and will be updated here. 
       </strong>
 		</div>
 	</div>
@@ -85,31 +95,31 @@ About the League
 			</thead>
 			<tr>
 				<td>1</td>
-				<td>TBD</td>
+				<td>Habitation Station LE</td>
 			</tr>
 			<tr>
 				<td>2</td>
-				<td>TBD</td>
+				<td>Yeonsu LE</td>
 			</tr>
 			<tr>
 				<td>3</td>
-				<td>TBD</td>
+				<td>ESV Sanctuary</td>
 			</tr>
 			<tr>
 				<td>4</td>
-				<td>TBD</td>
+				<td>Heavy Rain LE</td>
 			</tr>
 			<tr>
 				<td>5</td>
-				<td>TBD</td>
+				<td>Polar Night LE</td>
 			</tr>
 			<tr>
 				<td>6</td>
-				<td>TBD</td>
+				<td>Frost LE</td>
 			</tr>
 			<tr>
 				<td>7</td>
-				<td>TBD</td>
+				<td>Gwangalli Beach</td>
 			</tr>
 		</table>
 	</div>
@@ -119,17 +129,25 @@ About the League
 <div class="splash about">	
 	<div class="pure-u-1">
 		<h2 style="display:inline;">Prizes</h2>
-			<span class="splash-subhead">Awaiting on sponsorship</span>
-		</h2>
+	  <span class="splash-subhead">provided by MYTHLOGIC.COM</span>
 		<br />
     <p>
       SC2CTL does its best to provide the community with the best possible prizes to award
       the considerable dedication that we see every team put in every week. This prizing
-      is only made possible through the generousity of our sponsors.
+      is only made possible through the generousity of our sponsors. This season, MYTHLOGIC computers has
+      signed on to afford every Starcraft II Community team the opportunity to play in a competitive environment.
     </p>
-    <strong>
-      Prizes for Season 2 are still TBD and should be announced before the start date
-    </strong>
+    <strong>SC2CTL Competitive</strong>
+    $400/$200/$100 (for first, second and third respectively)
+    <br />
+    <strong>SC2CTL Advanced</strong>
+    $50/$20 (for first and second respectively)
+    <br />
+    <strong>SC2CTL Casual</strong>
+    $20 (for first place)
+    <br />
+    <br />
+    <strong>Other prizes will be made available at a later date for all participants!</strong>
   </div>
 </div>
 
@@ -140,84 +158,49 @@ About the League
 	<div class="pure-u-1-3">
 		<h3>Replays with GGTracker</h3>
 		<p class="feature">
-			Reporting of every match in the league is done automatically. You upload your replay, which is then processed by
-			<a href="http://ggtracker.com">GGTracker</a> to determine players and winners. All members of every team can take
-			advantage of this incredible tool to drastically improve their play before the playoffs!
-		</p>
+	    All replays for matches are uploaded to <a href="http://ggtracker.com">GGTracker</a>
+      which allows for every team to easily track their progress and make improvements
+      to their game throughout the season. It also allows us to perform interesting statistics
+      like programmatically determining improvement.
+    </p>
 	</div>
 	<div class="pure-u-1-3">
-		<h3>Scheduling</h3>
+		<h3>Format</h3>
 		<p class="feature">
-			Every match contains a reference to a <a href="http://doodle.com">Doodle</a> schedule that can be filled out
-			by the members of both participating teams. This makes co-ordinating matches, even across timezones a breeze.
-		</p>
+      Every part of the format, from proleague matches to Swiss Rounds, is designed to
+      allow for every member of each team to participate in the maximum number of games
+      possible throughout the league before being eliminated.
+    </p>
 	</div>
 	<div class="pure-u-1-3">
 		<h3>Autopilot</h3>
 		<p class="feature">
-			The site required minimal admin intervention in the league, except to advance to playoffs, and resolve conflicts.
-			That means that there's no waiting on admins to update groups and brackets, just you and your teams playing
-			Starcraft II.
+			The site required minimal admin intervention in the league, except to advance to 
+      playoffs, and resolve conflicts. That means that there's no waiting on admins to 
+      update results and brackets, just you and your teams playing Starcraft II.
 		</p>
 	</div>
 </div>
 
-<div class="splash about">	
-	<div class="pure-u-1">
-		<h2>Rules</h2>
-	</div>
-	<div class="pure-u-1-4">
-		<h3>Rosters</h3>
-		<ul class="feature">
-			<li>Must have a minimum of five members</li>
-			<li>The highest ranked member must be less than or equal to the division a team enters, at time of registration</li>
-		</ul>
-		<h3>Conduct</h3>
-		<ul class="feature">
-			<li>No team must engage in excessive BM or personal attacks. Frustration at a loss is fine, but you must respect the
-				other team, no exceptions</li>
-			<li>You must respect the admins discretion on this issue. You will recieve at least one warning before being removed,
-				so you will know where the line is. Please don't cross it.
-			</li>
-			<li>A minimum of sixty (60) percent of your team must have fun, or else you're disqualified.</li>
-		</ul>
-	</div>
-	
-	<div class="pure-u-1-4">
-		<h3>Timeliness</h3>
-		<p class="feature">
-			Teams must have their match played by the posted due dates on the bracket. If one team no-shows, they will recieve a DQ
-			for that round (and if the round is playoffs, they're eliminated). If both teams are no-shows, we will use a 
-			pseudorandom number generator to determine the result of each game.
-		</p>
-		<p class="feature">
-			No shows are defined as: Not showing up to a scheduled match or not making an effort to schedule a match.
-		</p>
-		<p class="feature">
-			We recognize scheduling is hard. If you can't make the deadline, but have a resolution for the near future, contact
-			an admin. We'll work something out, admins want to do everything they can to make sure the 60% rule is honoured.
-		</p>
-	</div>
-	
-	<div class="pure-u-1-2">
-		<h3>Miscellaneous rules</h3>
-		<ul>
-			<li><strong><a href="https://twitter.com/wilw/status/5966220832">Wheatons Law</a> is in Full Effect</strong></li>
-			<li>If players become unavailable mid-match and you run out, you lose the rest of your matches. You can reschedule
-				the remainder of the matches for another time before the due date, only if the the other team agrees to it.
-			</li>
-			<li>The team captains are always allowed to observe games. If the team captain is playing, he may appoint an observer.
-				Other players are allowed to observe, only if both teams agree to it.
-			</li>
-			<li>Streaming is allowed. If you are caught streamcheating or ghosting, you will be immediately removed from the league,
-				and banned from participating in any subsequent seasons.
-			</li>
-			<li>Matches will have a starting map, and from there it will be loser-chooses from the map pool. Each map may only be played
-				once.</li>
-			<li>Zerg is IMBA, Hellbats are OP, Protoss EZ A-Move Race</li>
-		</ul>
-	</div>
-</div>		
+  <div class="splash about">	
+    <div class="pure-u-1">
+      <h2>Rules</h2>
+    </div>
+    <div class="pure-u-2-3">
+      <p>
+        SC2CTL is a fun league, which is run mostly on the principle of <a href="https://twitter.com/wilw/status/5966220832">Wheaton's Law</a>.
+        In general if you have a rules question, a good way to figure out the answer is to ask yourself: "is what I'm about to do promoting
+        the spirit of having a fun and enjoyable experience for all". If yes, you're likely good. But you should still probably read the full
+        rules anyway. Just to be sure. And cultural differences. And stuff.
+      </p>
+    </div>
+    <div class="pure-u-1-3">
+      For more information read the:<br />
+      <a href="{{ URL::route('home.rules') }}" class="pure-button pure-button-primary pure-button-large">
+        Full Rules
+      </a>
+    </div>
+  </div>		
 		
 </div>
 

@@ -11,22 +11,39 @@ class Game extends Eloquent {
 	}
 
   public function players() {
-    return $this->belongsToMany('User')->withPivot('team_id')->orderBy('game_user.team_id');
+    $game_ids = $this->match->games->lists('id');
+    $map = array_search($this->id, $game_ids);
+    if ($map === FALSE || !$this->match->rostersComplete()) return $this->match->players();
+    $map = $map + 1; 
+    $rosters = $this->match->rosters;
+    $players = new Illuminate\Database\Eloquent\Collection;
+    foreach ($rosters as $roster) {
+      $entries = $roster->entries()->where('map', '=', $map);
+      if ($entries->count() == 0) continue;
+      $players->add($roster->entries()->where('map', '=', $map)->first()->player);
+    }
+    if ($players->count() == 0) return $this->match->players();
+    return $players;
   }
+  /*public function players() {
+    return $this->belongsToMany('User')->withPivot('team_id')->orderBy('game_user.team_id');
+  }*/
 
   public function opponent($id) {
-    if ($this->player1 == $id) return User::find($this->player2);
-    if ($this->player2 == $id) return User::find($this->player1);
+    if ($this->players->first()->id == $id) return $this->players->last();
+    if ($this->players->last()->id == $id) return $this->players->first();
   }
 
   public function getWinner() {
     return $this->belongsTo('User', 'winner');
   }
 
-  // TODO untested
-  public function getWinningTeam() {
-    $team_id = $this->players()->wherePivot('user_id', '=', $this->winner)->pivot->team_id;
-    return $team_id;
+  public function winningLineup() {
+    $teams = $this->match->teams()->whereHas('players', function($query) {
+          $query->withTrashed()->where('user_id', '=', $this->winner);
+        });
+    if ($teams->count() > 1) throw new Exception('Player is playing for multiple lineups');
+    return $teams;
   }
 
 	public function map() {
@@ -48,7 +65,8 @@ class Game extends Eloquent {
 			}
 		}
 	}
-
+  
+  /*
 	public function setActives($bnet_ids) {
 		$teams = $this->match->teams()->get();
 		$user1 = $teams->first()->userInList($bnet_ids);
@@ -61,6 +79,10 @@ class Game extends Eloquent {
 		$this->player2 = $user2;
 		$this->save();
 		return true;
-	}
+	}*/
+
+  public function canReport($user) {
+    return $this->match->canReport($user);
+  }
 
 }

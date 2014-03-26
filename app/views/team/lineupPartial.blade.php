@@ -3,10 +3,22 @@
 		<tr>
 			<th colspan="3">
         @if($edit)
-          <input type="text" name="lineup_name" 
-                 data-lineup-id="{{ $lineup->id }}" 
-                 data-action-url="{{ URL::route('lineup.edit', $lineup->id) }}"
-                 value="{{ $lineup->name }}" />
+          @if ($lineup->canRename(Sentry::getUser()))
+            {{ Form::open(array('route' => array('lineup.update', $lineup->id), 'class' => 'inline-form')) }}
+              <input type="text" name="name" 
+                     value="{{ $lineup->name }}" />
+              <input type="submit" class="pure-button pure-button-small pure-button-good" value="Change" />
+            {{ Form::close() }}
+          @else
+            {{ $lineup->name }}
+          @endif
+          @if ($lineup->canRemoveMembers(Sentry::getUser()))
+            {{ Form::open(array('route' => array('lineup.delete', $lineup->id), 
+                                'method' => "delete", 
+                                'class' => "inline-form")) }}
+              <input type="submit" class="pure-button pure-button-small pure-button-bad" value="Delete" />
+            {{ Form::close() }}
+          @endif
         @else
           {{ $lineup->name }}
         @endif
@@ -24,28 +36,32 @@
 			</td>
 			<td>
 				@if ($edit)
-					<button data-role-id="{{ Role::CAPTAIN }}" data-user-id="{{ $player->id }}" 
-							data-remote-url="{{ URL::route('lineup.change_rank', $lineup->id) }}"
-							class="remoteAction pure-button pure-button-small @if($player->pivot->role_id == Role::CAPTAIN) selected @endif">
-						C
-					</button>
-					<button data-role-id="{{ Role::OFFICER }}" data-user-id="{{ $player->id }}" 
-							data-remote-url="{{ URL::route('lineup.change_rank', $lineup->id) }}"
-							class="remoteAction pure-button pure-button-small @if($player->pivot->role_id == Role::OFFICER) selected @endif">
-						O
-					</button>
-					<button data-role-id="{{ Role::MEMBER }}" data-user-id="{{ $player->id }}" 
-							data-remote-url="{{ URL::route('lineup.change_rank', $lineup->id) }}"
-							class="remoteAction pure-button pure-button-small @if($player->pivot->role_id == Role::MEMBER) selected @endif">
-						M
-					</button>
-					<button data-user-id="{{ $player->id }}"
-							data-remote-url="{{ URL::route('lineup.remove_user', $lineup->id) }}"
-							class = "remoteAction delete pure-button-bad pure-button-small pure-button">
-						X
-					</button>
+          @if($lineup->canChangeRanks(Sentry::getUser()))
+            <button data-role-id="{{ Role::CAPTAIN }}" data-user-id="{{ $player->id }}" 
+                data-remote-url="{{ URL::route('lineup.change_rank', $lineup->id) }}"
+                class="remoteAction pure-button pure-button-small @if($player->pivot->role_id == Role::CAPTAIN) selected @endif">
+              C
+            </button>
+            <button data-role-id="{{ Role::OFFICER }}" data-user-id="{{ $player->id }}" 
+                data-remote-url="{{ URL::route('lineup.change_rank', $lineup->id) }}"
+                class="remoteAction pure-button pure-button-small @if($player->pivot->role_id == Role::OFFICER) selected @endif">
+              O
+            </button>
+            <button data-role-id="{{ Role::MEMBER }}" data-user-id="{{ $player->id }}" 
+                data-remote-url="{{ URL::route('lineup.change_rank', $lineup->id) }}"
+                class="remoteAction pure-button pure-button-small @if($player->pivot->role_id == Role::MEMBER) selected @endif">
+              M
+            </button>
+          @endif
+          @if ($lineup->canRemoveMembers(Sentry::getUser()))
+            <button data-user-id="{{ $player->id }}"
+                data-remote-url="{{ URL::route('lineup.remove_user', $lineup->id) }}"
+                class = "remoteAction delete pure-button-bad pure-button-small pure-button">
+              X
+            </button>
+          @endif
 				@else
-					{{ Role::find($player->pivot->role_id)->name }}
+					{{ Role::find($player->pivot->role_id) }}
 				@endif
 				
 			</td>
@@ -87,13 +103,14 @@ $(document).ready(function() {
     $.ajax({
       url: $(obj).data('action-url'),
       type: "POST",
-      data {
+      data: {
         name: $(obj).val()
       },
       success: function(data) {
         console.log(data);
       }, 
       error: function(jqxhr) {
+        alert("There was an error");
         console.log(jqxhr);
       }
     });

@@ -5,20 +5,31 @@ Edit Team Info
 @stop
 
 @section('content')
-<div class="padded-content">
-	<h2>Modify Team Info</h2>
-<script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
-<script type="text/javascript">
-	tinymce.init({
-		plugins: "link",
-		selector: "textarea",
-		toolbar: "undo redo | bold italic | link",
-		menubar: false,
-		width: "600px"
-	});
-</script>
+<div class="splash">
+  <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+  <script type="text/javascript">
+    tinymce.init({
+      plugins: "link",
+      selector: "textarea",
+      toolbar: "undo redo | bold italic | link",
+      menubar: false,
+      width: "600px",
+      height:"300px"
+    });
+  </script>
 
-{{ Form::model($team, array('route' => [ 'team.update', $team->id ], 'method' => 'POST', 'files' => true, 'class' => 'pure-form pure-form-aligned')) }}
+{{ Form::model($team, array('route' => [ 'team.update', $team->id ], 
+                            'files' => true, 
+                            'class' => 'pure-form pure-form-aligned')) }}
+  <legend>Team Information</legend>
+  <div class="pure-control-group">
+    {{ Form::label('name') }}
+    {{ Form::text('name') }}
+  </div>
+  <div class="pure-control-group">
+    {{ Form::label('tag') }}
+    {{ Form::text('tag') }} 
+  </div>
 	<div class="pure-control-group">
 		{{ Form::label('website', "Website") }}
 		{{ Form::text('website') }}
@@ -39,11 +50,11 @@ Edit Team Info
 		{{ Form::text('social_twitch') }}
 	</div>
 
-	Description
-	<br />
-	<textarea name="description">{{ $team->description }}</textarea>
+	<div class="pure-control-group">
+  <textarea name="description">{{ $team->description }}</textarea>
+  </div>
 	
-	<h3>Images</h3>
+	<legend>Images</legend>
 	<div class="pure-control-group">
 		{{ Form::label('team_banner_img', "Banner (750 x 170 pixels)") }}
 		<input type="file" name="team_banner_img" />
@@ -54,6 +65,7 @@ Edit Team Info
 		<input type="file" name="team_logo_img" />
 	</div>
 	
+  <legend>Save and Submit</legend>
 	<div class="pure-controls">
 		<input type="submit" value="Save" class="pure-button pure-button-good" />
 	</div>

@@ -1,5 +1,17 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700);
 @import url(https://fonts.googleapis.com/css?family=Merriweather+Sans:400,800,300);
+
+@font-face  { 
+  font-family: "Babylon5"; 
+  src:url('../sponsor/b5MYTHLOGIC.ttf'); 
+}
+
+.mythlogic {
+  font-family: "Babylon5";
+}
+p .mythlogic {
+  font-size:110%;
+}
 * {
 	margin: 0;
 }
@@ -418,49 +430,6 @@ blockquote {
   margin: 0px auto;
 }
 
-.pure-button-good {
-  background: rgb(76, 201, 71);
-}
-
-.pure-button-cancel { background: #949494; color:white; }
-.pure-button-cancel:hover { background: rgb(202, 60, 60); color:white;}
-
-.pure-button-bad {
-	background: rgb(202, 60, 60);
-}
-
-.pure-button-secondary {
-	background: rgb(95, 198, 218);	
-}
-
-.pure-button-twitter {
-	background: #9AE4E8;
-}
-
-.pure-button-gplus {
-	background: #D34836;
-	color:white;
-}
-
-.pure-button-facebook {
-	background: #3D62B3;
-	color: white;
-}
-
-.pure-button-orange {
-background: rgb(223, 117, 20);
-}
-
-.pure-button-large {
-	font-size:125%;
-}
-.pure-button-xlarge {
-  font-size: 150%;
-}
-
-.pure-button-massive {
-  font-size: 200%;
-}
 .pure-button[data-loading] {
 	border-color: rgba( 0, 0, 0, 0.07 );
 	background-color: #999;
@@ -630,6 +599,12 @@ background: rgb(223, 117, 20);
 	color: green;
 }
 
+[data-complete="true"] legend:after {
+	content: " - COMPLETE";
+	color: green;
+}
+
+
 .feedback {
 	display:none;
 }
@@ -650,10 +625,6 @@ background: rgb(223, 117, 20);
 	float:right;
 }
 
-.pure-button-small {
-	font-size: 70%;
-	margin: 0;
-}
 
 .current-action-bar {
 	background-color: rgb(219, 46, 46);
@@ -825,3 +796,46 @@ color:white;
         padding-bottom: 0.5em;
         padding-left: 0.8em;
     }
+
+.success-box {
+  background: rgba(7, 140, 9, 0.8);
+  border: 1px solid rgb(7, 150, 10);
+  color: white;
+  margin-bottom: 1em;
+  padding-bottom: 0.5em;
+  padding-left: 0.8em;
+
+}
+.fileUpload {
+        position: relative;
+        overflow: hidden;
+		padding-left: 0.5em;
+    }
+
+
+    .fileUpload input.upload {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 200%;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+.pure-button-small { font-size: 79%; margin: 0; }
+.pure-button-good { background: rgb(76, 201, 71); }
+.pure-button-cancel { background: #949494; color:white; }
+.pure-button-cancel:hover { background: rgb(202, 60, 60); color:white;}
+.pure-button-bad { background: rgb(202, 60, 60); }
+.pure-button-secondary {	background: rgb(95, 198, 218); }
+.pure-button-twitter { background: #9AE4E8; color:black !important; }
+.pure-button-gplus { background: #D34836; color:white; }
+.pure-button-facebook { background: #3D62B3; color: white; }
+.pure-button-orange { background: rgb(223, 117, 20); }
+.pure-button-large { font-size:125%; }
+.pure-button-xlarge { font-size: 150%; }
+.pure-button-massive { font-size: 200%; }
+
+.inline-form { display:inline-block; }

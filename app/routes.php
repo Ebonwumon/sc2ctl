@@ -10,17 +10,17 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-Route::get('test', function() {
-    
-    });
 Route::get('refreshdoges', 'HomeController@refreshdoges');
 Route::get('/', array('as' => 'home', "uses" => 'HomeController@index')); 
 Route::get('contact', array('as' => 'home.contact', "uses" => 'HomeController@contact'));
 Route::get('about', array('as' => 'home.about', 'uses' => 'HomeController@about'));
 Route::get('format', array('as' => 'home.format', 'uses' => 'HomeController@format'));
 Route::get('rules', array('as' => 'home.rules', 'uses' => 'HomeController@rules'));
+Route::get('sponsors', array('as' => 'home.sponsors', 
+                             'uses' => function() { return View::make('sponsors'); }));
 Route::get('finals', array('as' => 'home.finals', 'uses' => 'HomeController@finals'));
 Route::get('dogecoin', array('as' => 'dogecoin', 'uses' => 'HomeController@dogecoin'));
+Route::get('help', array('as' => 'help', 'uses' => 'HomeController@help'));
 Route::get('blog', array('as' => 'blog.index', 'uses' => 'BlogController@index'));
 Route::get('blog/{id}', array('as' => 'blog.profile', 'uses' => 'BlogController@show'));
 Route::get('stats', array('as' => 'stats', 'uses' => 'StatsController@index'));
@@ -39,7 +39,9 @@ Route::group(array('before' => 'auth|perm:vods'), function() {
 });
 
 
+
 Route::group(array('before' => 'guest'), function() {
+
   Route::get('register', array('as' => 'user.register', 'uses' => 'UserController@register'));
   Route::post('user', array('as' => 'user.store', 'uses' => 'UserController@store'));
   Route::get('login/{return_url?}', array('as' => 'user.login', 'uses' => 'UserController@login'));
@@ -60,7 +62,7 @@ Route::group(array('before' => 'auth'), function() {
 	Route::post('notification/{id}/mark', array('as' => 'notification.mark', 'uses' => 'NotificationController@mark'));
 });
 
-Route::group(array('before' => 'auth|perm:tournament_signup'), function() {
+Route::group(array('before' => 'auth|register_lineup'), function() {
   Route::post('tournament/{id}/register', array('as' => 'tournament.register', 'uses' => 'TournamentController@register'));
 });
 
@@ -78,34 +80,49 @@ Route::group(array('before' => 'auth|perm:create_notifications'), function() {
 
 Route::group(array('before' => "auth|is_user"), function() {
 	Route::get('user/{id}/edit', array('as' => 'user.edit', 'uses' => 'UserController@edit'));
-	Route::put('user/{id}', array('as' => 'user.update', 'uses' => 'UserController@update'));
+	Route::post('user/{id}', array('as' => 'user.update', 'uses' => 'UserController@update'));
 	Route::post('user/{id}/changepic', array('as' => 'user.changepic', 'uses' => 'AssetController@uploadProfileImage'));
 });
 
 //TODO make can_report
-Route::group(array('before' => "auth|can_report"), function() {
-	Route::put('game/{id}/report', array('as' => 'game.report', 'uses' => 'GameController@report'));
+Route::group(array('before' => "auth|can_report:match"), function() {
+  Route::get('match/{id}/report', array('as' => 'match.report', 'uses' => 'MatchController@report'));
 	Route::get('match/{id}/wizard/{gno?}', array('as' => 'match.wizard', 'uses' => 'MatchController@wizard'));
 	Route::get('match/{id}/wizard/{gno?}/nextgame', array('as' => 'match.wizard.nextgame', 'uses' => 'MatchController@nextgame'));
-	Route::post('asset/upload/replay/{gid}', array('as' => 'replay.upload', 'uses' => 'AssetController@uploadReplay'));
+});
+Route::group(array('before' => "auth|can_report:game"), function() {
+	Route::post('game/{id}', array('as' => 'game.report', 'uses' => 'GameController@report'));
+	Route::post('asset/replay/{id}', array('as' => 'replay.upload', 'uses' => 'AssetController@uploadReplay'));
 });
 
 Route::get('game/forfeit', array('as' => 'game.forfeit', function() { return View::make('game/forfeit'); }));
+
+Route::group(array('before' => "auth|can_manage_team_members"), function() {
+  Route::post('team/{id}/add', array('as' => 'team.add', 'uses' => 'TeamController@add'));
+});
 
 // TODO make team_owner and team_officer, team_captain
 Route::group(array('before' => 'auth|team_owner'), function() {
   Route::put('team/{id}/addcontact', array('as' => 'team.addcontact', 'uses' => 'TeamController@addcontact'));
 	Route::put('team/{id}/addleader', array('as' => 'team.addleader', 'uses' => 'TeamController@addleader'));
   Route::get('lineup/create/{id}', array('as' => 'lineup.create', 'uses' => "LineupController@create"));
+  Route::delete('lineup/{id}', array('as' => 'lineup.delete', 'uses' => "LineupController@destroy"));
 	Route::post('team/{id}/lineup', array('as' => 'lineup.store', 'uses' => "LineupController@store"));
 });
 
 Route::group(array('before' => 'auth|lineup_captain'), function() {
-  Route::post('lineup/{id}', array('as' => 'lineup.edit', 'uses' => 'LineupController@edit'));
+  Route::post('lineup/{id}', array('as' => 'lineup.update', 'uses' => 'LineupController@update'));
 	Route::post('team/{id}/addmembers', 'TeamController@add');
 	Route::put('team/evict', array('as' => 'team.evict', 'uses' => "TeamController@evict"));
-	Route::post('lineup/{id}/change_rank', array('as' => 'lineup.change_rank', 'uses' => "LineupController@change_rank"));
-});
+	});
+
+Route::post('lineup/{id}/change_rank', array('before' => 'auth|change_rank', 
+                                             'as' => 'lineup.change_rank', 
+                                             'uses' => "LineupController@change_rank"));
+
+Route::post('team/{id}/remove', array('before' => 'auth|remove_member',
+                                      'as' => 'team.remove',
+                                      'uses' => 'TeamController@remove'));
 
 Route::group(array('before' => 'auth|lineup_captain_on_team'), function() {
 	Route::get('/team/{id}/edit', array('as' => 'team.edit', "uses" => "TeamController@edit"));
@@ -121,6 +138,8 @@ Route::group(array('before' => 'auth|lineup_officer'), function() {
   Route::get('tournament/{id}/manage_rosters', array('as' => 'roster.index', 'uses' => 'RosterController@index'));
   Route::get('roster/create/{match_id}/{lineup_id}', array('as' => 'roster.create',
       'uses' => 'RosterController@create'));
+  Route::get('roster/{id}/edit', array('as' => 'roster.edit', 'uses' => 'RosterController@edit'));
+  Route::post('roster/{id}', array('as' => 'roster.update', 'uses' => 'RosterController@update'));
   Route::post('roster', array('as' => 'roster.store', 'uses' => 'RosterController@store'));
 });
   

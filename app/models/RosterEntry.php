@@ -6,7 +6,7 @@ class RosterEntry extends Eloquent {
   public function player() {
     return $this->belongsTo('User', 'player_id');
   }
-
+  
   public function roster() {
     return $this->belongsTo('Roster');
   }

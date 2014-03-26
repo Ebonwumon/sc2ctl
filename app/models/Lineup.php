@@ -1,14 +1,16 @@
 <?php 
 
 class Lineup extends Eloquent {
-	
+  protected $fillable = array('name', 'team_id');
+  protected $guarded = array('id');
+  protected $softDelete = true;
 	
 	public function historicalPlayers() {
-		return $this->belongsToMany('User')->withPivot('active', 'role_id')->withTimestamps();
+		return $this->belongsToMany('User')->withPivot('role_id')->withTimestamps()->withTrashed();
 	}
 
 	public function players() {
-		return $this->belongsToMany('User')->withPivot('active', 'role_id')->withTimestamps()->where('active', '=', 1);
+		return $this->belongsToMany('User')->withPivot('role_id')->withTimestamps();
 	}
 
   public function team() {
@@ -39,6 +41,17 @@ class Lineup extends Eloquent {
         });
   }
 
+  public function remove($user_id) {
+    $user = User::findOrFail($user_id);
+    $entry = $this->players()->where('user_id', '=', $user_id)->firstOrFail();
+    $entry->pivot->role_id = 0;
+    $entry->pivot->delete();
+    $user->recalculateGroups();
+    if ($this->players()->count() == 0) {
+      $this->delete();
+    }
+  }
+
   public function getQualifiedNameAttribute() {
     return $this->attributes['name'] . "#" . "[" . $this->team->tag . "]";
   }
@@ -62,17 +75,57 @@ class Lineup extends Eloquent {
   }
 
   public function canRegister($user) {
-    if ($user->hasAccess('register_rosters')) return true;
+    if ($user->hasAccess('register_lineups')) return true;
 
-    if ($user->hasAccess('register_team_rosters')) {
+    if ($user->hasAccess('register_team_lineups')) {
       if ($this->team->id == $user->team_id) return true;
     }
 
-    if ($user->hasAccess('register_roster')) {
+    if ($user->hasAccess('register_team_lineup')) {
       $entry = $this->players()->where('user_id', '=', $user->id);
       if ($entry->count() > 0) return true;
     }
 
     return false;
+  }
+
+  public function canChangeRanks($user) {
+    if ($user->hasAccess('modify_ranks')) return true;
+
+    if ($user->hasAccess('modify_team_ranks')) {
+      if ($this->team->id == $user->team_id) return true;
+    }
+
+    if ($user->hasAccess('modify_team_rank')) {
+      $entry = $this->players()->where('user_id', '=', $user->id);
+      if ($entry->count() > 0) return true;
+    }
+
+    return false;
+
+  }
+  
+  public function canRemoveMembers($user) {
+    if ($user->hasAccess('remove_members')) return true;
+
+    if ($user->hasAccess('remove_lineups_members')) {
+      if ($this->team->id == $user->team_id) return true;
+    }
+
+    if ($user->hasAccess('remove_lineup_members')) {
+      $entry = $this->players()->where('user_id', '=', $user->id);
+      if ($entry->count() > 0) return true;
+    }
+
+    return false;
+
+  }
+  public static function validate($input) {
+
+    $rules = array(
+        'name' => 'sometimes|Required|Between:1,128'
+    );
+
+    return Validator::make($input, $rules);
   }
 }

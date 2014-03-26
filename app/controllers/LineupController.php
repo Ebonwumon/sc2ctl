@@ -19,7 +19,8 @@ class LineupController extends \BaseController {
 	public function create($id)
 	{
 		$team = Team::find($id);
-		return View::make('team/lineup/create', array('team' => $team));
+    $available_players = $team->availablePlayers()->lists('qualified_name', 'id');
+   	return View::make('team/lineup/create', array('team' => $team, 'available_players' => $available_players));
 	}
 
 	/**
@@ -29,14 +30,36 @@ class LineupController extends \BaseController {
 	 */
 	public function store($id)
 	{
+    $users = array();
+    if (!Input::has('users') || count(Input::get('users')) == 0) {
+      $errors = "You must select at least one user for your lineup";
+      return Redirect::route('lineup.create', $id)->withInput()->withErrors($errors);
+    }
+    
+    $v = Lineup::validate(Input::only('name'));
+    if (!$v->passes()) {
+      return Redirect::route('lineup.create', $id)->withInput()->withErrors($v);
+    }
+
+    foreach (Input::get('users') as $userID) {
+      $user = User::findOrFail($userID);
+      if ($user->lineups->count() > 0) {
+        $errors = "User " . $user->qualified_name . " is already registered on another Lineup.";
+        return Redirect::route('lineup.create', $id)->withInput()->withErrors($errors);
+      }
+      $users[] = $user;
+    }
+
 		$lineup = new Lineup;
 		$lineup->team_id = $id;
 		$lineup->name = Input::get('name');
 		$lineup->save();
-		foreach (Input::get('users') as $userID) {
-			$lineup->players()->attach($userID, array('active' => true));
+
+		foreach ($users as $user) {
+			$lineup->players()->attach($user->id, array('role_id' => Role::MEMBER));
+      $user->recalculateGroups();
 		}
-		return Redirect::route('team.profile', $id);
+		return Redirect::route('team.edit', $id);
 	}
 
 	/**
@@ -63,8 +86,7 @@ class LineupController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
-	}
+    	}
 
 	/**
 	 * Update the specified resource in storage.
@@ -74,8 +96,26 @@ class LineupController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
-	}
+    $lineup = Lineup::findOrFail($id);
+	  $inputArr = array();
+    if (Input::has('name')) {
+      $name = Input::get('name');
+      if ($name != null && $name != $lineup->name) {
+        $inputArr['name'] = $name;
+      }
+    }
+
+    $v = Lineup::validate($inputArr);
+
+    if (!$v->passes()) {
+      return Redirect::route('team.profile', $lineup->team->id)->withErrors($v);
+    }
+    
+    $lineup->fill($inputArr);
+    $lineup->save();
+
+	  return Redirect::route('team.profile', $lineup->team->id);
+  }
 
 	/**
 	 * Remove the specified resource from storage.
@@ -85,15 +125,28 @@ class LineupController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
-	}
+    $lineup = Lineup::findOrFail($id);
+    $team_id = $lineup->team->id;
+    $users = $lineup->players;
+    foreach ($users as $user) {
+      $lineup->remove($user->id);
+    }
+    Lineup::destroy($id);
+    return Redirect::route('team.edit', $team_id);
+  }
 
 	public function change_rank($id) {
-		$lineup = Lineup::find($id);
+		$lineup = Lineup::findOrFail($id);
+    $user_id = Input::get('user_id');
+    $user = User::findOrFail($user_id);
 
-		$entry = $lineup->players()->where('user_id', '=', Input::get('user_id'))->where('lineup_id', '=', $id)->get()[0]; // Lets hope to hell this doesn't fail
+		$entry = $lineup->players()->where('user_id', '=', $user_id)
+                                ->where('lineup_id', '=', $id)->get()[0]; // Lets hope to hell this doesn't fail
 		$entry->pivot->role_id = Input::get('role_id');
 		$entry->pivot->save();
+    
+    $user->recalculateGroups(); 
+
 		return Response::json(array('status' => 0));
 	}
 
@@ -104,7 +157,7 @@ class LineupController extends \BaseController {
 
 		if ($lineup->historicalPlayers->contains($uid)) {
 			$entry = $lineup->historicalPlayers()->where('user_id', '=', $uid)->get()[0];
-      $entry->pivot->active = true;
+      $entry->restore();
 			$entry->pivot->role_id = Role::MEMBER;
 			$entry->pivot->save();
 			
@@ -115,23 +168,22 @@ class LineupController extends \BaseController {
       return Redirect::route('team.edit', $lineup->team->id);
 		}
 		
-		$lineup->players()->attach($uid);
+		$lineup->players()->attach($uid, array('role_id' => Role::MEMBER));
 		
     if (Request::ajax()) {
       return Response::json(array('status' => 0));
     }
 
-    return Redirect::route('team.profile', $lineup->team->id);
+    return Redirect::route('team.edit', $lineup->team->id);
 	}
 
 	public function remove_user($id) {
 		$lineup = Lineup::find($id);
-		$entry = $lineup->players()->where('user_id', '=', Input::get('user_id'))->get()[0];
-
-		$entry->pivot->active = false;
-		$entry->pivot->role_id = Role::NULL_ROLE;
-		$entry->pivot->save();
-
+    try {
+      $lineup->remove(Input::get('user_id'));
+    } catch (Exception $ex) {
+      return Response::json(array('status' => 1, 'message' => $ex->getMessage()));
+    }
 		return Response::json(array('status' => 0));
 	}
 

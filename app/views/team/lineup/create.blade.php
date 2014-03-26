@@ -18,7 +18,7 @@ Create Lineup
 	</div>
 	<div class="pure-control-group">
 		{{ Form::label('users[]', "Players to Add") }}
-		{{ Form::select('users[]', $team->playerSelect(), null, array('multiple')) }}
+		{{ Form::select('users[]', $available_players, null, array('multiple')) }}
 	</div>
 	
 	<div class="pure-controls">

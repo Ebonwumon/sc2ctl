@@ -39,6 +39,10 @@ class HomeController extends BaseController {
 		return View::make('tournament/finals');
 	}
 
+  public function help() {
+    return View::make('help');
+  }
+
   public function dogecoin() {
     $total = file_get_contents('/home/ebon/misc/out.txt');
     $matching = ($total - 20000 > 50000) ? 50000 : $total - 20000;

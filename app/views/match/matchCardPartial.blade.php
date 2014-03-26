@@ -12,7 +12,7 @@
                     : URL::route('team.profile', $matchScore[$keys[0]]['id'] ); 
                     
     ?>
-        <a href="{{ $profile }}">{{ $match->teams->first()->qualified_name }}</a>
+        <a href="{{ $profile }}">{{ $keys[0] }}</a>
       </span>
     </div>
     <div class="pure-u-1-8">
@@ -30,7 +30,7 @@
                     : URL::route('team.profile', $matchScore[$keys[1]]['id'] ); 
                     
     ?>
-        <a href="{{ $profile }}">[{{ $match->teams->last()->qualified_name }}]</a>
+        <a href="{{ $profile }}">[{{ $keys[1] }}]</a>
       </span>
     </div>
     <div class="pure-u-1-8">
@@ -39,17 +39,22 @@
       </div>
     </div>
   </div>
-  @if (Sentry::check() && $match->canReport(Sentry::getUser()))
-    @if (!$match->won())
-      <a href="{{ URL::route('match.wizard', $match->id) }}" class="pure-button pure-button-good">
-        Report Results
-      </a>
-    @else
-      <a href="{{ URL::route('match.landing', $match->id)}}" class="pure-button pure-button-primary">
-        View Results
-      </a>
-    @endif
-  @endif
-
 </div>
+
+@if (!$match->won())
+  @if (Sentry::check() && $match->canReport(Sentry::getUser()))
+    <a href="{{ URL::route('match.report', $match->id) }}" class="pure-button pure-button-good">
+      Report Results
+    </a>
+  @endif
+  <a href="{{ URL::route('match.profile', $match->id) }}" class="pure-button pure-button-secondary">
+    View Rosters
+  </a>
+@else
+  <a href="{{ URL::route('match.profile', $match->id)}}" class="pure-button pure-button-primary">
+    View Results
+  </a>
+  <br />
+@endif
+
 

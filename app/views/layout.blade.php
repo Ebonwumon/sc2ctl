@@ -3,7 +3,10 @@
 	<head>
 	  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css" >
 	  <link rel="stylesheet" href="/styles/style.css" >
+    <link rel="stylesheet" href="/styles/purple.css" >
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" >
 	  <script src="/scripts/jquery-2.0.3.min.js"></script>
+    <script src="/scripts/icheck.min.js"></script>
 		@yield('additional_head', "")
 		<script src="/scripts/scripts.js"></script>
 		<title>SC2CTL : @yield('title')</title>
@@ -20,8 +23,9 @@
 				<!--<li><a href="{{ URL::route('user.index') }}">Users</a></li>-->
 				<li><a href="{{ URL::route('team.index') }}">Teams</a></li>
 				<li><a href="{{ URL::route('tournament.index') }}">Tournaments</a></li>
+        <li><a href="{{ URL::route('home.sponsors') }}">Sponsors</a></li>
 				<li><a href="http://reddit.com/r/sc2ctl">Subreddit</a></li>
-        <li><a href="{{ URL::route('stream') }}">Stream</a></li>
+        <li><a href="http://twitch.tv/sc2ctl">Stream</a></li>
 				@if (Sentry::check())
 				<?php $user = Sentry::getUser(); ?>
 					<li>

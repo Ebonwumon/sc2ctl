@@ -90,10 +90,15 @@ class NotificationController extends \BaseController {
 	}
 
 	public function mark($id) {
-		$user = Auth::user();
-		$notification = $user->notifications()->where('notification_id', '=', $id)->get()->first();
+		$user = Sentry::getUser();
+		$notification = $user->notifications()->where('notification_id', '=', $id);
+    if ($notification->count() == 0) {
+      return Response::json(array('status' => 1, 'message' => 'Notification not found'));
+    }
+    $notification = $notification->first();
 		$notification->pivot->read = true;
 		$notification->pivot->save();
+
 		return Response::json(array('status' => 0));
 	}
 

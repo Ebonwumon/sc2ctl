@@ -44,29 +44,17 @@ class UserController extends \BaseController {
      * @return Response
      */
     public function show($id) {
-      $user = User::find($id);
+      $user = User::findOrFail($id);
 		
       if (Request::ajax()) {
         $response = ($user) ? $user->toArray() : array('username' => "Not Found");
         return Response::json($response);
       }
 		
-		$notifications = $user->notifications()->orderBy('created_at', 'desc')->orderBy('read', 'desc')->take(5)->get();
-			
-		$games = Game::whereRaw('(player1 = ? OR player2 = ?) AND replay_url IS NOT NULL', 
-							       array($id, $id))->take(5)->get();
-    $wins = Game::where('winner', '=', $id)->count();
-		$losses = Game::whereRaw('(player1 = ? OR player2 = ?) AND winner > 0 AND winner <> ?',
-		                          array($id, $id, $id))->count();
-		if ($losses == 0) {
-			$ratio = 100;
-		} else {
-			$ratio = number_format($wins / ($wins + $losses) * 100, 2);
-		}
-		return View::make('user/profile', array('user' => $user, 'games' => $games,
-		                                        'wins' => $wins, 'losses' => $losses,
-												'ratio' => $ratio,
-												'notifications' => $notifications));
+      $notifications = $user->notifications()->orderBy('created_at', 'desc')
+                            ->orderBy('read', 'desc')->take(5)->get();
+       
+      return View::make('user/profile', array('user' => $user, 'notifications' => $notifications));
     }
 
     public function edit($id) {
@@ -82,14 +70,51 @@ class UserController extends \BaseController {
      * @return Response
      */
     public function update($id) {
-    	$user = User::find($id);
+    	$user = User::findOrFail($id);
+      $inputArray = array();
+      
+      if (Request::ajax()) {
+        if (!Input::hasFile('image')) {
+          return Response::json(array('status' => 1, 'message' => 'You did not choose an image'));
+        }
+        $file = Input::file('image');
 
-		if (Input::has('bnet_name')) $user->bnet_name = Input::get('bnet_name');
-		if (Input::has('char_code')) $user->char_code = Input::get('char_code');
-		if (Input::has('league')) $user->league = Input::get('league');
+        $img = Image::make($file->getRealPath());
+        $arr = explode(".", $file->getClientOriginalName());
+        $ext = array_pop($arr);
+        $img->resize(100, 100, true);
+        $img->save('img/uid_' . $id . "." . $ext);
 
-		$user->save();
-		return Redirect::route('user.profile', $id);
+        $user->img_url = "/img/uid_" . $id . "." . $ext;
+        $user->save();
+        return Response::json(array('status' => 0));
+      }
+
+      if (Input::has('bnet_name') && Input::get('bnet_name') != null) {
+        $inputArray['bnet_name'] = Input::get('bnet_name');
+      }
+
+      if (Input::has('char_code') && Input::get('char_code') != null) {
+        $inputArray['char_code'] = Input::get('char_code');
+      }
+      if (Input::has('league') && Input::get('league') != null) {
+        $inputArray['league'] = Input::get('league');
+      }      
+      
+      if (Input::has('email') && Input::get('email') != null) {
+        if (Input::get('email') != $user->email)
+          $inputArray['email'] = Input::get('email');
+      }      
+
+ 
+      $v = User::validates($inputArray);
+      if (!$v->passes()) {
+        return Redirect::route('user.edit', $user->id)->withInput()->withErrors($v);
+      }
+      
+      $user->fill($inputArray);
+      $user->save();
+      return Redirect::route('user.profile', $id);
     }
 
     /**
@@ -158,6 +183,8 @@ class UserController extends \BaseController {
   public function send_token() {
     $email = Input::get('email');
     $errors = new \Illuminate\Support\MessageBag;
+    $user = null;
+    $resetCode = null;
     try {
       $user = Sentry::findUserByLogin($email);
       $resetCode = $user->getResetPasswordCode();
@@ -167,14 +194,14 @@ class UserController extends \BaseController {
     }
 
     if ($errors->count() > 0) {
-      return View::make('user/start_reset', array('errors' => $errors));  
+      return Redirect::route('login.start_reset')->withInput()->withErrors($errors);
     }
-    Mail::queue('emails.reminder', array('id' => $user->id, 'token' => $resetCode), function($m) use ($user) {
+    
+    Mail::send('emails.reminder', array('id' => $user->id, 
+                                         'token' => $resetCode), 
+                function($m) use ($user) {
       $m->to($user->email)->subject("SC2CTL Password Reset");
     });
-    
-    if ($errors->count() > 0)
-      return View::make('login/start_reset', array('errors' => $errors));
     
     return Redirect::route('home');
   }
@@ -213,6 +240,10 @@ class UserController extends \BaseController {
   }
 
   public function register() {
+    if (Sentry::check()) {
+      $errors = array("You are already logged in");
+      return View::make('user/create')->withErrors($errors);
+    }
     return View::make('user/create'); 
   }
 
@@ -221,19 +252,6 @@ class UserController extends \BaseController {
     return Redirect::action('HomeController@index');
 	}
 
-	public function leaveteam() {
-		$user = Auth::user();
-		
-		$user->leaveTeam();
-		
-		$user = Auth::user();
-		if ($user->team_id != 0 && $user->team->leader == $user->id) {
-			return Redirect::route('team.show', $user->team->id);
-		}
-
-		return Redirect::route('team.index');
-	}
-	
 	public function checkTaken($type, $val) {
 		$taken = User::where($type, '=', $val)->count();
 		return Response::json(array('taken' => $taken));

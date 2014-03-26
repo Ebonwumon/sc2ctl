@@ -9,7 +9,7 @@ class TeamController extends \BaseController {
 	 */
 	public function index()
 	{
-		$teams = Team::all();
+		$teams = Team::orderBy('name')->get();
 		return View::make('team/index', array('teams' => $teams));
 	}
 
@@ -30,15 +30,31 @@ class TeamController extends \BaseController {
 	 */
 	public function store()
 	{
-		// Todo model validation
-    $team = new Team;
-    $team->tag = Input::get('tag');
-    $team->name = Input::get('name');
-    $team->user_id = Sentry::getUser()->id;
-		$team->description = "This team is really cool and loves both crayons and Starcraft";
-		$team->save();
-		
-    return Redirect::action('TeamController@index');
+    $teamInput = Input::only(array('tag', 'name'));
+    
+    $v = Team::validate($teamInput);
+    if (!$v->passes()) {
+      return Redirect::route('team.create')->withInput()->withErrors($v);
+    }
+    try {
+      $team = new Team;
+      $team->fill($teamInput);
+      $team->user_id = Sentry::getUser()->id;
+      $team->description = "This team is really cool and loves both crayons and Starcraft";
+      $team->save();
+      
+      $group = Sentry::findGroupById(Role::TEAM_OWNER);
+      Sentry::getUser()->addGroup($group);
+      $user = Sentry::getUser();
+      $user->team_id = $team->id;
+      $user->save();
+
+      
+      return Redirect::route('team.profile', $team->id);
+    } catch (Cartalyst\Sentry\Groups\GroupNotFoundException $ex) {
+      $errors = array("Team Owner group not found. Please contact an adult");
+      return Redirect::route('team.create')->withInput()->withErrors($errors);
+    }
 	}
 
 	/**
@@ -71,6 +87,7 @@ class TeamController extends \BaseController {
 		return View::make('team/profile', array('team' => $team, 'edit' => true));
 	}
 
+
 	public function editinfo($id) {
 		$team = Team::find($id);
 		return View::make('team/modify', array('team' => $team));
@@ -84,27 +101,45 @@ class TeamController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$team = Team::find($id);
-		$team->description = Input::get('description');
-		$team->social_twitter = Input::get('social_twitter');
-		$team->social_fb = Input::get('social_fb');
-		$team->social_twitch = Input::get('social_twitch');
-		$team->website = Input::get('website');
-		
+		$team = Team::findOrFail($id);
+    $inputArr = Input::only(array('description',
+                                  'social_twitter',
+                                  'social_fb',
+                                  'social_twitch',
+                                  'website'
+          ));
+    
+    if (Input::has('name') && Input::get('name') != null) {
+      if (Input::get('name') != $team->name) {
+        $inputArr['name'] = Input::get('name');
+      }
+    }
+    if (Input::has('tag') && Input::get('tag') != null) {
+      if (Input::get('tag') != $team->tag) {
+        $inputArr['tag'] = Input::get('tag');
+      }
+    }
+
+    $v = Team::validate($inputArr);
+    if (!$v->passes()) {
+      return Redirect::route('team.editinfo', $team->id)->withInput()->withErrors($v);
+    }
+				
 		if (Input::hasFile('team_banner_img')) {
 			$file = Input::file('team_banner_img');
-			$path = $file->getRealPath();
 		
-			$img = Image::make($path);
+			$img = Image::make($file->getRealPath());
 			$arr = explode(".", $file->getClientOriginalName());
 			$ext = array_pop($arr);
 			$img->resize(750, null, true);
 			$img->crop(750, 170);
 			$img->save('img/team/banner/tid_' . $id . "." . $ext);
 			$team->banner_url =  "/img/team/banner/tid_" . $id . "." . $ext;
+      $team->save();
 		}
+
 		if (Input::hasFile('team_logo_img')) {
-			$file = Input::file('team_logo_img');
+      $file = Input::file('team_logo_img');
 			$path = $file->getRealPath();
 		
 			$img = Image::make($path);
@@ -112,10 +147,12 @@ class TeamController extends \BaseController {
 			$ext = array_pop($arr);
 			$img->resize(150, null, true);
 			$img->crop(150,150);
-			$img->save('img/team/logo/tid_' . $id . "." . $ext);
-			$team->logo_url =  "/img/team/logo/tid_" . $id . "." . $ext;
+      $path = 'img/team/logo/tid_' . $id . "." . $ext;
+			$img->save($path);
+			$team->logo_url =  "/" . $path;
+      $team->save();
 		}
-
+    $team->fill($inputArr);
 		$team->save();
 		return Redirect::route('team.profile', $team->id);
 	}
@@ -134,48 +171,44 @@ class TeamController extends \BaseController {
 	}
 
 	public function add($id) {
-		foreach (Input::get("ids") as $uid) {
-			$user = User::find($uid);
+    $team = Team::findOrFail($id);
+    $user_id = Input::get('user_id');
 
-			$user->team_id = $id;
-			$user->save();
-		}
-		return Response::json(array('success' => 1));
-	}
+    $user = User::findOrFail($user_id);
+    if ($user->team_id) {
+      $errors = array("That user is already on a team");
+      return Redirect::route('team.edit', $team->id)->withErrors($errors);
+    }
 
-	public function addcontact($id) {
-		$team = Team::find($id);
+    $user->team_id = $id;
+    $user->save();
 
-		$team->contact = Input::get('id');
+		return Redirect::route('team.edit', $team->id);
+  }
 
-		$team->save();
-
-		$user = User::find(Input::get('id'));
-		return View::make('user/profileCardPartial', array('team' => $team, 'member' => $user));
-	}
-
-	public function addleader($id) {
-		$team = Team::find($id);
+	public function remove($id) {
+    $team = Team::findOrFail($id);
+    $user_id = Input::get('user_id');
 		
-		$former = User::find($team->leader);
-		$former->detachRole(ROLE_TEAM_CAPTAIN);
+    $user = User::findOrFail($user_id);
+    if (!$user->team_id || $user->team_id != $team->id) {
+      $errors = array("User is not currently on this team");
+      return Redirect::route('team.edit', $team->id)->withErrors($errors);
+    }
 
-		$team->leader = Input::get('id');
-
-		$team->save();
-
-		$user = User::find(Input::get('id'));
-		$user->attachRole(ROLE_TEAM_CAPTAIN);
-		return View::make('user/profileCardPartial', array('team' => $team, 'member' => $user));
-	}
-
-	public function evict() {
-		$user = User::find(Input::get('id'));
-		$user->team_id = 0;
+    if ($team->user_id == $user->id) {
+      $errors = array("Cannot remove the team owner");
+      return Redirect::route('team.edit', $team->id)->withErrors($errors);
+    }
+    foreach ($user->lineups as $lineup) {
+      $lineup->remove($user->id);
+    }
+		
+    $user->team_id = 0;
 		$user->save();
 
-		return Response::json(array('status' => 0));
-	}
+		return Redirect::route('team.edit', $team->id);
+  }
 
 	public function search($term) {
 		$teams = Team::where(DB::raw('LOWER(name)'), 'LIKE', '%' . strtolower($term) . '%');
