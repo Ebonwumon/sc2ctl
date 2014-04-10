@@ -35,8 +35,9 @@ View Match
               </p>
           </div>
           @if (Sentry::check() && $team->canViewRoster(Sentry::getUser()))
-            @foreach ($match->rosterForLineup($team->id) as $entry)
+            @foreach ($match->rosterForLineup($team->id)->first()->entries as $entry)
                 @include('user/profileCardPartial', array('user' => $entry->player))
+                <br />
             @endforeach
           @endif
         @else
