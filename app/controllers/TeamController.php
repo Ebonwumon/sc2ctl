@@ -156,7 +156,12 @@ class TeamController extends \BaseController {
 		$team->save();
 		return Redirect::route('team.profile', $team->id);
 	}
+  
+  public function delete($id) {
+    $team = Team::findOrFail($id);
 
+    return View::make('team/delete', array('team' => $team));
+  }
 	/**
 	 * Remove the specified resource from storage.
 	 *
@@ -165,7 +170,15 @@ class TeamController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		Team::destroy($id);
+    $team = Team::find($id);
+    $members = $team->members;
+   	$team->delete();
+    
+    foreach ($team->members as $member) {
+      $member->team_id = 0;
+      $member->save();
+      $member->recalculateGroups();
+    }
 
 		return Redirect::action('TeamController@index');
 	}

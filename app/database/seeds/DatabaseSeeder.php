@@ -31,6 +31,7 @@ class SenGroupSeeder extends Seeder {
             'report_matches' => 1,
             'add_members' => 1,
             'remove_members' => 1,
+            'rename_lineups' => 1,
             'register_lineups' => 1
             )));
     $group->persistent = true;
@@ -56,6 +57,7 @@ class SenGroupSeeder extends Seeder {
             'report_team_matches' => 1,
             'remove_lineups_members' => 1,
             'remove_team_members' => 1,
+            'rename_team_lineups' => 1,
             )));
     $group->persistent = true;
     $group->save();
@@ -74,6 +76,7 @@ class SenGroupSeeder extends Seeder {
           'name' => 'team_officers',
           'permissions' => array(
             'report_team_match' => 1,
+            'rename_lineup' => 1,
             )));
 
     Sentry::createGroup(array(

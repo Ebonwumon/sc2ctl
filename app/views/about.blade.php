@@ -17,7 +17,7 @@ About the League
 			<div class="l-box splash-content">
 				<h1 class="splash-head">SC2CTL</h1>
 				<h2 class="splash-subhead">
-					The SC2CTL is designed as the premier, non-professional team league.
+					The SC2CTL is designed as the premier, community-oriented team league.
 					From the ground up, the league was designed for maximum participation
 					of those involved, while not forgetting the joy that can be found from
 					being determined as the sole winner. The league spans a minimum 10 weeks
@@ -53,7 +53,7 @@ About the League
 			<br />
 			The league format is designed for optimal playtime and inclusiveness of those involved.
 			Every single team in the league will play a minimum of six matches, and you can't be eliminated
-			until after the second group stage. The league focuses on your fun, and will do everything it
+			until after the six-week group stage. The league focuses on your fun, and will do everything it
 			can to make sure you continue having it.
 		</p>
 	</div>
@@ -79,9 +79,9 @@ About the League
         while adding an extra competitive element: if one practices the unique maps
         and their opponent does not, one might get the upper hand!
       </p>
-
+      
       <strong>
-        Map pools change each week and will be updated here. 
+        Map pool reorders each week and will be updated here. 
       </strong>
 		</div>
 	</div>
@@ -99,27 +99,27 @@ About the League
 			</tr>
 			<tr>
 				<td>2</td>
-				<td>Yeonsu LE</td>
+				<td>King Sejong Station LE</td>
 			</tr>
 			<tr>
 				<td>3</td>
-				<td>ESV Sanctuary</td>
+				<td>Merry Go Round LE</td>
 			</tr>
 			<tr>
 				<td>4</td>
-				<td>Heavy Rain LE</td>
+				<td>Overgrowth LE</td>
 			</tr>
 			<tr>
 				<td>5</td>
-				<td>Polar Night LE</td>
+				<td>Waystation LE</td>
 			</tr>
 			<tr>
 				<td>6</td>
-				<td>Frost LE</td>
+				<td>Galaxy - Veridian</td>
 			</tr>
 			<tr>
 				<td>7</td>
-				<td>Gwangalli Beach</td>
+				<td>Galaxy - Bloodmist Refuge</td>
 			</tr>
 		</table>
 	</div>

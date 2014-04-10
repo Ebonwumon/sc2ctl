@@ -3,7 +3,7 @@
 
 @font-face  { 
   font-family: "Babylon5"; 
-  src:url('../sponsor/b5MYTHLOGIC.ttf'); 
+  src:url('../sponsor/b5mythlogic.ttf'); 
 }
 
 .mythlogic {
@@ -679,7 +679,31 @@ blockquote {
 .logo-img img { width: 100%; }
 
 .impact {
-  text-shadow: 0px 0px 9px darkblue;
+  text-shadow: 0px 0px 10px darkblue;
+text-shadow: 1px 1px 0 #000,
+    -1px 1px 0 #000,
+    1px -1px 0 #000,
+    -1px -1px 0 #000,
+    0px 1px 0 #000,
+    0px -1px 0 #000,
+    -1px 0px 0 #000,
+    1px 0px 0 #000,
+    2px 2px 0 #000,
+    -2px 2px 0 #000,
+    2px -2px 0 #000,
+    -2px -2px 0 #000,
+    0px 2px 0 #000,
+    0px -2px 0 #000,
+    -2px 0px 0 #000,
+    2px 0px 0 #000,
+    1px 2px 0 #000,
+    -1px 2px 0 #000,
+    1px -2px 0 #000,
+    -1px -2px 0 #000,
+    2px 1px 0 #000,
+    -2px 1px 0 #000,
+    2px -1px 0 #000,
+    -2px -1px 0 #000;
 }
 .primary-name { position:absolute; top: 0.3em; left:20%; font-size: 150%; }
 

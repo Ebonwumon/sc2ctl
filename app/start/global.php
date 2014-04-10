@@ -51,6 +51,20 @@ App::error(function(Exception $exception, $code)
 	Log::error($exception);
 });
 
+App::missing(function($exception)
+{
+  Log::error($exception);
+  return Response::view('errors/404', array(), 404);
+});
+
+App::error(function(Symfony\Component\HttpKernel\Exception\HttpException $exception, $code)
+{
+  Log::error($exception); 
+  if ($code == 401) {
+    return Response::view('errors/401', array(), 401);
+  }
+});
+
 /*
 |--------------------------------------------------------------------------
 | Maintenance Mode Handler

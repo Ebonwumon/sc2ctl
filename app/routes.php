@@ -148,6 +148,11 @@ Route::group(array('before' => 'auth|perm:create_games'), function() {
 	Route::post('game', array('as' => 'game.store', 'uses' => 'GameController@store'));
 });
 
+Route::group(array('before' => 'auth|perm:superupser'), function() {
+  Route::get('team/{id}/delete', array('as' => 'team.delete', 'uses' => 'TeamController@delete'));
+  Route::delete('team/{id}', array('as' => 'team.destroy', 'uses' => 'TeamController@destroy'));
+});
+
 Route::get('user/checktaken/{type}/{val}', 'UserController@checkTaken');
 Route::get('user/search/{term}', 'UserController@search');
 Route::get('user', array('as' => 'user.index', 'uses' => 'UserController@index'));
@@ -157,7 +162,7 @@ Route::get('team', array('as' => 'team.index', 'uses' => 'TeamController@index')
 Route::get('team/{id}', array('as' => 'team.profile', 'uses' => 'TeamController@show'));
 Route::get('team/search/{term}', array('as' => 'team.search', 'uses' => 'TeamController@search'));
 
-//TODO what is this used for?
+//TODO proper authorization
 Route::post('team/{id}', array('as' => 'team.update', 'uses' => 'TeamController@update'));
 
 Route::group(array('before' => 'auth|perm:delete_teams'), function() {
@@ -169,7 +174,7 @@ Route::group(array('before' => 'auth|perm:delete_users'), function() {
 });
 
 Route::group(array('before' => 'auth|perm:admin'), function() {
-  Route::get('role/permission', array('as' => 'permission.index', 'uses' => 'PermissionController@index'));
+    Route::get('role/permission', array('as' => 'permission.index', 'uses' => 'PermissionController@index'));
   Route::get('role/permission/create', array('as' => 'permission.create', 'uses' => 'PermissionController@create'));
   Route::post('role/permission', array('as' => 'permission.store', 'uses' => 'PermissionController@store'));
   Route::get('role', array('as' => 'role.index', 'uses' => 'RoleController@index'));

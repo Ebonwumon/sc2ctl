@@ -70,10 +70,12 @@ background-wrapper clown-background
           @include('team/lineupPartial')
         @endforeach
       @endif
-		@if ($edit && $team->canCreateLineups(Sentry::getUser()))
+		@if ($edit)
+      @if($team->canCreateLineups(Sentry::getUser()))
 			<a href="{{ URL::route('lineup.create', $team->id) }}" class="pure-button pure-button-primary">
 				New Lineup
 			</a>
+      @endif
       <br />
       <br />
       
