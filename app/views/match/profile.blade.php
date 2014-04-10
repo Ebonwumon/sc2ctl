@@ -30,10 +30,15 @@ View Match
           </div>
         @elseif (!$complete)
           <div class="success-box">
-            <p>
-              This roster is confirmed
-            </p>
+              <p>
+                  This roster is confirmed
+              </p>
           </div>
+          @if (Sentry::check() && $team->canViewRoster(Sentry::getUser()))
+            @foreach ($match->rosterForLineup($team->id) as $entry)
+                @include('user/profileCardPartial', array('user' => $entry->player))
+            @endforeach
+          @endif
         @else
           @foreach ($match->rosterForLineup($team->id)->first()->entries as $entry)
             <?php $game = $match->game($entry->map -1); ?>

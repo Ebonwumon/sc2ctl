@@ -120,6 +120,19 @@ class Lineup extends Eloquent {
     return false;
 
   }
+
+    public function canViewRoster($user) {
+        if ($user->hasAccess('view_rosters')) return true;
+
+        if (!$user->team_id) return false;
+        if ($user->team_id != $this->team->id) return false;
+        if ($user->hasAccess('view_team_rosters')) return true;
+        if ($user->hasAccess('view_roster')) {
+            if ($this->players->contains($user->id)) return true;
+        }
+
+        return false;
+    }
   public static function validate($input) {
 
     $rules = array(
