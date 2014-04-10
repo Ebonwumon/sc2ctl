@@ -109,7 +109,7 @@ class Match extends Eloquent {
     if ($user->hasAccess('report_team_match')) {
       foreach ($this->teams as $lineup) {
 
-        $authorized_roles = $lineup->players()->wherePivot(function($query) {
+        $authorized_roles = $lineup->players()->where(function($query) {
               $query->whereIn('role_id', array(Role::CAPTAIN, Role::OFFICER));
             })->where('user_id', '=', $user->id);
         if ($authorized_roles->count() > 0) return true;
@@ -160,14 +160,14 @@ class Match extends Eloquent {
   }
 
 	public function score() {
-		if ($this->is_default) {
-      $team = Team::findOrFail($this->is_default);
-      return [ $team->qualified_name => [ 'wins' => $this->bo, 
+	    if ($this->is_default) {
+            $team = Team::findOrFail($this->is_default);
+        return [ $team->qualified_name => [ 'wins' => ceil($this->bo / 2),
                                           'losses' => 0, 
-                                          'id' => $team,
+                                          'id' => $team->id,
                                           'won' => true ] ];
-    }
-    $team1 = 0;
+        }
+        $team1 = 0;
 		$team2 = 0;
 		$teams = $this->teams;
      

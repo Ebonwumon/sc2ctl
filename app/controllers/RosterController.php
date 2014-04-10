@@ -2,11 +2,6 @@
 
 class RosterController extends \BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
 	public function index($id)
 	{
     $tournament = Tournament::findOrFail($id);
@@ -15,16 +10,16 @@ class RosterController extends \BaseController {
     return View::make('roster.index', array('lineups' => $lineups, 'tournament' => $tournament));	
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
 	public function create($match_id, $lineup_id)
 	{
-    $match = Match::findOrFail($match_id);
-    $lineup = Lineup::findOrFail($lineup_id);
-    return View::make('roster/create', array('match' => $match, 'lineup' => $lineup));
+        $match = Match::findOrFail($match_id);
+        $lineup = Lineup::findOrFail($lineup_id);
+
+        if ($lineup->players->count() < $match->bo - 1) {
+            $errors = array("Your lineup needs at least " . ($match->bo -1) . " players to participate");
+            return Redirect::route('roster.index', $match->tournament->id)->withErrors($errors);
+        }
+        return View::make('roster/create', array('match' => $match, 'lineup' => $lineup));
 	}
 
 	/**
