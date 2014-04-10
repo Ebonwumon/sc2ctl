@@ -106,8 +106,8 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-    'Cartalyst\Sentry\SentryServiceProvider',
-    'Intervention\Image\ImageServiceProvider'
+        'Cartalyst\Sentry\SentryServiceProvider',
+        'Intervention\Image\ImageServiceProvider'
 
 	),
 
@@ -168,19 +168,15 @@ return array(
 		'Route'           => 'Illuminate\Support\Facades\Route',
 		'Schema'          => 'Illuminate\Support\Facades\Schema',
 		'Seeder'          => 'Illuminate\Database\Seeder',
-    'Sentry'          => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+        'Sentry'          => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Session'         => 'Illuminate\Support\Facades\Session',
 		'SSH'             => 'Illuminate\Support\Facades\SSH',
 		'Str'             => 'Illuminate\Support\Str',
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-    'Image' => 'Intervention\Image\Facades\Image'
+        'Image' => 'Intervention\Image\Facades\Image'
 
 	),
-
-  'doge_api_key' => '10b587c1u3gtoq15flyxk1hjqnnw',
-  'doge_widget_key' => 'iog38k16c1z50uqns8cokmacm',
-  'future_event_donation' => 'D7TBQzYdb3kHvtVyNUzDdcna52zgwuYhf8',
 
 );

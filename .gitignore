@@ -4,5 +4,5 @@ composer.phar
 composer.lock
 .DS_Store
 Thumbs.db
-.env.local.php
+app/.env.local.php
 .idea
