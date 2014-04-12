@@ -42,6 +42,7 @@ return array(
         ),
         'team_members' => array(
             'view_roster' => 1,
+            'report_match' => 1,
             'wow' => 1,
         ),
     ),

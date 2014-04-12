@@ -10,59 +10,61 @@ Report Results
   @endif
   <?php $i = 1; ?>
   @foreach ($match->games as $game)
-    <div class="splash about" style="padding-top:0.5em;">
-      {{ Form::model($game, array('route' => array('game.report', $game->id), 
-                          'class' => 'pure-form')) }}
-        <legend>
-          Game {{ $i }} 
-          @if ($game->winner) 
-            - Won by {{ $game->getWinner->qualified_name }} 
-          @elseif ($i == $match->bo)
-            - Ace Match
-          @endif
-        </legend>
-          {{ Form::label('winner') }}
-          {{ Form::select('winner', $game->players()->lists('qualified_name', 'id')) }}
-          <input type="checkbox" name="is_default" @if($game->is_default) checked @endif />
-          <label for='is_default'>
-            Won by forfeit?
-          </label>
-          @if ($game->replay_url)
-            <div class="fileUpload pure-button pure-button-orange expand-left" style="top:15px;">
-              <span class="fileUpload-text">
-                <i class="fa fa-cloud-upload fa-lg"></i>
-                Change Replay?
-              </span>
-              <span class="spinner"></span>
-              <input type="file" name="replay" class="upload" 
-                     data-action-url="{{ URL::route('replay.upload', $game->id) }}"/>
-            </div>
-          @else
+    @if ($game->canReport(Sentry::getUser()))
+        <div class="splash about" style="padding-top:0.5em;">
+          {{ Form::model($game, array('route' => array('game.report', $game->id),
+                              'class' => 'pure-form')) }}
+            <legend>
+              Game {{ $i }}
+              @if ($game->winner)
+                - Won by {{ $game->getWinner->qualified_name }}
+              @elseif ($i == $match->bo)
+                - Ace Match
+              @endif
+            </legend>
+              {{ Form::label('winner') }}
+              {{ Form::select('winner', $game->players()->lists('qualified_name', 'id')) }}
+              <input type="checkbox" name="is_default" @if($game->is_default) checked @endif />
+              <label for='is_default'>
+                Won by forfeit?
+              </label>
+              @if ($game->replay_url)
+                <div class="fileUpload pure-button pure-button-orange expand-left" style="top:15px;">
+                  <span class="fileUpload-text">
+                    <i class="fa fa-cloud-upload fa-lg"></i>
+                    Change Replay?
+                  </span>
+                  <span class="spinner"></span>
+                  <input type="file" name="replay" class="upload"
+                         data-action-url="{{ URL::route('replay.upload', $game->id) }}"/>
+                </div>
+              @else
 
-            <div class="fileUpload pure-button pure-button-secondary expand-left" style="top:15px;">
-              <span class="fileUpload-text">
-                <i class="fa fa-cloud-upload fa-lg"></i>
-                Upload Replay
-              </span>
-              <span class="spinner"></span>
-              <input type="file" name="replay" class="upload" 
-                     data-action-url="{{ URL::route('replay.upload', $game->id) }}"/>
-            </div>
-          @endif
-          @if ($game->winner)  
-            <input type="submit" value="Modify Winner" class="pure-button pure-button-bad" />
-          @else
-            <input type="submit" value="Declare Winner" class="pure-button pure-button-good" />
-          @endif
+                <div class="fileUpload pure-button pure-button-secondary expand-left" style="top:15px;">
+                  <span class="fileUpload-text">
+                    <i class="fa fa-cloud-upload fa-lg"></i>
+                    Upload Replay
+                  </span>
+                  <span class="spinner"></span>
+                  <input type="file" name="replay" class="upload"
+                         data-action-url="{{ URL::route('replay.upload', $game->id) }}"/>
+                </div>
+              @endif
+              @if ($game->winner)
+                <input type="submit" value="Modify Winner" class="pure-button pure-button-bad" />
+              @else
+                <input type="submit" value="Declare Winner" class="pure-button pure-button-good" />
+              @endif
 
-          @if ($i == $match->bo)
-            <br />
-            {{ Form::label('loser') }}
-            {{ Form::select('loser', $game->players()->lists('qualified_name', 'id')) }}
+              @if ($i == $match->bo)
+                <br />
+                {{ Form::label('loser') }}
+                {{ Form::select('loser', $game->players()->lists('qualified_name', 'id')) }}
 
-          @endif 
-      {{ Form::close() }}
-    </div>
+              @endif
+          {{ Form::close() }}
+        </div>
+      @endif
     <?php $i++; ?>
   @endforeach
   <br />
@@ -101,7 +103,7 @@ $(document).ready(function(){
           button.addClass('pure-button-bad');
 
         }
-        
+
         button.removeAttr('data-loading');
       },
       error: function(jqxhr) {
