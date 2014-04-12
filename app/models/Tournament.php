@@ -126,6 +126,16 @@ class Tournament extends Eloquent
         return false;
     }
 
+    /**
+     * Generates the initial Swiss Round by randomly pairing all the teams in the Tournament and adding
+     * it to the database.
+     *
+     * Action is atomic, it will either pass or fail
+     *
+     * @param DateTime $due
+     *
+     * @return void
+     */
     public function initial_swiss_round($due)
     {
         DB::transaction(function () use ($due) {
@@ -298,7 +308,7 @@ class Tournament extends Eloquent
                 }
             }
         }
-
+        usort($overallScore, array('SwissRoundScore', 'reverse_sort_param'));
         return $overallScore;
     }
 

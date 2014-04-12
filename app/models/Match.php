@@ -183,7 +183,7 @@ class Match extends Eloquent {
 
 	public function score() {
 	    if ($this->is_default) {
-            $team = Team::findOrFail($this->is_default);
+            $team = Lineup::findOrFail($this->is_default);
         return [ $team->qualified_name => [ 'wins' => ceil($this->bo / 2),
                                           'losses' => 0, 
                                           'id' => $team->id,

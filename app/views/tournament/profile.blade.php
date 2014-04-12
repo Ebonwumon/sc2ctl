@@ -39,18 +39,18 @@ Tournament Profile
         <div class="pure-u-1-3">
             <table class="pure-table pure-table-striped">
                 <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Team</th>
-                    <th>Wins</th>
-                    <th>Losses</th>
-                    <th>Score</th>
-                </tr>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Team</th>
+                        <th>Wins</th>
+                        <th>Losses</th>
+                        <th>Score</th>
+                    </tr>
                 </thead>
-
+                <?php $i = 1; ?>
                 @foreach ($summary as $score)
                 <tr>
-                    <td>1</td>
+                    <td>{{ $i }}</td> <?php $i++; ?>
                     <td>{{ $score->name }}</td>
                     <td>{{ $score->wins }}</td>
                     <td>{{ $score->losses }}</td>
