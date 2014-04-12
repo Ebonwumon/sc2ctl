@@ -32,7 +32,7 @@
             : URL::route('team.profile', $matchScore[$keys[1]]['id']);
 
     ?>
-          <a href="{{ $profile }}">[{{ $keys[1] }}]</a>
+          <a href="{{ $profile }}">{{ $keys[1] }}</a>
       </span>
         </div>
         <div class="pure-u-1-8">

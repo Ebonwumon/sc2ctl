@@ -13,7 +13,11 @@ class SwissRound extends Eloquent {
     return $this->belongsTo('Tournament');
   }
 
-  public function summarize() {
+    /**
+     * Summarizes the results of the current Swiss Round by giving a full breakdown of wins/losses for each team.
+     * @return SwissRoundScore[]
+     */
+    public function summarize() {
     $summary = array();
     foreach ($this->matches as $match) {
       foreach ($match->score() as $k => $v) {
