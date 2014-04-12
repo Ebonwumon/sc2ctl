@@ -58,11 +58,7 @@ class TournamentController extends \BaseController {
     switch ($phase) {
       case 0: $data = $tournament->teams; break;
       case 1: $data = $tournament->currentRound; 
-              foreach ($tournament->swissRounds as $swiss) {
-                foreach ($swiss->summarize() as $sum) {
-                  $summary[] = $sum;
-                }
-              }
+              $summary = array(); // TODO
         break;
     }
 
