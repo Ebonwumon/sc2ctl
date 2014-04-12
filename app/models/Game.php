@@ -1,5 +1,25 @@
 <?php
 
+/**
+ * Game
+ *
+ * @property integer $id
+ * @property integer $winner
+ * @property integer $match_id
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property string $replay_url
+ * @property boolean $is_default
+ * @property-read \Match $match
+ * @property-read \Map $map
+ * @method static \Illuminate\Database\Query\Builder|\Game whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Game whereWinner($value)
+ * @method static \Illuminate\Database\Query\Builder|\Game whereMatchId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Game whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Game whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Game whereReplayUrl($value)
+ * @method static \Illuminate\Database\Query\Builder|\Game whereIsDefault($value)
+ */
 class Game extends Eloquent {
 
 	protected $fillable = array('winner', 'match_id', 'replay_url');

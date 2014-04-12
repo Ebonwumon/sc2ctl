@@ -3,6 +3,13 @@ define("UNSTARTED_GROUP", 1);
 define("UNFINISHED_GAMES", 2);
 define("FINISHED_STAGE_1", 3);
 
+/**
+ * Group
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Team[] $teams
+ * @property-read \Tournament $tournament
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Match[] $matches
+ */
 class Group extends Eloquent {
 	
 	protected $fillable = array('mulitplier', 'phase', 'tournament_id');

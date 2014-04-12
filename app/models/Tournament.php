@@ -4,14 +4,28 @@
  * Class Tournament
  * Represents a tournament object within the database and the methods upon it
  *
- * @property int id
- * @property string name
- * @property string division
- * @property int phase
- * @property int winner
- * @property DateTime created_at
- * @property DateTime updated_at
- * @property int season_id
+ * @property integer $id
+ * @property string $name
+ * @property string $division
+ * @property integer $phase
+ * @property integer $winner
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property integer $season_id
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Group[] $groups
+ * @property-read \Bracket $brackets
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Lineup[] $teams
+ * @property-read \Illuminate\Database\Eloquent\Collection|\SwissRound[] $swissRounds
+ * @property-read \Illuminate\Database\Eloquent\Collection|\SwissRound[] $currentRound
+ * @property-read \Season $season
+ * @method static \Illuminate\Database\Query\Builder|\Tournament whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tournament whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tournament whereDivision($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tournament wherePhase($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tournament whereWinner($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tournament whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tournament whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Tournament whereSeasonId($value)
  */
 class Tournament extends Eloquent
 {

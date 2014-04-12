@@ -1,5 +1,27 @@
 <?php
 
+/**
+ * Match
+ *
+ * @property integer $id
+ * @property integer $bo
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property integer $swiss_round_id
+ * @property integer $is_default
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Game[] $games
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Lineup[] $teams
+ * @property-read \SwissRound $swissRound
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Roster[] $rosters
+ * @property-read \Roster $rosterForLineup
+ * @property-read mixed $qualified_name
+ * @method static \Illuminate\Database\Query\Builder|\Match whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Match whereBo($value)
+ * @method static \Illuminate\Database\Query\Builder|\Match whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Match whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Match whereSwissRoundId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Match whereIsDefault($value)
+ */
 class Match extends Eloquent {
 	
 	protected $fillable = array('bo', 'swiss_round_id', 'is_default');

@@ -1,5 +1,25 @@
 <?php
 
+/**
+ * Roster
+ *
+ * @property integer $id
+ * @property integer $match_id
+ * @property integer $lineup_id
+ * @property boolean $confirmed
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Lineup $lineup
+ * @property-read \Match $match
+ * @property-read \Illuminate\Database\Eloquent\Collection|\RosterEntry[] $entries
+ * @property-read \RosterEntry $entry
+ * @method static \Illuminate\Database\Query\Builder|\Roster whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Roster whereMatchId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Roster whereLineupId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Roster whereConfirmed($value)
+ * @method static \Illuminate\Database\Query\Builder|\Roster whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Roster whereUpdatedAt($value)
+ */
 class Roster extends Eloquent {
   
   const STATUS_UNSTARTED = 0;

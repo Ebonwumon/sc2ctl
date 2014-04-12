@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * AssignedRole
+ *
+ * @property-read \User $user
+ * @property-read \Role $role
+ */
 class AssignedRole extends Eloquent {
 	
 	protected $table = 'assigned_roles';

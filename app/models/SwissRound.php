@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * SwissRound
+ *
+ * @property integer $id
+ * @property integer $tournament_id
+ * @property string $due_date
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Match[] $matches
+ * @property-read \Tournament $tournament
+ * @method static \Illuminate\Database\Query\Builder|\SwissRound whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\SwissRound whereTournamentId($value)
+ * @method static \Illuminate\Database\Query\Builder|\SwissRound whereDueDate($value)
+ * @method static \Illuminate\Database\Query\Builder|\SwissRound whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\SwissRound whereUpdatedAt($value)
+ */
 class SwissRound extends Eloquent {
   
   protected $guarded = array('id');

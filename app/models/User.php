@@ -1,6 +1,58 @@
 <?php
 use Cartalyst\Sentry\Users\Eloquent\User as SentryUserModel;
 
+/**
+ * User
+ *
+ * @property integer $id
+ * @property string $email
+ * @property string $username
+ * @property integer $bnet_id
+ * @property string $bnet_name
+ * @property integer $char_code
+ * @property string $league
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property string $bnet_url
+ * @property integer $team_id
+ * @property string $img_url
+ * @property \Carbon\Carbon $deleted_at
+ * @property string $password
+ * @property string $permissions
+ * @property boolean $activated
+ * @property string $activation_code
+ * @property \Carbon\Carbon $activated_at
+ * @property \Carbon\Carbon $last_login
+ * @property string $persist_code
+ * @property string $reset_password_code
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Notification[] $notifications
+ * @property-read \Team $team
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Lineup[] $lineups
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Lineup[] $lineupsForTournament
+ * @property-read mixed $qualified_name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\static::$groupModel[] $groups
+ * @method static \Illuminate\Database\Query\Builder|\User whereId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereEmail($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereUsername($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereBnetId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereBnetName($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereCharCode($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereLeague($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereCreatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereBnetUrl($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereTeamId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereImgUrl($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereDeletedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User wherePassword($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User wherePermissions($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereActivated($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereActivationCode($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereActivatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereLastLogin($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User wherePersistCode($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereResetPasswordCode($value) 
+ */
 class User extends SentryUserModel {
 	
 	protected $fillable = array('username', 'password', 'email', 'bnet_url', 'bnet_id', 'bnet_name', 'char_code', 'league', 'img_url', 'team_id');

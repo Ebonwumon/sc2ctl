@@ -1,4 +1,40 @@
 <?php
+/**
+ * Team
+ *
+ * @property integer $id
+ * @property string $name
+ * @property integer $user_id
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property string $tag
+ * @property string $social_fb
+ * @property string $social_twitter
+ * @property string $website
+ * @property string $logo_url
+ * @property string $banner_url
+ * @property string $social_twitch
+ * @property string $description
+ * @property-read \User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\User[] $members
+ * @property-read mixed $qualified_name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Lineup[] $lineups
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Match[] $matches
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Tournament[] $tournaments
+ * @method static \Illuminate\Database\Query\Builder|\Team whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Team whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\Team whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Team whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Team whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Team whereTag($value)
+ * @method static \Illuminate\Database\Query\Builder|\Team whereSocialFb($value)
+ * @method static \Illuminate\Database\Query\Builder|\Team whereSocialTwitter($value)
+ * @method static \Illuminate\Database\Query\Builder|\Team whereWebsite($value)
+ * @method static \Illuminate\Database\Query\Builder|\Team whereLogoUrl($value)
+ * @method static \Illuminate\Database\Query\Builder|\Team whereBannerUrl($value)
+ * @method static \Illuminate\Database\Query\Builder|\Team whereSocialTwitch($value)
+ * @method static \Illuminate\Database\Query\Builder|\Team whereDescription($value)
+ */
 class Team extends Eloquent { 
 
 	protected $fillable = array('name', 

@@ -1,5 +1,27 @@
 <?php 
 
+/**
+ * Lineup
+ *
+ * @property integer $id
+ * @property integer $team_id
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property string $name
+ * @property \Carbon\Carbon $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\User[] $historicalPlayers
+ * @property-read \Illuminate\Database\Eloquent\Collection|\User[] $players
+ * @property-read \Team $team
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Tournament[] $registrations
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Tournament[] $tournaments
+ * @property-read mixed $qualified_name
+ * @method static \Illuminate\Database\Query\Builder|\Lineup whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Lineup whereTeamId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Lineup whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Lineup whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Lineup whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\Lineup whereDeletedAt($value)
+ */
 class Lineup extends Eloquent {
   protected $fillable = array('name', 'team_id');
   protected $guarded = array('id');

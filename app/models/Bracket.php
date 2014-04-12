@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Bracket
+ *
+ * @property-read \Match $match
+ * @property-read \Tournament $tournament
+ */
 class Bracket extends Eloquent {
 	protected $fillable = array('tournament_id', 'match_id');
 	protected $guarded = array('id');
