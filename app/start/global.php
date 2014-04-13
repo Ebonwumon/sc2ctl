@@ -78,7 +78,7 @@ App::error(function(Symfony\Component\HttpKernel\Exception\HttpException $except
 
 App::down(function()
 {
-	return Response::make("Be right back!", 503);
+	return Response::view("errors/down", array(), 503);
 });
 
 /*
