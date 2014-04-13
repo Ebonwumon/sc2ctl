@@ -5,8 +5,7 @@ Sponsors
 @stop
 
 @section('content')
-<div class="pure-g-r">
-  <div class="splash">
+<div class="pure-g-r splash">
     <div class="pure-u-1-3">
       <div class="l-box">
         <img src="/sponsor/mythlogic logo.fw.png" />
@@ -44,6 +43,5 @@ Sponsors
       </p>
     </div>
   </div>
-</div>
 
 @stop
