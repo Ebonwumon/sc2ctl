@@ -123,7 +123,7 @@ class MatchController extends \BaseController {
     $lineups = $match->teams;
     
     foreach ($lineups as $lineup) {
-      if (!$match->canReport(Sentry::getUser())) continue;
+      if (!$lineup->canCreateRoster(Sentry::getUser())) continue;
 
       $roster_status = $match->rosterStatus($lineup->id);
       if ($roster_status == Roster::STATUS_UNSTARTED) {
