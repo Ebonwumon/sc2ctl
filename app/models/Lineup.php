@@ -143,6 +143,22 @@ class Lineup extends Eloquent {
 
   }
 
+  public function canCreateRoster($user) {
+    if ($user->hasAccess('create_rosters')) return true;
+
+    if (!$user->team_id) return false;
+
+    if ($user->hasAccess('create_team_rosters')) {
+      if ($this->team->id == $user->team_id) return true;
+    }
+
+    if ($user->hasAccess('create_roster')) {
+      if ($this->players->contains($user->id)) return true; // Todo verify roles
+    }
+
+    return false;
+  }
+
     public function canViewRoster($user) {
         if ($user->hasAccess('view_rosters')) return true;
 

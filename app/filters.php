@@ -109,6 +109,14 @@ Route::filter('can_report', function($route, $request, $value) {
   }
 });
 
+Route::filter('create_roster', function($route, $request) {
+  $lineup = Lineup::findOrFail($route->getParameter('lineup_id')); 
+  if (!$lineup->canCreateRoster(Sentry::getUser())) {
+    App::abort('401', "You're not authorized to do that!");
+  }
+
+});
+
 Route::filter('remove_member', function($route, $request) {
   $team = Team::findOrFail($route->getParameter('id'));
   if(!$team->canRemoveMembers(Sentry::getUser())) {

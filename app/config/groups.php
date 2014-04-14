@@ -3,6 +3,7 @@ return array(
     'permissions' => array(
         'admins' => array(
             'superuser' => 1,
+            'create_rosters' => 1,
             'modify_ranks' => 1,
             'edit_teams' => 1,
             'report_matches' => 1,
@@ -20,6 +21,7 @@ return array(
         'team_owners' => array(
             'add_team_members' => 1,
             'create_team_lineups' => 1,
+            'create_team_rosters' => 1,
             'edit_team' => 1,
             'modify_team_ranks' => 1,
             'register_team_lineups' => 1,
@@ -31,6 +33,7 @@ return array(
         ),
         'team_captains' => array(
             'add_team_members' => 1,
+            'create_roster' => 1,
             'edit_team_lineup' => 1,
             'modify_team_rank' => 1,
             'register_team_lineup' => 1,

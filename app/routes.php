@@ -134,7 +134,7 @@ Route::group(array('before' => 'auth|lineup_officer'), function() {
 	Route::post('lineup/{id}/remove_user', array('as' => 'lineup.remove_user', 'uses' => "LineupController@remove_user"));
 });
 
-Route::group(array('before' => 'auth|lineup_officer'), function() {
+Route::group(array('before' => 'auth|create_roster'), function() {
   Route::get('tournament/{id}/manage_rosters', array('as' => 'roster.index', 'uses' => 'RosterController@index'));
   Route::get('roster/create/{match_id}/{lineup_id}', array('as' => 'roster.create',
       'uses' => 'RosterController@create'));
