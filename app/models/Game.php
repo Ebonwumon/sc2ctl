@@ -140,7 +140,6 @@ class Game extends Eloquent
                 if ($authorized_roles->count() > 0) return true;
             }
         }
-z
         // Check if the user can at least report a single game in the match
         if ($user->hasAccess('report_match')) {
             if ($this->players()->contains($user->id)) return true;
