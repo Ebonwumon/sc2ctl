@@ -34,4 +34,11 @@
 	  Edit Profile
   </a>
 @endif
+@if (Sentry::check())
+<p>
+  <a href="mailto:{{ $user->email }}" class="pure-button pure-button-orange">
+    Send Email
+  </a>
+</p>
+@endif
 @stop
