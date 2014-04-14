@@ -246,12 +246,12 @@ class Match extends Eloquent
         return [$teams->first()->qualified_name =>
             ['wins' => $team1,
                 'losses' => $team2,
-                'id' => $teams->first()->id,
+                'id' => $teams->first()->team->id,
                 'won' => $team1 > $this->bo / 2],
             $teams->last()->qualified_name =>
                 ['wins' => $team2,
                     'losses' => $team1,
-                    'id' => $teams->last()->id,
+                    'id' => $teams->last()->team->id,
                     'won' => $team2 > $this->bo / 2]
         ];
     }
