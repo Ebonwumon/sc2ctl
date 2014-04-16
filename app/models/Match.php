@@ -238,7 +238,7 @@ class Match extends Eloquent
 
                 if ($winning_lineup_id == $teams->first()->id) {
                     $team1++;
-                } else if ($winning_lineup_id == $teams->first()->id) {
+                } else if ($winning_lineup_id == $teams->last()->id) {
                     $team2++;
                 }
             }
