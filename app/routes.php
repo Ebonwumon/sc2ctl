@@ -137,14 +137,17 @@ Route::group(array('before' => 'auth|lineup_officer'), function() {
 	Route::post('lineup/{id}/remove_user', array('as' => 'lineup.remove_user', 'uses' => "LineupController@remove_user"));
 });
 
-Route::group(array('before' => 'auth|create_roster'), function() {
+// TODO fix protection
+Route::group(array('before' => 'auth'), function() {
   Route::get('tournament/{id}/manage_rosters', array('as' => 'roster.index', 'uses' => 'RosterController@index'));
   Route::get('roster/create/{match_id}/{lineup_id}', array('as' => 'roster.create',
       'uses' => 'RosterController@create'));
   Route::get('roster/{id}/edit', array('as' => 'roster.edit', 'uses' => 'RosterController@edit'));
   Route::post('roster/{id}', array('as' => 'roster.update', 'uses' => 'RosterController@update'));
-  Route::post('roster', array('as' => 'roster.store', 'uses' => 'RosterController@store'));
 });
+
+// TODO protect this
+  Route::post('roster', array('as' => 'roster.store', 'uses' => 'RosterController@store'));
   
 Route::group(array('before' => 'auth|perm:create_games'), function() {
 	Route::get('game/create', array('as' => 'game.create', 'uses' => 'GameController@create'));

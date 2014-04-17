@@ -70,7 +70,7 @@ class AssetController extends \BaseController {
 		return Response::json(array('status' => 3, 
 		                            'replay_url' => $replayUrl, 'message' => 'Please ensure this information is correct'));*/
 
-    return Response::json(array('status' => 0));
+    return Response::json(array('status' => 0, 'replay_url' => $replayUrl));
 	}
 	
 	public function uploadProfileImage($id) {
