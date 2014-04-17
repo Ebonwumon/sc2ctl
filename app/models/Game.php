@@ -70,10 +70,14 @@ class Game extends Eloquent
 
     public function winningLineup()
     {
-        $teams = $this->match->teams()->whereHas('players', function ($query) {
-            $query->withTrashed()->where('user_id', '=', $this->winner);
+        $teams = $this->match->teams()->whereHas('historicalPlayers', function ($query) {
+            $query->where('user_id', '=', $this->winner);
         });
         if ($teams->count() > 1) throw new Exception('Player is playing for multiple lineups');
+        if ($teams->count() == 0) {
+          throw new Exception('No winning lineup found, Game ID: ' . $this->id 
+                                                        . " Winner ID: " . $this->winner);
+        }
         return $teams;
     }
 

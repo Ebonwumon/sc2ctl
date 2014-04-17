@@ -234,7 +234,12 @@ class Match extends Eloquent
 
         foreach ($this->games as $game) {
             if ($game->winner) {
-                $winning_lineup_id = $game->winningLineup->first()->id;
+                try {
+                  $winning_lineup_id = $game->winningLineup->first()->id;
+                } catch (Exception $ex) {
+                  Log::error($ex);
+                  continue;
+                }
 
                 if ($winning_lineup_id == $teams->first()->id) {
                     $team1++;
