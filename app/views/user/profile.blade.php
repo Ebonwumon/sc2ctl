@@ -41,4 +41,9 @@
   </a>
 </p>
 @endif
+<p>
+  <a href="{{ $user->bnet_url }}" class="pure-button pure-button-secondary">
+    Battle.net Profile
+  </a>
+</p>
 @stop

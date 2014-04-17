@@ -190,6 +190,8 @@ Rules
     <a id="playing"><h3>Playing Matches</h3></a>
     <ul>
       <li>All matches are best-of seven (a team must win four games to win the match)</li>
+      <li>Matches are played in proleague format (each team chooses the order in which their players will
+          play, and then no substituations are made during the match)</li>
       <li>
         The map pool for each week will be posted on the <a href="{{ URL::route('home.about') }}">about page</a>
         each Sunday at 11:50PM Mountain Time. Maps must be played in the order listed, eg: Game 5 must be played
