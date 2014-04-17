@@ -10,6 +10,7 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+
 Route::get('refreshdoges', 'HomeController@refreshdoges');
 Route::get('/', array('as' => 'home', "uses" => 'HomeController@index')); 
 Route::get('contact', array('as' => 'home.contact', "uses" => 'HomeController@contact'));
@@ -87,9 +88,11 @@ Route::group(array('before' => "auth|is_user"), function() {
 //TODO make can_report
 Route::group(array('before' => "auth|can_report:match"), function() {
   Route::get('match/{id}/report', array('as' => 'match.report', 'uses' => 'MatchController@report'));
+  Route::post('match/{id}/report', array('as' => 'match.report_default', 'uses' => 'MatchController@report_default')); 
 	Route::get('match/{id}/wizard/{gno?}', array('as' => 'match.wizard', 'uses' => 'MatchController@wizard'));
 	Route::get('match/{id}/wizard/{gno?}/nextgame', array('as' => 'match.wizard.nextgame', 'uses' => 'MatchController@nextgame'));
 });
+
 Route::group(array('before' => "auth|can_report:game"), function() {
 	Route::post('game/{id}', array('as' => 'game.report', 'uses' => 'GameController@report'));
 	Route::post('asset/replay/{id}', array('as' => 'replay.upload', 'uses' => 'AssetController@uploadReplay'));
