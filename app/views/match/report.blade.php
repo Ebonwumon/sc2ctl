@@ -5,9 +5,20 @@ Report Results
 @stop
 
 @section('content')
-  @if ($winner = $match->won())
-    <h1>COMPLETE - Won by {{ Lineup::findOrFail($winner)->qualified_name }}</h1>
-  @endif
+  <?php $winner = $match->won(); ?>
+  <div class="splash about">
+    @if ($winner)
+      <h1>COMPLETE - Won by {{ Lineup::findOrFail($winner)->qualified_name }}</h1>
+    @else
+      {{ Form::open(array('route' => array('match.report_default', $match->id), 'class' => 'pure-form')) }}
+        <label for="winner">Winning Lineup</label>
+        {{ Form::select('winner', $match->teams->lists('qualified_name', 'id')) }} 
+        <input type="checkbox" name="is_default" required @if ($match->is_default) checked @endif />
+        Confirm Walkover
+        <input type="submit" value="Declare Walkover" class="pure-button pure-button-bad" />
+      {{ Form::close() }}
+    @endif
+  </div>
   <?php $i = 1; ?>
   @foreach ($match->games as $game)
     @if ($game->canReport(Sentry::getUser()))

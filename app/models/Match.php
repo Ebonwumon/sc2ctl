@@ -137,6 +137,20 @@ class Match extends Eloquent
         return Roster::STATUS_COMPLETE;
     }
 
+    public function report_default($winner) {
+
+      DB::transaction(function() use ($winner) {
+        foreach ($this->games as $game) {
+          $game->winner = null;
+          $game->is_default = 0;
+          $game->save();
+        }
+
+        $this->is_default = $winner;
+        $this->save();
+      });
+    }
+
     /**
      * Checks if the user has permission to report a match.
      * Returns true if the user has permission to report either the whole match, or any part of the match.
@@ -270,6 +284,17 @@ class Match extends Eloquent
         }
         return false;
     }
+
+    public function winner()
+    {
+        foreach ($this->score() as $key => $score) {
+            if ($score['won']) {
+                return array_merge($score, array('qualified_name' => $key));
+            }
+        }
+        return [];
+    }
+
 
     public function teamInMatch($id)
     {

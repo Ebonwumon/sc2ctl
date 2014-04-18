@@ -19,7 +19,7 @@ class MatchController extends \BaseController {
 	 */
 	public function create()
 	{
-		$select = DB::table('teams')->lists('name', 'id');
+		$select = Lineup::get()->lists('qualified_name', 'id');
     return View::make('match/create', array('teams' => $select));
 	}
 
@@ -33,6 +33,8 @@ class MatchController extends \BaseController {
     $match = new Match;
 
     $match->bo = Input::get('bo');
+    $match->swiss_round_id = Input::get('swiss_round_id');
+    $match->is_default = false;
 
     $match->save();
     $match->teams()->sync(Input::get('teams'));
@@ -118,11 +120,14 @@ class MatchController extends \BaseController {
 		//
 	}
 
-  public function report($id) {
+  public function report($id, $override = false) {
+    $override = ($override === 'true');
+    
     $match = Match::findOrFail($id);
     $lineups = $match->teams;
     
     foreach ($lineups as $lineup) {
+      if (Sentry::getUser()->hasAccess('override_roster_create') && $override) continue;
       if (!$lineup->canCreateRoster(Sentry::getUser())) continue;
 
       $roster_status = $match->rosterStatus($lineup->id);
@@ -140,6 +145,27 @@ class MatchController extends \BaseController {
     }
     
     return View::make('match/report', array('match' => $match));
+  }
+
+  public function report_default($id) {
+    $match = Match::findOrFail($id);
+    $winner = Input::get('winner');
+    
+    if ($winner == null) {
+      $errors = array('You did not select a winning lineup');
+      return Redirect::route('match.report', array('id' => $match->id, 'override' => 'true'))->withErrors($errors);
+    }
+    
+    // Type cast the string to an int, for use with the type-hinted report_default on match.
+    $winner = (int) $winner;
+    try {
+      $match->report_default($winner);
+    } catch (Exception $ex) {
+      Log::error($ex);
+      $errors = array('There was an error setting the match as a default win');
+      return Redirect::route('match.report', array('id' => $match->id, 'override' => 'true'))->withErrors($errors);
+    }
+    return Redirect::route('match.profile', $match->id);
   }
 	
 	public function wizard($id, $gno = 1) {

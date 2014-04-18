@@ -11,7 +11,8 @@ return array(
             'remove_members' => 1,
             'rename_lineups' => 1,
             'register_lineups' => 1,
-            'view_rosters' => 1
+            'view_rosters' => 1,
+            'override_roster_creation' => 1,
         ),
         'casters' => array(
             'vods' => 1,
