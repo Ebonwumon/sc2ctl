@@ -93,6 +93,10 @@ class UserController extends \BaseController {
       if (Input::has('bnet_name') && Input::get('bnet_name') != null) {
         $inputArray['bnet_name'] = Input::get('bnet_name');
       }
+      
+      if (Input::has('bnet_url') && Input::get('bnet_url') != null) {
+        $inputArray['bnet_url'] = Input::get('bnet_url');
+      }
 
       if (Input::has('char_code') && Input::get('char_code') != null) {
         $inputArray['char_code'] = Input::get('char_code');

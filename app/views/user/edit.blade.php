@@ -18,6 +18,11 @@ Edit Profile
     </div>
 
     <div class="pure-control-group">
+      {{ Form::label('bnet_url') }}
+      {{ Form::text('bnet_url') }}
+    </div>
+
+    <div class="pure-control-group">
       {{ Form::label('char_code') }}
       {{ Form::input('number', 'char_code') }}
     </div>
