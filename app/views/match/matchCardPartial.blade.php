@@ -51,6 +51,11 @@
     @endif
     <a href="{{ URL::route('match.profile', $match->id) }}" class="pure-button pure-button-secondary">
         View Rosters
+        @if ($match->rostersComplete())
+        (&#x1f44d;)
+        @else
+        (&#x1f44e;)
+        @endif
     </a>
     @else
     <a href="{{ URL::route('match.profile', $match->id)}}" class="pure-button pure-button-primary">
