@@ -100,7 +100,7 @@ About the League
         </thead>
         <tr>
           <td>1</td>
-          <td>Habitation Station LE</td>
+          <td>Merry Go Round LE</td>
         </tr>
         <tr>
           <td>2</td>
@@ -108,23 +108,23 @@ About the League
         </tr>
         <tr>
           <td>3</td>
-          <td>Merry Go Round LE</td>
+          <td>Galaxy - Bloodmist</td>
         </tr>
         <tr>
           <td>4</td>
-          <td>Overgrowth LE</td>
-        </tr>
-        <tr>
-          <td>5</td>
           <td>Waystation LE</td>
         </tr>
         <tr>
+          <td>5</td>
+          <td>Overgrowth LE</td>
+        </tr>
+        <tr>
           <td>6</td>
-          <td>Galaxy - Veridian</td>
+          <td>Habitation Station LE</td>
         </tr>
         <tr>
           <td>7</td>
-          <td>Galaxy - Bloodmist Refuge</td>
+          <td>Galaxy - Veridian</td>
         </tr>
       </table>
     </div>
