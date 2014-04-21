@@ -54,8 +54,11 @@ class Tournament extends Eloquent
         return $this->hasMany('SwissRound');
     }
 
-    public function currentRound()
+    public function currentRound($round_no = 0)
     {
+        if ($round_no) {
+            return $this->hasMany('SwissRound')->orderBy('id')->get()[$round_no - 1];
+        }
         return $this->hasMany('SwissRound')->orderBy('id', 'DESC')->take(1);
     }
 
@@ -76,7 +79,7 @@ class Tournament extends Eloquent
                 }
             }
             if ($playing) {
-                $arr[] = $team;
+                $arr[] = $lineup;
             }
         }
 
@@ -175,70 +178,8 @@ class Tournament extends Eloquent
       $swiss_round->save();
 
     }*/
-    public static function filterPhase($args, $phase)
-    {
-        $filter = array();
-        foreach ($args as $arg) {
-            if ($arg->phase == $phase) {
-                $filter[] = $arg;
-            }
-        }
-        return $filter;
-    }
 
-    /* Deprecated functions
-    public function generateGroups() {
-        $count = $this->teams->count();
-
-        switch ($count % 4) {
-            case 0: $numThrees = 0;
-            break;
-            case 1: $numThrees = 3;
-            break;
-            case 2: $numThrees = 2;
-            break;
-            case 3: $numThrees = 1;
-            break;
-        }
-
-        $teams = $this->teams()->orderBy(DB::raw('RAND()'))->get();
-        $result = array();
-
-        foreach ($teams as $team) {
-            $result[]= $team->id;
-        }
-
-        $teams = $result;
-
-        if ($count == 5) {
-            $group = Group::create(array('tournament_id' => $this->id, 'phase' => 0, 'multiplier' => 1));
-            $group->teams()->sync($teams);
-            return;
-        }
-
-        for ($i = 0; $i < $numThrees; $i++) {
-            $group = Group::create(array('tournament_id' => $this->id, 'phase' => 0, 'mulitiplier' => 1));
-            for ($k = 0; $k < 3; $k++) {
-                $group->teams()->attach(array_pop($teams));
-            }
-        }
-        if (!$teams) return;
-
-        $i = 0;
-        $group = Group::create(array('phase' => 0, 'mulitiplier' => 1, 'tournament_id' => $this->id));
-        while ($teams) {
-            $group->teams()->attach(array_pop($teams));
-
-            if ($i == 3) {
-                if (!$teams) return;
-                $group = Group::create(array('phase' => 0, 'mulitiplier' => 1, 'tournament_id' => $this->id));
-                $i = 0;
-            } else {
-                $i++;
-            }
-        }
-    }
-
+    /*
     public function generateBracket($teams) {
         $ro = Round::calculateRo(count($teams));
 
@@ -311,17 +252,6 @@ class Tournament extends Eloquent
         usort($overallScore, array('SwissRoundScore', 'reverse_sort_param'));
         return $overallScore;
     }
-
-    //Deprecated
-    /*public function getGlobalStandings()
-    {
-        $globalStandings = array();
-        foreach ($this->groups as $group) {
-            array_radsum($globalStandings, $group->standings());
-        }
-        arsort($globalStandings);
-        return $globalStandings;
-    }*/
 
     public function getDivision()
     {

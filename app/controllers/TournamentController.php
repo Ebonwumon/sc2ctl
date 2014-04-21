@@ -33,7 +33,7 @@ class TournamentController extends \BaseController
     public function store()
     {
         // Todo make this safe
-        $tournament = Tournament::create(Input::all());
+        Tournament::create(Input::all());
 
         return Redirect::route('tournament.index');
     }
@@ -45,11 +45,12 @@ class TournamentController extends \BaseController
         return Redirect::route('tournament.create');
     }
 
-    public function show($id, $phase = false)
+    public function show($id)
     {
         /** @var $tournament Tournament */
         $tournament = Tournament::find($id);
-        $phase = ($phase) ? $phase : $tournament->phase;
+
+        $phase = (Input::has('phase') && Input::get('phase') != null) ? Input::get('phase') : $tournament->phase;
         $summary = array();
 
         switch ($phase) {
@@ -57,7 +58,12 @@ class TournamentController extends \BaseController
                 $data = $tournament->teams;
                 break;
             case 1:
-                $data = $tournament->currentRound;
+                if (Input::has('swiss_round') && Input::get('swiss_round') != null) {
+                    $data = $tournament->currentRound(Input::get('swiss_round'));
+                } else {
+                    $data = $tournament->currentRound;
+                }
+
                 $summary = $tournament->getRoundStandings();
                 break;
         }

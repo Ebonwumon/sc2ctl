@@ -31,10 +31,10 @@ Tournament Profile
 </div>
 <br/>
 <div class="splash">
-    @if ($tournament->phase == 0)
+    @if ($phase == 0)
     @include('tournament/registrationPhase')
 
-    @elseif ($tournament->phase == 1)
+    @elseif ($phase == 1)
     <div class="pure-g-r">
         <div class="pure-u-1-3">
             <table class="pure-table pure-table-striped">
@@ -73,7 +73,7 @@ Tournament Profile
     </div>
 
 
-    @elseif ($tournament->phase == 3)
+    @elseif ($phase == 3)
     @if ($phase)
     <br/>
     <br/>
