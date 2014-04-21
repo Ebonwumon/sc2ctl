@@ -236,11 +236,23 @@ class Match extends Eloquent
     public function score()
     {
         if ($this->is_default) {
+          
             $team = Lineup::findOrFail($this->is_default);
-            return [$team->qualified_name => ['wins' => ceil($this->bo / 2),
-                'losses' => 0,
-                'id' => $team->id,
-                'won' => true]];
+            $ret = [$team->qualified_name => ['wins' => ceil($this->bo / 2),
+              'losses' => 0,
+              'id' => $team->id,
+              'won' => true]];
+            if ($this->teams->count() > 1) {
+              foreach ($this->teams as $new_team) {
+                if ($new_team->id != $this->is_default) {
+                  $ret[$new_team->qualified_name] = [ 'wins' => 0,
+                    'losses' => ceil($this->bo / 2),
+                    'id' => $new_team->id,
+                    'won' => false];
+                }
+              }
+            }
+           return $ret;
         }
         $team1 = 0;
         $team2 = 0;
@@ -265,12 +277,12 @@ class Match extends Eloquent
         return [$teams->first()->qualified_name =>
             ['wins' => $team1,
                 'losses' => $team2,
-                'id' => $teams->first()->team->id,
+                'id' => $teams->first()->id,
                 'won' => $team1 > $this->bo / 2],
             $teams->last()->qualified_name =>
                 ['wins' => $team2,
                     'losses' => $team1,
-                    'id' => $teams->last()->team->id,
+                    'id' => $teams->last()->id,
                     'won' => $team2 > $this->bo / 2]
         ];
     }
