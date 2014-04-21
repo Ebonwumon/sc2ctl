@@ -126,6 +126,15 @@ class Match extends Eloquent
         return true;
     }
 
+    public function countCompleteRosters() {
+      $complete = 0;
+      foreach ($this->teams as $lineup) {
+        if ($this->rosterStatus($lineup->id) != Roster::STATUS_COMPLETE) continue;
+        $complete++;
+      }
+      return $complete;
+    }
+
     public function rosterStatus($lineup_id)
     {
         $roster = $this->rosterForLineup($lineup_id);
