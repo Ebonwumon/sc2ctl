@@ -209,6 +209,10 @@ View::composer('user/profileCardPartial', function($view) {
     if(!isset($view['loss'])) {
       $view->with('loss', false);
     }
+
+    if (!isset($view['replay_url']) || $view['replay_url'] == NULL || $view['replay_url'] == "") {
+        $view->with('replay_url', "#");
+    }
 });
 
 View::composer('dogetip/create', function($view) {

@@ -12,7 +12,17 @@
 @if ($dispTip)
   <a target="_blank" href="{{ URL::route('dogetip.create', $user->id) }}" class="pure-button tip-button">Tip!</a>
 @elseif ($win)
-  <button class="pure-button tip-button pure-button-good">Win</button>
+  <a href="{{ $replay_url }}" class="pure-button tip-button pure-button-good">
+      Win
+      @if ($replay_url == "#")
+        (No Replay)
+      @endif
+  </a>
 @elseif ($loss)
-  <button class="pure-button tip-button pure-button-bad">Loss</button>
+  <a href="{{ $replay_url }}" class="pure-button tip-button pure-button-bad">
+      Loss
+      @if ($replay_url == "#")
+        (No Replay)
+      @endif
+  </a>
 @endif

@@ -21,7 +21,7 @@ View Match
 <div class="splash about">
   <h2>Match Complete!</h2>
   <p>
-    {{ $winner['qualified_name'] }} won with a score of {{ $winner['wins'] }}-{{ $winner['losses'] }} 
+    {{ $winner['qualified_name'] }} won with a score of {{ $winner['wins'] }}-{{ $winner['losses'] }}
   </p>
 </div>
 <br />
@@ -29,7 +29,7 @@ View Match
 <div class="pure-g-r splash">
   @foreach ($match->teams as $team)
     <div class="pure-u-1-2">
-      <h2>{{ $team->qualified_name }}</h2> 
+      <h2>{{ $team->qualified_name }}</h2>
       <?php $roster_status = $match->rosterStatus($team->id); ?>
       @if ($roster_status != Roster::STATUS_COMPLETE)
         <div class="error-box">
@@ -53,7 +53,7 @@ View Match
         @foreach ($match->rosterForLineup($team->id)->first()->entries as $entry)
           <?php $game = $match->game($entry->map -1); ?>
           @if (count($game) > 0 && $game->winner)
-            @include('user/profileCardPartial', array('user' => $entry->player, 'win' => $game->won($entry->player->id), 'loss' => !$game->won($entry->player->id)))
+            @include('user/profileCardPartial', array('user' => $entry->player, 'win' => $game->won($entry->player->id), 'loss' => !$game->won($entry->player->id), 'replay_url' => $game->replay_url))
           @else
             @include('user/profileCardPartial', array('user' => $entry->player))
           @endif
