@@ -47,6 +47,7 @@
     @if (Sentry::check() && $match->canReport(Sentry::getUser()))
     <a href="{{ URL::route('match.report', $match->id) }}" class="pure-button pure-button-good">
         Report Results
+
     </a>
     @endif
     <a href="{{ URL::route('match.profile', $match->id) }}" class="pure-button pure-button-secondary">
@@ -60,6 +61,11 @@
     @else
     <a href="{{ URL::route('match.profile', $match->id)}}" class="pure-button pure-button-primary">
         View Results
+        @if ($match->is_default)
+            (&#x1f44e;)
+        @else
+            (&#x1f44d;)
+        @endif
     </a>
     <br/>
 @endif
