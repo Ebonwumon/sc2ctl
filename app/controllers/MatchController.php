@@ -38,6 +38,12 @@ class MatchController extends \BaseController {
 
     $match->save();
     $match->teams()->sync(Input::get('teams'));
+    if (count(Input::get('teams')) > 1) {
+      $match->generateGames();
+    } else {
+      $match->is_default = Input::get('teams')[0];
+      $match->save();
+    }
 
     return Redirect::route('match.edit', $match->id);
 	}

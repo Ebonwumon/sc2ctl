@@ -56,7 +56,7 @@ class Tournament extends Eloquent
 
     public function currentRound()
     {
-        return $this->hasMany('SwissRound')->orderBy('id')->take(1);
+        return $this->hasMany('SwissRound')->orderBy('id', 'DESC')->take(1);
     }
 
     public function season()
