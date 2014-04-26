@@ -63,9 +63,6 @@ class Match extends Eloquent
     public function rosterForLineup($id)
     {
         $rosters = $this->hasOne('Roster')->where('lineup_id', '=', $id);
-        if ($rosters->count() == 0) {
-          throw new Exception("No rosters found for Lineup id: " . $id);
-        }
 
         return $rosters;
     }
