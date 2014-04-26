@@ -32,7 +32,8 @@ class Lineup extends Eloquent {
 	}
 
 	public function players() {
-		return $this->belongsToMany('User')->withPivot('role_id')->withTimestamps();
+		return $this->belongsToMany('User')->withPivot('role_id')->withPivot('deleted_at')->withTimestamps()
+      ->wherePivot('deleted_at', NULL);
 	}
 
   public function team() {
