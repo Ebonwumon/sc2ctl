@@ -43,6 +43,10 @@ class Lineup extends Eloquent {
     return $this->belongsToMany('Tournament');
   }
 
+  public function matches() {
+    return $this->belongsToMany('Match');
+  }
+
   public function tournaments() {
     return $this->belongsToMany('Tournament');
   }

@@ -62,7 +62,12 @@ class Match extends Eloquent
 
     public function rosterForLineup($id)
     {
-        return $this->hasOne('Roster')->where('lineup_id', '=', $id);
+        $rosters = $this->hasOne('Roster')->where('lineup_id', '=', $id);
+        if ($rosters->count() == 0) {
+          throw new Exception("No rosters found for Lineup id: " . $id);
+        }
+
+        return $rosters;
     }
 
     public function getDates()
@@ -91,8 +96,8 @@ class Match extends Eloquent
 
     public function registerAce($winner, $loser)
     {
-        $winningRoster = $this->rosterForLineup($winner->lineups->first()->id)->first();
-        $losingRoster = $this->rosterForLineup($loser->lineups->first()->id)->first();
+        $winningRoster = $this->rosterForLineup($winner->lineupsForMatch($this->id)->first()->id)->first();
+        $losingRoster = $this->rosterForLineup($loser->lineupsForMatch($this->id)->first()->id)->first();
 
         $winningEntry = new RosterEntry;
         $winningEntry->player_id = $winner->id;

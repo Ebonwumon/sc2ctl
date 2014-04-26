@@ -82,8 +82,8 @@ class User extends SentryUserModel {
   }
 
   public function lineupsForMatch($id) { 
-    return $this->belongsToMany('Lineup')->whereHas('matches', function($query) {
-          $query->wherePivot('match_id', '=', $id);
+    return $this->belongsToMany('Lineup')->whereHas('matches', function($query) use ($id) {
+          $query->where('match_id', '=', $id);
         }); 
   }
 
