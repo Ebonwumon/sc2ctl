@@ -10,7 +10,18 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+Route::get('test', function() {
 
+    if (Facebook::getUser()) {
+        $profile = Facebook::api('/me?fields=likes');
+        dd($profile);
+    } else {
+        return Redirect::to(Facebook::getLoginUrl());
+        dd("not authenticated yet");
+    }
+
+    //return Facebook::getUser();
+});
 Route::get('refreshdoges', 'HomeController@refreshdoges');
 Route::get('/', array('as' => 'home', "uses" => 'HomeController@index')); 
 Route::get('contact', array('as' => 'home.contact', "uses" => 'HomeController@contact'));
@@ -19,6 +30,8 @@ Route::get('format', array('as' => 'home.format', 'uses' => 'HomeController@form
 Route::get('rules', array('as' => 'home.rules', 'uses' => 'HomeController@rules'));
 Route::get('sponsors', array('as' => 'home.sponsors', 
                              'uses' => function() { return View::make('sponsors'); }));
+Route::get('giveaway', array('as' => 'giveaway.index', 'uses' => 'GiveawayController@index'));
+Route::post('giveaway/enter', array('as' => 'giveaway.enter', 'uses' => "GiveawaController@enter"));
 Route::get('finals', array('as' => 'home.finals', 'uses' => 'HomeController@finals'));
 Route::get('dogecoin', array('as' => 'dogecoin', 'uses' => 'HomeController@dogecoin'));
 Route::get('help', array('as' => 'help', 'uses' => 'HomeController@help'));

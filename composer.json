@@ -8,7 +8,8 @@
         "cartalyst/sentry": "2.0.*",
         "intervention/image": "dev-master",
         "pda/pheanstalk": "dev-master",
-        "barryvdh/laravel-ide-helper": "1.*"
+        "barryvdh/laravel-ide-helper": "1.*",
+        "boparaiamrit/facebook": "dev-master"
     },
     "autoload": {
         "classmap": [
