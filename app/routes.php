@@ -11,23 +11,6 @@
 |
 */
 Route::get('test', function() {
-
-    if (Facebook::getUser()) {
-        $profile = Facebook::api('/me?fields=likes');
-        $likeData = new FacebookLikeData($profile['likes']['data']);
-        $likes = 0;
-        foreach (Config::get('giveaways.facebook') as $id) {
-          if ($likeData->isLiked($id)) $likes++;
-        }
-        dd($likes);
-        dd(Config::get('giveaways.facebook'));
-        dd($profile);
-    } else {
-        return Redirect::to(Facebook::getLoginUrl());
-        dd("not authenticated yet");
-    }
-
-    //return Facebook::getUser();
 });
 Route::get('refreshdoges', 'HomeController@refreshdoges');
 Route::get('/', array('as' => 'home', "uses" => 'HomeController@index')); 

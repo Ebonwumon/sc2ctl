@@ -10,6 +10,20 @@ class GiveawayController extends \BaseController {
 	    return View::make('giveaway/index');
 	}
 
+    public function enter() {
+        $entries = 0;
+        // Do we have access to their facebook?
+        if (Facebook::getUser()) {
+            $profile = Facebook::api('/me?fields=likes');
+            $likeData = new FacebookLikeData($profile['likes']['data']);
+            foreach (Config::get('giveaways.facebook') as $id) {
+                if ($likeData->isLiked($id)) $entries++;
+            }
+        }
+
+
+    }
+
 
 
 	/**

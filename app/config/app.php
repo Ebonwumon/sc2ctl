@@ -110,7 +110,7 @@ return array(
         'Intervention\Image\ImageServiceProvider',
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
         'Boparaiamrit\Facebook\FacebookServiceProvider',
-
+        'Pingpong\Twitter\TwitterServiceProvider'
 	),
 
 	/*
