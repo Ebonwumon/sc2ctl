@@ -10,6 +10,8 @@ class GiveawayController extends \BaseController {
 	    return View::make('giveaway/index');
 	}
 
+
+
 	/**
 	 * Show the form for creating a new resource.
 	 *
