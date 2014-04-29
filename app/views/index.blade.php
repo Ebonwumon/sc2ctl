@@ -117,7 +117,7 @@ background-wrapper sc2ctl-main-logo
   </div>
   
   <!-- new row -->
-	<div class="pure-u-1-6"></div>
+	<!--<div class="pure-u-1-6"></div>
 	<div class="pure-u-2-3 main-content-box">
 		<div class="floating-color">
 			<h2 class="content-box-title">We've got some big ideas</h2>
@@ -132,7 +132,7 @@ background-wrapper sc2ctl-main-logo
       </a>
 	  </div>
 	</div>
-	<div class="pure-u-1-6"></div>
+	<div class="pure-u-1-6"></div>-->
 </div>
 
 	<br />

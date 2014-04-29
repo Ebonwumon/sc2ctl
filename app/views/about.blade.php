@@ -100,31 +100,31 @@ About the League
         </thead>
         <tr>
           <td>1</td>
-          <td>Merry Go Round LE</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>King Sejong Station LE</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Galaxy - Bloodmist</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>Waystation LE</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>Overgrowth LE</td>
-        </tr>
-        <tr>
-          <td>6</td>
           <td>Habitation Station LE</td>
         </tr>
         <tr>
-          <td>7</td>
+          <td>2</td>
+          <td>Waystation LE</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>King Sejong Station LE</td>
+        </tr>
+        <tr>
+          <td>4</td>
           <td>Galaxy - Veridian</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Merry Go Round LE</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Galaxy - Bloodmist</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Overgrowth LE</td>
         </tr>
       </table>
     </div>
