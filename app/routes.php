@@ -11,7 +11,8 @@
 |
 */
 Route::get('test', function() {
-});
+    dd(Facebook::getUser());
+    });
 Route::get('refreshdoges', 'HomeController@refreshdoges');
 Route::get('/', array('as' => 'home', "uses" => 'HomeController@index')); 
 Route::get('contact', array('as' => 'home.contact', "uses" => 'HomeController@contact'));
@@ -36,7 +37,12 @@ Route::get('stream/teams', array('as' => 'stream.getTeams', 'uses' => 'HomeContr
 Route::get('game/{id}', array('as' => 'game.profile', 'uses' => 'GameController@show'));
 
 Route::get('lineup/{id}', array('as' => 'lineup.show', 'uses' => 'LineupController@show'));
+Route::get('lineup/{id}/matches', array('as' => 'lineup.matches', 'uses' => 'LineupController@matches'));
 //caster authenticated
+
+Route::get('auth/fb_logout', array('as' => 'auth.fbLogout', 'uses' => 'AuthenticationController@fblogout'));
+Route::get('auth/fb_login', array('as' => 'auth.fbLogin', 'uses' => 'AuthenticationController@fbLogin'));
+
 Route::group(array('before' => 'auth|perm:vods'), function() {
   Route::get('vod/create', array('as' => 'vod.create', 'uses' => 'VODController@create'));
   Route::post('vod', array('as' => 'vod.store', 'uses' => 'VODController@store'));

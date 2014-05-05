@@ -27,6 +27,12 @@ class SwissRound extends Eloquent
         return $this->hasMany('Match');
     }
 
+    public function matchForLineup($id) {
+      return $this->matches()->whereHas('teams', function($query) use ($id) {
+            $query->where('lineup_id', '=', $id);
+          })->first();
+    }
+
     public function tournament()
     {
         return $this->belongsTo('Tournament');
@@ -39,7 +45,7 @@ class SwissRound extends Eloquent
      * Summarizes the results of the current Swiss Round by giving a full breakdown of wins/losses for each team.
      * @return SwissRoundScore[]
      */
-    public function summarize()
+    /*public function summarize()
     {
         $summary = array();
         foreach ($this->matches as $match) {
@@ -48,5 +54,16 @@ class SwissRound extends Eloquent
             }
         }
         return $summary;
+    }*/
+
+    public function summarize()
+    {
+      $summary = array();
+      foreach ($this->matches as $match) {
+        foreach ($match->getScore()->scores as $score) {
+          $summary[] = $score;
+        }
+      }
+      return $summary;
     }
 }

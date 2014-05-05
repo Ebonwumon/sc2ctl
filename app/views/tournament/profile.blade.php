@@ -51,7 +51,11 @@ Tournament Profile
                 @foreach ($summary as $score)
                 <tr>
                     <td>{{ $i }}</td> <?php $i++; ?>
-                    <td>{{ $score->name }}</td>
+                    <td>
+                      <a href="{{ URL::route('lineup.matches', $score->lineup->id) }}">
+                        {{ $score->name }}
+                      </a>
+                    </td>
                     <td>{{ $score->wins }}</td>
                     <td>{{ $score->losses }}</td>
                     <td>{{ $score->score() }}</td>
@@ -62,7 +66,7 @@ Tournament Profile
         <div class="pure-u-2-3">
             <div class="pure-g-r">
 
-                @foreach($data->first()->matches as $match)
+                @foreach($data->matches as $match)
                 <div class="pure-u-1-2">
                     @include('match/matchCardPartial')
                 </div>

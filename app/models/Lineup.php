@@ -28,7 +28,7 @@ class Lineup extends Eloquent {
   protected $softDelete = true;
 	
 	public function historicalPlayers() {
-		return $this->belongsToMany('User')->withPivot('role_id')->withTimestamps()->withTrashed();
+		return $this->belongsToMany('User')->withPivot('role_id')->withTimestamps();
 	}
 
 	public function players() {

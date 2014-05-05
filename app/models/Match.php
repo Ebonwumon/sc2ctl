@@ -60,6 +60,18 @@ class Match extends Eloquent
         return $players;
     }
 
+    public function opponent($lineup) {
+      // Todo catch 1 player matches
+
+      foreach ($this->teams as $team) {
+        if ($team->id != $lineup->id) {
+          return $team;
+        }
+      }
+      return Team::getTBD();
+      throw new Exception("Only single player game");
+    }
+
     public function rosterForLineup($id)
     {
         $rosters = $this->hasOne('Roster')->where('lineup_id', '=', $id);
@@ -244,11 +256,75 @@ class Match extends Eloquent
         return $players;
     }
 
+    public function getScore() {
+      $scores = array();
+      if ($this->is_default) {
+        try {
+            $team = Lineup::withTrashed()->findOrFail((int)$this->is_default);
+        } catch (Exception $ex) {
+          dd("Error finding lineup " . $this->is_default . " in match: " . $this->id . " " . $ex);
+        }
+        
+        // Todo move this to static function in matchScore
+        $score = new MatchScore;
+        $score->lineup = $team;
+        $score->wins = ceil($this->bo / 2);
+        $score->losses = 0;
+        $score->match = $this;
+
+        $scores[] = $score;
+
+        return new MatchResult($scores);
+      }
+      
+        $team1_wins = 0;
+        $team2_wins = 0;
+        $teams = $this->teams;
+
+        foreach ($this->games as $game) {
+            if ($game->winner) {
+                try {
+                  $winning_lineup_id = $game->winningLineup()->first()->id;
+                } catch (Exception $ex) {
+                  Log::error($ex);
+                  continue;
+                }
+
+                if ($winning_lineup_id == $teams->first()->id) {
+                    $team1_wins++;
+                } else if ($winning_lineup_id == $teams->last()->id) {
+                    $team2_wins++;
+                }
+            }
+        }
+
+        $score = new MatchScore;
+        $score->lineup = $teams->first();
+        $score->wins = $team1_wins;
+        $score->losses = $team2_wins;
+        $score->match = $this;
+        
+        $scores[] = $score;
+        
+        $score = new MatchScore;
+        $score->lineup = $teams->last();
+        $score->wins = $team2_wins;
+        $score->losses = $team1_wins;
+        $score->match = $this;
+        
+        $scores[] = $score;
+
+        return new MatchResult($scores);
+    }
+
     public function score()
     {
         if ($this->is_default) {
-          
-            $team = Lineup::findOrFail($this->is_default);
+            try {
+              $team = Lineup::findOrFail($this->is_default);
+            } catch (Exception $ex) {
+              dd("Error finding lineup " . $this->is_default . " in match: " . $this->id . " " . $ex);
+            }
             $ret = [$team->qualified_name => ['wins' => ceil($this->bo / 2),
               'losses' => 0,
               'id' => $team->id,
