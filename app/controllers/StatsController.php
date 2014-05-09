@@ -33,6 +33,12 @@ class StatsController extends \BaseController {
 		}
 		return View::make('stats/highest_median_winrate', array('winner' => $winner));
 	}
+
+  public function walkovers() {
+    foreach (Tournament::all() as $tournament) {
+      
+    }
+  }
 	/**
 	 * Show the form for creating a new resource.
 	 *

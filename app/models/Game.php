@@ -74,7 +74,15 @@ class Game extends Eloquent
             $query->where('user_id', '=', $this->winner);
         });
         if ($teams->count() > 1) throw new Exception('Player is playing for multiple lineups');
+
         if ($teams->count() == 0) {
+          $rosters = $this->match->rosters()->whereHas('entries', function($query) {
+                $query->where('player_id', '=', $this->winner);
+              });
+          if ($rosters->count() > 0) {
+            return $rosters->first()->lineup();
+          }
+
           throw new Exception('No winning lineup found, Game ID: ' . $this->id 
                                                         . " Winner ID: " . $this->winner);
         }

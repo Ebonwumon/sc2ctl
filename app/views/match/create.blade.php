@@ -17,6 +17,11 @@ Create Match
   </div>
   
   <div class="pure-control-group">
+    {{ Form::label('swiss_round_id') }}
+    {{ Form::text('swiss_round_id') }}
+  </div>
+  
+  <div class="pure-control-group">
 		<label for="bo">Best Of:</label>
 		{{ Form::input('number', 'bo', 7) }}
 	</div>

@@ -78,6 +78,24 @@ class LineupController extends \BaseController {
     return Redirect::route('home');
 	}
 
+  public function matches($id) {
+    $lineup = Lineup::findOrFail($id);
+    
+    $matches = array();
+    
+    $i = 0;
+    foreach ($lineup->tournaments as $tournament) {
+      $curMatches = array();
+      foreach ($tournament->swissRounds as $round) {
+        $curMatches[] = $round->matchForLineup($id);
+      }
+
+      $matches[$i]['tournament'] = $tournament;
+      $matches[$i]['matches'] = $curMatches;
+    }
+    return View::make('team/lineup/matches', array('matches' => $matches, 'lineup' => $lineup));
+  }
+
 	/**
 	 * Show the form for editing the specified resource.
 	 *

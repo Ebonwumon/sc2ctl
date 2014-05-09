@@ -59,15 +59,15 @@ class TournamentController extends \BaseController
                 break;
             case 1:
                 if (Input::has('swiss_round') && Input::get('swiss_round') != null) {
+                    
                     $data = $tournament->currentRound(Input::get('swiss_round'));
                 } else {
-                    $data = $tournament->currentRound;
+                    $data = $tournament->currentRound->first();
                 }
 
                 $summary = $tournament->getRoundStandings();
                 break;
         }
-
         return View::make('tournament/profile', array('tournament' => $tournament,
             'data' => $data,
             'phase' => $phase,
