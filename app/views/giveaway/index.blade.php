@@ -68,6 +68,9 @@ padding: 0.5em;
 
     <div class="pure-form">
         <legend>Follow us on Twitter</legend>
+        <a href="#" class="pure-button pure-button-twitter" target="_blank">
+            Login with Twitter
+        </a>
     </div>
     <div class="pure-g-r">
         <div class="pure-u-1-2"></div>
@@ -76,7 +79,7 @@ padding: 0.5em;
         <div class="pure-u-1-2"></div>
     </div>
 
-    {{ Form::open(array('class' => 'pure-form pure-form-aligned')) }}
+    {{ Form::open(array('route' => 'giveaway.enter', 'class' => 'pure-form pure-form-aligned')) }}
         <legend>Secret Code and Email</legend>
         <div class="pure-control-group">
             {{ Form::label('email') }}

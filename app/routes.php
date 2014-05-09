@@ -11,7 +11,7 @@
 |
 */
 Route::get('test', function() {
-    dd(Facebook::getUser());
+    dd(Facebook::loginUrl());
     });
 Route::get('refreshdoges', 'HomeController@refreshdoges');
 Route::get('/', array('as' => 'home', "uses" => 'HomeController@index')); 
@@ -21,8 +21,10 @@ Route::get('format', array('as' => 'home.format', 'uses' => 'HomeController@form
 Route::get('rules', array('as' => 'home.rules', 'uses' => 'HomeController@rules'));
 Route::get('sponsors', array('as' => 'home.sponsors', 
                              'uses' => function() { return View::make('sponsors'); }));
-Route::get('giveaway', array('as' => 'giveaway.index', 'uses' => 'GiveawayController@index'));
-Route::post('giveaway/enter', array('as' => 'giveaway.enter', 'uses' => "GiveawaController@enter"));
+Route::get('giveaway/{id?}', array('as' => 'giveaway.index', 'uses' => 'GiveawayController@index'));
+Route::post('giveaway/enter', array('as' => 'giveaway.enter', 'uses' => "GiveawayController@enter"));
+Route::get('giveaway/{id}/success', array('as' => 'giveaway.success', 'uses' => 'GiveawayController@success'));
+
 Route::get('finals', array('as' => 'home.finals', 'uses' => 'HomeController@finals'));
 Route::get('dogecoin', array('as' => 'dogecoin', 'uses' => 'HomeController@dogecoin'));
 Route::get('help', array('as' => 'help', 'uses' => 'HomeController@help'));

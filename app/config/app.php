@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'America/Edmonton',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -109,7 +109,7 @@ return array(
         'Cartalyst\Sentry\SentryServiceProvider',
         'Intervention\Image\ImageServiceProvider',
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
-        'Irazasyed\LaravelFacebook\LaravelFacebookServiceProvider',
+        'Boparaiamrit\Facebook\FacebookServiceProvider',
 	),
 
 	/*
@@ -177,7 +177,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
         'Image'           => 'Intervention\Image\Facades\Image',
-        'FB'    => 'Irazasyed\LaravelFacebook\FacebookFacade',
+        'Facebook'    => 'Boparaiamrit\Facebook\FacebookFacade',
 
 	),
 

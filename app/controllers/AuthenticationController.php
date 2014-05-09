@@ -3,7 +3,7 @@
 class AuthenticationController extends \BaseController {
 
 	public function fbLogin() {
-    return Redirect::to(FB::getLoginUrl());
+    return Redirect::to(Facebook::loginUrl());
   }
 
   public function fbLogout() {

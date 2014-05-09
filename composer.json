@@ -9,7 +9,7 @@
         "intervention/image": "dev-master",
         "pda/pheanstalk": "dev-master",
         "barryvdh/laravel-ide-helper": "1.*",
-        "irazasyed/laravel-facebook": "dev-master",
+        "boparaiamrit/facebook": "dev-master",
         "pingpong/twitter": "dev-master"
     },
     "autoload": {
