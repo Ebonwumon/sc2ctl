@@ -109,8 +109,7 @@ return array(
         'Cartalyst\Sentry\SentryServiceProvider',
         'Intervention\Image\ImageServiceProvider',
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
-        'Boparaiamrit\Facebook\FacebookServiceProvider',
-        'Pingpong\Twitter\TwitterServiceProvider'
+        'Irazasyed\LaravelFacebook\LaravelFacebookServiceProvider',
 	),
 
 	/*
@@ -178,7 +177,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
         'Image'           => 'Intervention\Image\Facades\Image',
-        'Facebook' => 'Boparaiamrit\Facebook\FacebookFacade',
+        'FB'    => 'Irazasyed\LaravelFacebook\FacebookFacade',
 
 	),
 
