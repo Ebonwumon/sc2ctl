@@ -20,4 +20,6 @@ interface GiveawayRepositoryInterface {
 
     public function create(array $attributes);
 
+    public function enter($id, $attributes = array());
+
 } 

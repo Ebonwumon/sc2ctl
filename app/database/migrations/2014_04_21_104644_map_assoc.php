@@ -39,6 +39,7 @@ class MapAssoc extends Migration {
 	public function down()
 	{
 		Schema::drop('map_order');
+        Schema::drop('maps');
 	}
 
 }

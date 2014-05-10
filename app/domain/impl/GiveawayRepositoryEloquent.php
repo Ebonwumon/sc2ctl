@@ -57,7 +57,7 @@ class GiveawayRepositoryEloquent implements GiveawayRepositoryInterface {
             $date = new \DateTime('NOW');
         }
 
-        return $this->giveawayModel->where('close_date', '<', $date)->orderBy('close_date', 'DESC')->first();
+        return $this->giveawayModel->where('close_date', '>', $date)->orderBy('close_date', 'DESC')->firstOrFail();
     }
 
     /**
@@ -71,16 +71,22 @@ class GiveawayRepositoryEloquent implements GiveawayRepositoryInterface {
             $date = new \DateTime('NOW');
         }
 
-        return $this->giveawayModel->where('close_date', '<', $date)->orderBy('close_date', 'DESC')->take($items)->get();
+        return $this->giveawayModel->where('close_date', '>', $date)->orderBy('close_date', 'DESC')->take($items)->get();
     }
 
     /**
      * Creates a new Giveaway.
      * @param array $attributes Associative array of attributes denoting the values of the Giveaway.
      * @return Giveaway The created Giveaway object
+     * @throws ValidationException
      */
     public function create(array $attributes)
     {
+        try {
+            $this->giveawayModel->validate($attributes);
+        } catch (ValidationException $ex) {
+            throw $ex;
+        }
         return $this->giveawayModel->create($attributes);
     }
 

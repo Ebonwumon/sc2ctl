@@ -18,7 +18,7 @@ padding: 0.5em;
 <div class="splash" style="position: relative;">
     <h2 class="splash-head">SC2CTL Giveaways!</h2>
     <p class="splash-subhead">
-        <span class="mythlogic">MYTHLOGIC</span> computers and Chairs4Gaming have sponsored SC2CTL this season 
+        <span class="mythlogic">MYTHLOGIC</span> computers has sponsored SC2CTL this season
         with some fantastic prize support!
         To enter a giveaway below you'll need a couple things: a unique code, which is given away on stream
         or on Twitter and your email address. Make sure the email address is valid, as we will use that to
@@ -79,7 +79,7 @@ padding: 0.5em;
         <div class="pure-u-1-2"></div>
     </div>
 
-    {{ Form::open(array('route' => 'giveaway.enter', 'class' => 'pure-form pure-form-aligned')) }}
+    {{ Form::open(array('route' => array('giveaway.enter', $giveaway->id), 'class' => 'pure-form pure-form-aligned')) }}
         <legend>Secret Code and Email</legend>
         <div class="pure-control-group">
             {{ Form::label('email') }}
@@ -92,21 +92,12 @@ padding: 0.5em;
         </div>
         
         <legend>Choose your Giveaways</legend>
-        <p style="border:1px solid black;padding:0.5em;">
-          <label for="chairs4gaming">
-            <input type="checkbox" name="chairs4gaming" />
-            <strong>CANADA ONLY</strong>. I would like to be entered to win a DXRacer Chair (max value $399 CAD)
-            from <a href="http://chairs4gaming.com">Chairs4Gaming</a>.
-            This giveaway is only available to residents of Canada, and will have free shipping to Canadians.
-            Drawing: <strong>Finals</strong>
-          </label>
-       </p>
        <div style="border:1px solid black;padding:0.5em;">
           <label for="corsair">
-              <input type="checkbox" name="corsair" />
+              <input type="checkbox" name="accept" required />
               I would like to be entered to win one of the following:
               <ul>
-                <li>Corsair Raptor HS30 Headset with MYTHLOGIC mousepad and T-Shirt. Drawing: May 15</li>
+                <li>Corsair Raptor HS30 Headset with MYTHLOGIC mousepad and T-Shirt. Drawing: May 20</li>
                 <li>Corsair Raptor M40 Mouse with MYTHLOGIC mousepad and T-Shirt. Drawing: May 29</li>
                 <li>Corsair Vengeance K65 Mechanical Keyboard with MYTHLOGIC mousepad and T-Shirt. Drawing:
                   <strong>Finals</strong>

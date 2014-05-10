@@ -21,9 +21,6 @@ Route::get('format', array('as' => 'home.format', 'uses' => 'HomeController@form
 Route::get('rules', array('as' => 'home.rules', 'uses' => 'HomeController@rules'));
 Route::get('sponsors', array('as' => 'home.sponsors', 
                              'uses' => function() { return View::make('sponsors'); }));
-Route::get('giveaway/{id?}', array('as' => 'giveaway.index', 'uses' => 'GiveawayController@index'));
-Route::post('giveaway/enter', array('as' => 'giveaway.enter', 'uses' => "GiveawayController@enter"));
-Route::get('giveaway/{id}/success', array('as' => 'giveaway.success', 'uses' => 'GiveawayController@success'));
 
 Route::get('finals', array('as' => 'home.finals', 'uses' => 'HomeController@finals'));
 Route::get('dogecoin', array('as' => 'dogecoin', 'uses' => 'HomeController@dogecoin'));
@@ -65,8 +62,6 @@ Route::group(array('before' => 'guest'), function() {
 });
 
 Route::group(array('before' => 'auth'), function() {
-	Route::get('code', array('as' => 'code.index', 'uses' => 'CodeController@index'));
-	Route::post('code/submit', array('as' => 'code.submit', 'uses' => 'CodeController@submit'));
 	Route::get('user/logout', array("as" => "user.logout", 'uses' => "UserController@logout"));
 	Route::post('user/leaveteam', array('uses' => 'UserController@leaveteam'));
 	Route::get('/team/create', array('as' => 'team.create', "uses" => 'TeamController@create'));
@@ -81,8 +76,6 @@ Route::group(array('before' => 'auth|register_lineup'), function() {
 Route::group(array('before' => 'auth|perm:codes'), function() {
 	Route::get('code/create', array('as' => 'code.create', 'uses' => 'CodeController@create'));
 	Route::post('code', array('as' => 'code.store', 'uses' => 'CodeController@store'));
-	Route::get('code/winner', array('as' => 'code.winner', 'uses' => 'CodeController@winner'));
-	Route::post('code/getwinner', array('as' => 'code.getWinner', 'uses' => 'CodeController@getWinner'));
 });
 
 Route::group(array('before' => 'auth|perm:create_notifications'), function() {
@@ -201,6 +194,8 @@ Route::group(array('before' => 'auth|perm:admin'), function() {
   Route::put('role/{id}', array('as' => 'role.update', 'uses' => 'RoleController@update'));
   Route::post('role', array('as' => 'role.store', 'uses' => 'RoleController@store'));
 
+    Route::get('giveaway/create', array('as' => 'giveaway.create', 'uses' => 'GiveawayController@create'));
+    Route::post('giveaway', array('as' => 'giveaway.store', 'uses' => 'GiveawayController@store'));
 });
 
 // TODO read this if it's broken
@@ -266,3 +261,7 @@ Route::get('dogetip/list/{confirmation?}', array('as' => 'dogetip.list', 'uses' 
 Route::post('dogetip', array('as' => 'dogetip.store', 'uses' => 'DogetipController@store'));
 Route::get('dogetip/scan', array('as' => 'dogetip.scan', 'uses' => 'DogetipController@scan'));
 Route::get('dogetip/{id}', array('as' => 'dogetip.show', 'uses' => 'DogetipController@show'));
+
+Route::get('giveaway/{id?}', array('as' => 'giveaway.index', 'uses' => 'GiveawayController@index'));
+Route::post('giveaway/{id}/enter', array('as' => 'giveaway.enter', 'uses' => "GiveawayController@enter"));
+Route::get('giveaway/{id}/success', array('as' => 'giveaway.success', 'uses' => 'GiveawayController@success'));

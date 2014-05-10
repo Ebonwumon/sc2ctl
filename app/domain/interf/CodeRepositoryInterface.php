@@ -11,4 +11,10 @@ namespace domain\interf;
 
 interface CodeRepositoryInterface {
 
+    public function find($id);
+
+    public function create(array $attributes);
+
+    public function is_valid($text);
+
 } 
