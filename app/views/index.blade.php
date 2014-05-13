@@ -103,7 +103,34 @@ background-wrapper sc2ctl-main-logo
       </div>
 		</div>
 	</div>
-
+  <!--
+<br />
+  <br />
+  <div class="pure-u-1 main-content-box">
+    <div class="floating-color stream-container">
+      <br />
+      <object type="application/x-shockwave-flash"
+              height="432"
+              width="768"
+              id="live_embed_player_flash"
+              data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=sc2ctl"
+              bgcolor="#000000">
+        <param name="allowFullScreen" value="true" />
+        <param name="allowScriptAccess" value="always" />
+        <param name="allowNetworking" value="all" />
+        <param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" />
+        <param name="flashvars" value="hostname=www.twitch.tv&channel=sc2ctl&auto_play=true&start_volume=25" />
+      </object>
+      <iframe frameborder="0"
+              scrolling="no"
+              id="chat_embed"
+              src="http://twitch.tv/chat/embed?channel=sc2ctl&amp;popout_chat=true"
+              height="432"
+              width="350">
+       </iframe>
+   </div>
+  </div>
+  -->
   <!-- new row -->
   <div class="pure-u-1-6"></div>
   <div class="pure-u-2-3 main-content-box">

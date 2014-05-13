@@ -100,7 +100,7 @@ About the League
         </thead>
         <tr>
           <td>1</td>
-          <td>Habitation Station LE</td>
+          <td>Galaxy - Veridian</td>
         </tr>
         <tr>
           <td>2</td>
@@ -108,15 +108,15 @@ About the League
         </tr>
         <tr>
           <td>3</td>
-          <td>King Sejong Station LE</td>
+          <td>Habitation Station LE</td>
         </tr>
         <tr>
           <td>4</td>
-          <td>Galaxy - Veridian</td>
+          <td>Merry Go Round LE</td>
         </tr>
         <tr>
           <td>5</td>
-          <td>Merry Go Round LE</td>
+          <td>King Sejong Station LE</td>
         </tr>
         <tr>
           <td>6</td>

@@ -248,7 +248,7 @@ class Match extends Eloquent
     {
         if ($this->is_default) {
           
-            $team = Lineup::findOrFail($this->is_default);
+            $team = Lineup::withTrashed()->findOrFail($this->is_default);
             $ret = [$team->qualified_name => ['wins' => ceil($this->bo / 2),
               'losses' => 0,
               'id' => $team->id,

@@ -19,6 +19,7 @@ class SwissRoundScore
      */
     public function scoreNumeric()
     {
+        return $this->wins;
         if ($this->losses == 0) return $this->wins;
         return $this->wins / $this->losses;
     }
