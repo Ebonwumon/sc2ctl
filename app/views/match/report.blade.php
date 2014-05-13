@@ -8,7 +8,7 @@ Report Results
   <?php $winner = $match->won(); ?>
   <div class="splash about">
     @if ($winner)
-      <h1>COMPLETE - Won by {{ Lineup::findOrFail($winner)->qualified_name }}</h1>
+      <h1>COMPLETE - Won by </h1>
     @else
       {{ Form::open(array('route' => array('match.report_default', $match->id), 'class' => 'pure-form')) }}
         <label for="winner">Winning Lineup</label>

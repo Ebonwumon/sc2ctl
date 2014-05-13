@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => false,
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'America/Edmonton',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -109,7 +109,7 @@ return array(
         'Cartalyst\Sentry\SentryServiceProvider',
         'Intervention\Image\ImageServiceProvider',
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
-
+        'Boparaiamrit\Facebook\FacebookServiceProvider',
 	),
 
 	/*
@@ -177,6 +177,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
         'Image'           => 'Intervention\Image\Facades\Image',
+        'Facebook'    => 'Boparaiamrit\Facebook\FacebookFacade',
 
 	),
 

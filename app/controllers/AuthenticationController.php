@@ -1,44 +1,28 @@
 <?php
 
-class StatsController extends \BaseController {
+class AuthenticationController extends \BaseController {
 
-	/**
+	public function fbLogin() {
+    return Redirect::to(Facebook::loginUrl());
+  }
+
+  public function fbLogout() {
+    Facebook::logout();
+    return Redirect::route('giveaway.index');
+  }
+  
+  
+  /**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
 	public function index()
 	{
-			
+		//
 	}
 
-	public function allPlayedInTournament($id) {
-		$tournament = Tournament::find($id);
-		$arr = $tournament->teamsWithAllMembersPlaying();
-		$tournament = Tournament::find($id);
-		$arr = array_merge($arr, $tournament->teamsWithAllMembersPlaying());
-		return View::make('stats/every_man_on_the_field', array('teams' => $arr));
-	}
-	public function highestMedianWR() {
-		$arr = array();
-		$max = 0;
-		$winner = null;
-		foreach (Team::all() as $team) {
-			$wr = $team->getMedianWinrate(); 
-			if ($wr > $max) {
-				$max = $wr;
-				$winner = $team;
-			} else if ($max == $wr) {
-			}
-		}
-		return View::make('stats/highest_median_winrate', array('winner' => $winner));
-	}
 
-  public function walkovers() {
-    foreach (Tournament::all() as $tournament) {
-      
-    }
-  }
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -49,6 +33,7 @@ class StatsController extends \BaseController {
 		//
 	}
 
+
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -58,6 +43,7 @@ class StatsController extends \BaseController {
 	{
 		//
 	}
+
 
 	/**
 	 * Display the specified resource.
@@ -70,6 +56,7 @@ class StatsController extends \BaseController {
 		//
 	}
 
+
 	/**
 	 * Show the form for editing the specified resource.
 	 *
@@ -80,6 +67,7 @@ class StatsController extends \BaseController {
 	{
 		//
 	}
+
 
 	/**
 	 * Update the specified resource in storage.
@@ -92,6 +80,7 @@ class StatsController extends \BaseController {
 		//
 	}
 
+
 	/**
 	 * Remove the specified resource from storage.
 	 *
@@ -102,5 +91,6 @@ class StatsController extends \BaseController {
 	{
 		//
 	}
+
 
 }

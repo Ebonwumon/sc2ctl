@@ -16,30 +16,54 @@
  * @method static \Illuminate\Database\Query\Builder|\SwissRound whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\SwissRound whereUpdatedAt($value)
  */
-class SwissRound extends Eloquent {
-  
-  protected $guarded = array('id');
-  protected $fillable = array('due_date', 'tournament_id');
+class SwissRound extends Eloquent
+{
 
-  public function matches() {
-    return $this->hasMany('Match');
-  }
+    protected $guarded = array('id');
+    protected $fillable = array('due_date', 'tournament_id');
 
-  public function tournament() {
-    return $this->belongsTo('Tournament');
-  }
+    public function matches()
+    {
+        return $this->hasMany('Match');
+    }
+
+    public function matchForLineup($id) {
+      return $this->matches()->whereHas('teams', function($query) use ($id) {
+            $query->where('lineup_id', '=', $id);
+          })->first();
+    }
+
+    public function tournament()
+    {
+        return $this->belongsTo('Tournament');
+    }
+    public function mapOrder() {
+        return $this->belongsToMany('Map', 'map_order')->withPivot('game')->orderBy('game');
+    }
 
     /**
      * Summarizes the results of the current Swiss Round by giving a full breakdown of wins/losses for each team.
      * @return SwissRoundScore[]
      */
-    public function summarize() {
-    $summary = array();
-    foreach ($this->matches as $match) {
-      foreach ($match->score() as $k => $v) {
-        $summary[] = new SwissRoundScore($k, $v['wins'], $v['losses']);
+    /*public function summarize()
+    {
+        $summary = array();
+        foreach ($this->matches as $match) {
+            foreach ($match->score() as $k => $v) {
+                $summary[] = new SwissRoundScore($k, $v['wins'], $v['losses']);
+            }
+        }
+        return $summary;
+    }*/
+
+    public function summarize()
+    {
+      $summary = array();
+      foreach ($this->matches as $match) {
+        foreach ($match->getScore()->scores as $score) {
+          $summary[] = $score;
+        }
       }
+      return $summary;
     }
-    return $summary;
-  }
 }

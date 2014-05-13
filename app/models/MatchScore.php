@@ -1,26 +1,23 @@
 <?php
 
-class SwissRoundScore
-{
-    public $lineup;
-    public $name;
-    public $wins;
-    public $losses;
+class MatchScore {
 
-    public function __construct($team, $wins, $losses)
-    {
-        $this->name = $team;
-        $this->wins = $wins;
-        $this->losses = $losses;
+  public $lineup;
+  public $wins;
+  public $losses;
+  public $match;
+
+  public function __get($key) {
+    if ($key == "name") {
+      return $this->lineup->qualified_name;
     }
-
-    /**
+  }
+     /**
      * Gets the score as a ratio of wins and losses
      * @return float Score as a ratio of wins and losses
      */
     public function scoreNumeric()
     {
-        return $this->wins;
         if ($this->losses == 0) return $this->wins;
         return $this->wins / $this->losses;
     }
@@ -55,5 +52,4 @@ class SwissRoundScore
 
         return ($a->scoreNumeric() > $b->scoreNumeric()) ? - 1 : 1;
     }
-
 }
