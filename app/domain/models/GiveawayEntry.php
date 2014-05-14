@@ -52,19 +52,18 @@ class GiveawayEntry extends \Eloquent {
             throw new ValidationException($errors);
         }
 
-        $count_email = GiveawayEntry::where(\DB::raw('date(created_at)'), '=', (new \DateTime('now'))->format('Y-m-d'))
+        /*$count_email = GiveawayEntry::where(\DB::raw('date(created_at)'), '=', (new \DateTime('now'))->format('Y-m-d'))
             ->where('email', '=', $input['email'])->count();
 
         if ($count_email > 0) {
             $errors = new MessageBag(array("Your email has already submitted an entry for today."));
             throw new ValidationException($errors);
-        }
+        }*/
 
-        $count_ip = GiveawayEntry::where(\DB::raw('date(created_at)'), '=', (new \DateTime('now'))->format('Y-m-d'))
-            ->where('ip_address', '=', $input['ip_address'])->count();
+        $count_ip = GiveawayEntry::where('ip_address', '=', $input['ip_address'])->where('code_id', '=', $code->id)->count();
 
         if ($count_ip > 0) {
-            $errors = new MessageBag(array("Your IP address has already submitted an entry for today."));
+            $errors = new MessageBag(array("Your IP address has already submitted an entry with that code for today."));
             throw new ValidationException($errors);
         }
     }

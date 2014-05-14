@@ -17,7 +17,8 @@ return array(
         'casters' => array(
             'vods' => 1,
             'report_matches' => 1,
-            'view_rosters' => 1
+            'view_rosters' => 1,
+            'codes' => 1,
         ),
         'team_owners' => array(
             'add_team_members' => 1,
