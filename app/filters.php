@@ -210,6 +210,10 @@ View::composer('user/profileCardPartial', function($view) {
       $view->with('loss', false);
     }
 
+    if (!isset($view['is_default'])) {
+      $view->with('is_default', false);
+    }
+
     if (!isset($view['replay_url']) || $view['replay_url'] == NULL || $view['replay_url'] == "") {
         $view->with('replay_url', "#");
     }

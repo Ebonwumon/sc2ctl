@@ -14,14 +14,18 @@
 @elseif ($win)
   <a href="{{ $replay_url }}" class="pure-button tip-button pure-button-good">
       Win
-      @if ($replay_url == "#")
+      @if ($is_default)
+        Forfeit
+      @elseif ($replay_url == "#")
         (No Replay)
       @endif
   </a>
 @elseif ($loss)
   <a href="{{ $replay_url }}" class="pure-button tip-button pure-button-bad">
       Loss
-      @if ($replay_url == "#")
+      @if ($is_default)
+        Forfeit
+      @elseif ($replay_url == "#")
         (No Replay)
       @endif
   </a>

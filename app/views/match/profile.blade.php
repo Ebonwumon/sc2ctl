@@ -53,7 +53,7 @@ View Match
         @foreach ($match->rosterForLineup($team->id)->first()->entries as $entry)
           <?php $game = $match->game($entry->map -1); ?>
           @if (count($game) > 0 && $game->winner)
-            @include('user/profileCardPartial', array('user' => $entry->player, 'win' => $game->won($entry->player->id), 'loss' => !$game->won($entry->player->id), 'replay_url' => $game->replay_url))
+            @include('user/profileCardPartial', array('user' => $entry->player, 'win' => $game->won($entry->player->id), 'loss' => !$game->won($entry->player->id), 'is_default' => $game->is_default, 'replay_url' => $game->replay_url))
           @else
             @include('user/profileCardPartial', array('user' => $entry->player))
           @endif
