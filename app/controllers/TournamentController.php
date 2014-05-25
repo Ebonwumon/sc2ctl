@@ -57,6 +57,7 @@ class TournamentController extends \BaseController
             case 0:
                 $data = $tournament->teams;
                 break;
+            default:
             case 1:
                 if (Input::has('swiss_round') && Input::get('swiss_round') != null) {
                     

@@ -78,26 +78,17 @@ Tournament Profile
 
 
     @elseif ($phase == 3)
-    @if ($phase)
-    <br/>
-    <br/>
+        <iframe src="http://challonge.com/sc2ctl{{ $tournament->id }}/module" width="100%" height="500" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
+        <br />
+        <hr>
+        <div class="pure-g-r">
+            @foreach($data->matches as $match)
+                <div class="pure-u-1-3">
+                    @include('match/matchCardPartial')
+                </div>
+            @endforeach
+        </div>
 
-    <div class="box">
-        <h3>Total Standings</h3>
-        @include('tournament/globalStandings', array('groups' => $data))
-    </div>
-    <br/>
-    @include('ad')
-
-    @include('group/multipleGroupDisplay', array('groups' => $data))
-
-    @endif
-
-    <h2>Hello everyone!</h2>
-
-    <h3>There was a problem with automatic bracket generation, but you can view the starting bracket here:
-        <a href="http://dev.sc2ctl.com/blog/10">http://dev.sc2ctl.com/blog/12</a>. Please report your match results
-        (with replays) via email to adult@sc2ctl.com!</h3>
     @elseif ($tournament->phase == -1)
     This tournament is completed. Open data on the tournament will be available
     soon &trade;
