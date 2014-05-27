@@ -68,15 +68,27 @@ padding: 0.5em;
 
     <div class="pure-form">
         <legend>Follow us on Twitter</legend>
-        <a href="#" class="pure-button pure-button-twitter" target="_blank">
+        <!--<a href="#" class="pure-button pure-button-twitter" target="_blank">
             Login with Twitter
-        </a>
+        </a>-->
     </div>
     <div class="pure-g-r">
-        <div class="pure-u-1-2"></div>
-        <div class="pure-u-1-2"></div>
-        <div class="pure-u-1-2"></div>
-        <div class="pure-u-1-2"></div>
+        <div class="pure-u-1-2">
+          <h3>MYTHLOGIC</h3>
+          <a href="https://twitter.com/mythlogic" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @mythlogic</a>
+        </div>
+        <div class="pure-u-1-2">
+          <h3>SC2CTL</h3>
+          <a href="https://twitter.com/sc2ctl" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @SC2CTL</a>
+        </div>
+        <div class="pure-u-1-2">
+          <h3>Chairs4Gaming</h3>
+          <a href="https://twitter.com/chairs4gaming" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @chairs4gaming</a>
+        </div>
+        <div class="pure-u-1-2">
+          <h3>wingnutsc</h3>
+          <a href="https://twitter.com/wingnutsc" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @wingnutsc</a>
+        </div>
     </div>
 
     {{ Form::open(array('route' => array('giveaway.enter', $giveaway->id), 'class' => 'pure-form pure-form-aligned')) }}
@@ -126,4 +138,5 @@ padding: 0.5em;
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1437821873132248&version=v2.0";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 @stop
