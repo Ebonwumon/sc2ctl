@@ -8,7 +8,7 @@
 		<img class="blog-avatar" src="{{ $blog->user->img_url }}" />
 		<p class="blog-meta">
 			By 
-			<a href="{{ URL::route('user.profile', $blog->user->id) }}" class="blog-author">
+			<a href="{{ URL::route('user.show', $blog->user->id) }}" class="blog-author">
 				{{ $blog->user->username }}
 			</a>
 			in

@@ -40,7 +40,17 @@ class AuthController extends BaseController
                 ]));
         }
 
-        return Redirect::route('user.profile', Auth::user()->getId());
+        return Redirect::route('user.show', Auth::user()->id);
+    }
+
+    /**
+     * Logs out a user
+     *
+     * @return Redirect
+     */
+    public function logout() {
+        Auth::logout();
+        return Redirect::route('home.index');
     }
 
     /**
@@ -52,5 +62,7 @@ class AuthController extends BaseController
     {
         return View::make('login.register');
     }
+
+
 
 }

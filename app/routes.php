@@ -2,8 +2,21 @@
 
 Route::group([ 'namespace' => 'SC2CTL\DotCom\Controllers' ], function() {
 
-    Route::get('login', [ 'as' => 'user.login', 'uses' => 'AuthController@login', 'before' => 'guest' ]);
-    Route::get('register', [ 'as' => 'user.register', 'uses' => 'AuthController@register', 'before' => 'guest' ]);
+    Route::group( [ 'before' => 'auth' ], function () {
+        Route::post('logout', [ 'as' => 'user.logout', 'uses' => 'AuthController@logout' ]);
+    });
+
+    Route::group([ 'before' => 'guest' ], function() {
+        Route::get('login', [ 'as' => 'user.login', 'uses' => 'AuthController@login' ]);
+        Route::post('auth', [ 'as' => 'user.auth', 'uses' => 'AuthController@auth' ]);
+        Route::get('register', [ 'as' => 'user.register', 'uses' => 'AuthController@register' ]);
+        Route::get('login/reset/begin', [ 'as' => 'reminder.start_reset', 'uses' => 'ReminderController@start_reset' ]);
+        Route::post('login/reset/send_token', [ 'as' => 'reminder.send_token', 'uses' => 'ReminderController@send_token' ]);
+        Route::get('login/reset/finalize_password/{token}', [ 'as' => 'reminder.finalize_password', 'uses' => 'ReminderController@finalize_password' ]);
+        Route::post('login/reset/finalize_password', [ 'as' => 'reminder.complete_reset', 'uses' => 'ReminderController@complete_reset' ]);
+    });
+
+    Route::get('user/{id}', [ 'as' => 'user.show', 'uses' => 'UserController@show' ]);
 
 });
 
@@ -47,11 +60,7 @@ Route::group(array('before' => 'guest'), function() {
 
   Route::post('user', array('as' => 'user.store', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@store'));
 
-  Route::post('login', array('as' => 'user.auth', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@auth'));
-  Route::get('login/reset/begin', array('as' => 'login.start_reset', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@start_reset'));
-  Route::post('login/reset/send_token', array('as' => 'login.send_token', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@send_token'));
-  Route::get('login/reset/finalize_password/{user_id}/{token}', array('as' => 'login.finalize_password', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@finalize_password'));
-  Route::post('login/reset/finalize_password', array('as' => 'login.complete_reset', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@complete_reset'));
+
 });
 
 Route::group(array('before' => 'auth'), function() {
@@ -158,7 +167,7 @@ Route::group(array('before' => 'auth|perm:superupser'), function() {
 Route::get('user/checktaken/{type}/{val}', 'SC2CTL\DotCom\Controllers\UserController@checkTaken');
 Route::get('user/search/{term}', 'SC2CTL\DotCom\Controllers\UserController@search');
 Route::get('user', array('as' => 'user.index', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@index'));
-Route::get('user/{id}', array('as' => 'user.profile', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@show'));
+
 
 Route::get('team', array('as' => 'team.index', 'uses' => 'TeamController@index'));
 Route::get('team/{id}', array('as' => 'team.profile', 'uses' => 'TeamController@show'));

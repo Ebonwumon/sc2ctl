@@ -1,50 +1,56 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css" >
-	  <link rel="stylesheet" href="/styles/style.css" >
-    <link rel="stylesheet" href="/styles/purple.css" >
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" >
-	  <script src="/scripts/jquery-2.0.3.min.js"></script>
-    <script src="/scripts/icheck.min.js"></script>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" >
+	    <script src="/scripts/jquery-2.0.3.min.js"></script>
+        <script src="/scripts/icheck.min.js"></script>
 		@yield('additional_head', "")
-		<script src="/scripts/scripts.js"></script>
-		<title>SC2CTL : @yield('title')</title>
+		<title>@yield('title') - SC2CTL</title>
 	</head>
 	<body>
-		<div class="wrapper @yield('background', 'background-wrapper sc2ctl-main-logo')">
-			<nav class="pure-menu pure-menu-open pure-menu-horizontal">
-				<a href="{{ URL::action('HomeController@index') }}" class="pure-menu-heading">
-					SC2CTL
-				</a>
-			<ul>
-				<li><a href="{{ URL::action('HomeController@index') }}">Home</a></li>
-				<li><a href="{{ URL::route('home.about') }}">About</a></li>
-				<!--<li><a href="{{ URL::route('user.index') }}">Users</a></li>-->
-				<li><a href="{{ URL::route('team.index') }}">Teams</a></li>
-				<li><a href="{{ URL::route('tournament.index') }}">Tournaments</a></li>
-        <li><a href="{{ URL::route('home.sponsors') }}">Sponsors</a></li>
-				<li><a href="http://reddit.com/r/sc2ctl">Subreddit</a></li>
-        <li><a href="http://twitch.tv/sc2ctl">Stream</a></li>
-				@if (Auth::check())
-					<li>
-						<div class="notification-container">
-							<a href="{{ URL::route('user.profile', Auth::user()->id) }}">
-								{{ Auth::user()->username }}'s Profile
-							</a>
-							@if ($count)
-							<div class="notification-bubble">
-								1 <!-- @todo fix notifications -->
-							</div>
-							@endif
-						</div>
-					</li>
-					<li><a href="{{ URL::route('user.logout') }}">Log Out</a></li>
-				@else
-          <li><a href="{{ URL::route('user.login', urlencode(Request::url())) }}">Sign In</a></li>
-				@endif
-			</ul>
-		</nav>
+	<header class="navigation">
+	    <nav>
+	        <ul>
+	            <li>
+	                <a href="{{ URL::route('home.index') }}">Home</a>
+                </li>
+                <li>
+                    <a href="{{ URL::route('home.about') }}">About</a>
+                </li>
+                <li>
+                    <a href="{{ URL::route('team.index') }}">Teams</a>
+                </li>
+                <li>
+                    <a href="{{ URL::route('tournament.index') }}">Tournaments</a>
+                </li>
+                <li>
+                    <a href="{{ URL::route('home.sponsors') }}">Sponsors</a>
+                </li>
+                <li>
+                    <a href="http://reddit.com/r/sc2ctl">Subreddit</a>
+                </li>
+                <li>
+                    <a href="http://twitch.tv/sc2ctl">Stream</a>
+                </li>
+                @if (Auth::check())
+                    <li>
+                        <a href="{{ URL::route('user.show', Auth::user()->id) }}">
+                            {{ Auth::user()->username }}'s Profile
+                        </a>
+                    </li>
+                    <li>
+                        {{ Form::open([ 'route' => 'user.logout', 'method' => 'POST', 'class' => '' ]) }}
+                            <input type="submit" value="Log Out" />
+                        {{ Form::close() }}
+                    </li>
+                @else
+                    <li>
+                        <a href="{{ URL::route('user.login') }}">Sign In</a>
+                    </li>
+                @endif
+	        </ul>
+	    </nav>
+	</header>
     @include('errors/errorPartial')
     @yield('content')
 <script>

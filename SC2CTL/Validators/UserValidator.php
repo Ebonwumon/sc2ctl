@@ -19,7 +19,7 @@ class UserValidator implements BaseValidatorInterface
     {
         $rules = [
             'username' => 'required|alpha_dash|between:3,80|unique:users',
-            'email' => 'email|unique:users|required',
+            'email' => 'required|email|unique:users',
             'password' => 'required|confirmed',
         ];
 
@@ -34,10 +34,21 @@ class UserValidator implements BaseValidatorInterface
      * Validates the input based on updating an existing object
      * @param array $input Key-value array of keys and their inputs
      * @param mixed $current_id The ID of the current model being updated.
+     * @throws ValidationException
      * @return void
      */
     public static function updateValidate(array $input, $current_id)
     {
-        // TODO: Implement updateValidate() method.
+        $rules = [
+            'username' => "alpha_dash|between:3,80|unique:users,username,{$current_id}",
+            'email' => "email,unique:users,email,{$current_id}",
+            'password' => 'confirmed',
+        ];
+
+        $v = \Validator::make($input, $rules);
+
+        if ($v->fails()) {
+            throw new ValidationException($v);
+        }
     }
 }

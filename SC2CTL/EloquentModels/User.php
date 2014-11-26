@@ -2,24 +2,33 @@
 
 namespace SC2CTL\DotCom\EloquentModels;
 
-use Depotwarehouse\Toolbox\DataManagement\EloquentModels\BaseModel;
 use Illuminate\Auth\UserInterface;
 
 class User extends BaseModel implements UserInterface
 {
+    protected $hidden = ['password'];
 
-    protected $hidden = [ 'password' ];
-
-    public function __construct(array $attributes = array()) 
+    public function __construct(array $attributes = array())
     {
         parent::__construct($attributes);
     }
 
     protected $meta = [
-        'id' => [ self::GUARDED ],
-        'username' => [ self::FILLABLE, self::UPDATEABLE ],
-        'email' => [ self::FILLABLE, self::UPDATEABLE ]
+        'id' => [self::GUARDED],
+        'username' => [self::FILLABLE, self::UPDATEABLE, self::SEARCHABLE],
+        'email' => [self::FILLABLE, self::UPDATEABLE, self::SEARCHABLE],
+        'password' => [self::FILLABLE, self::UPDATEABLE]
     ];
+
+    public function currentlyOnTeam()
+    {
+        return false; // TODO
+    }
+
+    public function hasConnectedBattleNet()
+    {
+        return false;
+    }
 
     /**
      * Get the unique identifier for the user.

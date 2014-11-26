@@ -40,7 +40,7 @@ background-wrapper clown-background
 					{{ $team->description }}
 				</p>
 				<p>
-					<strong>Founder</strong>: <a href="{{ URL::route('user.profile', $team->user_id) }}">{{ $team->user->bnet_name }}#{{ $team->user->char_code }}</a><br />
+					<strong>Founder</strong>: <a href="{{ URL::route('user.show', $team->user_id) }}">{{ $team->user->bnet_name }}#{{ $team->user->char_code }}</a><br />
 					@if ($team->website)
 						<strong>Website</strong>: <a href="{{ $team->website }}">{{$team->website}}</a> <br />
 					@endif

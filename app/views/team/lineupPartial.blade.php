@@ -30,7 +30,7 @@
 		<tr>
 			<td>{{ $i }}</td>
 			<td>
-				<a href="{{ URL::route('user.profile', $player->id) }}">
+				<a href="{{ URL::route('user.show', $player->id) }}">
 					{{ $player->bnet_name }}#{{ $player->char_code }}
 				</a>
 			</td>

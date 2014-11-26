@@ -10,7 +10,7 @@ Login
     If there are problems, or you have forgotten your email that you registered with,
     send an email to adult@sc2ctl.com and we'll get you set up with the proper account.
   </p>
-  {{ Form::open([ 'route' => 'user.auth', 'class' => "pure-form pure-form-aligned" ]) }}
+  {{ Form::open([ 'route' => 'user.auth', 'method' => 'POST', 'class' => "pure-form pure-form-aligned" ]) }}
     <div class="pure-control-group">
       {{ Form::label('email') }}
       {{ Form::text('email') }}
@@ -23,7 +23,7 @@ Login
 
     <div class="pure-controls">
       <input type="submit" value="Log in" class="pure-button pure-button-good" />
-      <a href="{{ URL::route('login.start_reset') }}" class="pure-button pure-button-cancel">
+      <a href="{{ URL::route('reminder.start_reset') }}" class="pure-button pure-button-cancel">
         Reset Password
       </a>
     </div>
