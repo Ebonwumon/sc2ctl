@@ -26,17 +26,15 @@
         <li><a href="{{ URL::route('home.sponsors') }}">Sponsors</a></li>
 				<li><a href="http://reddit.com/r/sc2ctl">Subreddit</a></li>
         <li><a href="http://twitch.tv/sc2ctl">Stream</a></li>
-				@if (Sentry::check())
-				<?php $user = Sentry::getUser(); ?>
+				@if (Auth::check())
 					<li>
 						<div class="notification-container">
-							<a href="{{ URL::route('user.profile', $user->id) }}">
-								{{ $user->username }}'s Profile
+							<a href="{{ URL::route('user.profile', Auth::user()->id) }}">
+								{{ Auth::user()->username }}'s Profile
 							</a>
-							<?php $count = $user->notifications()->where('read', '=', 'false')->count(); ?>
 							@if ($count)
 							<div class="notification-bubble">
-								{{$count}}
+								1 <!-- @todo fix notifications -->
 							</div>
 							@endif
 						</div>
@@ -48,18 +46,7 @@
 			</ul>
 		</nav>
     @include('errors/errorPartial')
-		@yield('content')
-		<!--<div class="push"></div>
-		</div>
-		<div class="footer">
-			<hr />
-			<a href="http://daskeyboard.com">
-				<img src="/img/das-logo-small.png" />
-			</a>
-			  |
-			<a href="{{ URL::route('home.contact') }}">Contact</a> | 
-			&copy; Website by Troy Pavlek.
-		</div>-->
+    @yield('content')
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

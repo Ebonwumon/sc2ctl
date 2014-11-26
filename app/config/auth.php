@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'model' => 'User',
+	'model' => 'SC2CTL\DotCom\EloquentModels\User',
 
 	/*
 	|--------------------------------------------------------------------------

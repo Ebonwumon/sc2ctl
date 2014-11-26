@@ -35,7 +35,7 @@ App::after(function($request, $response)
 
 Route::filter('auth', function($route, $request)
 {
-	if (!Sentry::check()) { 
+	if (!Auth::check()) { 
     Session::put('redirect', URL::current());
     return Redirect::route('user.login'); 
   }
@@ -60,7 +60,7 @@ Route::filter('auth.basic', function()
 
 Route::filter('guest', function()
 {
-	if (Sentry::check()) return Redirect::route('home');
+	if (Auth::check()) return Redirect::route('home');
 });
 
 /*
@@ -84,7 +84,7 @@ Route::filter('csrf', function()
 
 Route::filter('perm', function($route, $request, $value) {
     $perms = explode(',', $value);
-    $user = Sentry::getUser();
+    $user = Auth::getUser();
     foreach ($perms as $perm) {
       if (!$user->hasAccess($perm)) {
         App::abort('401', "You do not have permission to do that");
@@ -93,7 +93,7 @@ Route::filter('perm', function($route, $request, $value) {
 });
 Route::filter('register_lineup', function($route, $request) {
   $lineup_id = Input::get('lineup_id');
-  if (!Sentry::getUser()->registerableLineups()->contains($lineup_id)) {
+  if (!Auth::getUser()->registerableLineups()->contains($lineup_id)) {
     App::abort('401', "You're not authorized to do that");
   }
   
@@ -104,14 +104,14 @@ Route::filter('can_report', function($route, $request, $value) {
   } else if ($value == "game") {
     $obj = Game::findOrFail($route->getParameter('id'));
   }
-  if (!$obj->canReport(Sentry::getUser())) {
+  if (!$obj->canReport(Auth::getUser())) {
     App::abort('401', "You're not Authorized to do that");
   }
 });
 
 Route::filter('create_roster', function($route, $request) {
   $lineup = Lineup::findOrFail($route->getParameter('lineup_id')); 
-  if (!$lineup->canCreateRoster(Sentry::getUser())) {
+  if (!$lineup->canCreateRoster(Auth::getUser())) {
     App::abort('401', "You're not authorized to do that!");
   }
 
@@ -119,8 +119,8 @@ Route::filter('create_roster', function($route, $request) {
 
 Route::filter('remove_member', function($route, $request) {
   $team = Team::findOrFail($route->getParameter('id'));
-  if(!$team->canRemoveMembers(Sentry::getUser())) {
-    if (!Input::get('user_id') == Sentry::getUser()->id) {
+  if(!$team->canRemoveMembers(Auth::getUser())) {
+    if (!Input::get('user_id') == Auth::getUser()->id) {
       App::abort('401', "You're not Authorized to do that");
     }
   }
@@ -128,13 +128,13 @@ Route::filter('remove_member', function($route, $request) {
 
 Route::filter('change_rank', function($route, $request) {
   $lineup = Lineup::findOrFail($route->getParameter('id'));
-  if (!$lineup->canChangeRanks(Sentry::getUser())) {
+  if (!$lineup->canChangeRanks(Auth::getUser())) {
     App::abort('401', "You're not Authorized to do that"); 
   }
 });
 Route::filter('is_user', function($route, $request) {
-    if(!Sentry::getUser()->hasAccess('edit_profiles')) {
-      if (Sentry::getUser()->id != $route->getParameter('id')) {
+    if(!Auth::getUser()->hasAccess('edit_profiles')) {
+      if (Auth::getUser()->id != $route->getParameter('id')) {
         App::abort('401', "You're not Authorized to do that");
       }
     }
@@ -142,28 +142,20 @@ Route::filter('is_user', function($route, $request) {
 
 Route::filter('lineup_captain', function($route, $request) {
     $lineup = Lineup::findOrFail($route->getParameter('id'));
-    if (!$lineup->canRename(Sentry::getUser())) {
+    if (!$lineup->canRename(Auth::getUser())) {
       App::abort('401', "You're not Authorized to do that");
     }
   });
 
 Route::filter('lineup_captain_on_team', function($route, $request) {
     $team = Team::findOrFail($route->getParameter('id'));
-    /*if (!$lineup->canRename(Sentry::getUser())) {
+    /*if (!$lineup->canRename(Auth::getUser())) {
       App::abort('401', "You're not Authorized to do that");
     }*/
     //Todo
   });
 
 
-View::composer('index', function($view) {
-  $randTeam = Team::orderBy(DB::raw('RAND()'))->take(1)->get();
-  $randUser = User::orderBy(DB::raw('RAND()'))->take(1)->get();
-  $vod = VOD::orderBy(DB::raw('RAND()'))->take(1)->get();
-  $view->with('vod', $vod->first());
-  $view->with('randTeam', $randTeam->first());
-  $view->with('randUser', $randUser->first());
-    });
 View::composer('team/profile', function($view) {
   if (!isset($view['edit'])) {
     $view->with('edit', false);

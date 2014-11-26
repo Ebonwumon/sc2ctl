@@ -1,20 +1,13 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
-*/
-Route::get('test', function() {
-    dd(Facebook::loginUrl());
-    });
-Route::get('refreshdoges', 'HomeController@refreshdoges');
-Route::get('/', array('as' => 'home', "uses" => 'HomeController@index')); 
+Route::group([ 'namespace' => 'SC2CTL\DotCom\Controllers' ], function() {
+
+    Route::get('login', [ 'as' => 'user.login', 'uses' => 'AuthController@login', 'before' => 'guest' ]);
+    Route::get('register', [ 'as' => 'user.register', 'uses' => 'AuthController@register', 'before' => 'guest' ]);
+
+});
+
+Route::get('/', array('as' => 'home.index', "uses" => 'HomeController@index'));
 Route::get('contact', array('as' => 'home.contact', "uses" => 'HomeController@contact'));
 Route::get('about', array('as' => 'home.about', 'uses' => 'HomeController@about'));
 Route::get('format', array('as' => 'home.format', 'uses' => 'HomeController@format'));
@@ -39,8 +32,8 @@ Route::get('lineup/{id}', array('as' => 'lineup.show', 'uses' => 'LineupControll
 Route::get('lineup/{id}/matches', array('as' => 'lineup.matches', 'uses' => 'LineupController@matches'));
 //caster authenticated
 
-Route::get('auth/fb_logout', array('as' => 'auth.fbLogout', 'uses' => 'AuthenticationController@fblogout'));
-Route::get('auth/fb_login', array('as' => 'auth.fbLogin', 'uses' => 'AuthenticationController@fbLogin'));
+Route::get('auth/fb_logout', array('as' => 'auth.fbLogout', 'uses' => 'SC2CTL\DotCom\Controllers\AuthenticationController@fblogout'));
+Route::get('auth/fb_login', array('as' => 'auth.fbLogin', 'uses' => 'SC2CTL\DotCom\Controllers\AuthenticationController@fbLogin'));
 
 Route::group(array('before' => 'auth|perm:vods'), function() {
   Route::get('vod/create', array('as' => 'vod.create', 'uses' => 'VODController@create'));
@@ -51,19 +44,18 @@ Route::group(array('before' => 'auth|perm:vods'), function() {
 
 Route::group(array('before' => 'guest'), function() {
 
-  Route::get('register', array('as' => 'user.register', 'uses' => 'UserController@register'));
-  Route::post('user', array('as' => 'user.store', 'uses' => 'UserController@store'));
-  Route::get('login/{return_url?}', array('as' => 'user.login', 'uses' => 'UserController@login'));
-  Route::post('login', array('as' => 'user.auth', 'uses' => 'UserController@auth'));
-  Route::get('login/reset/begin', array('as' => 'login.start_reset', 'uses' => 'UserController@start_reset'));
-  Route::post('login/reset/send_token', array('as' => 'login.send_token', 'uses' => 'UserController@send_token'));
-  Route::get('login/reset/finalize_password/{user_id}/{token}', array('as' => 'login.finalize_password', 'uses' => 'UserController@finalize_password'));
-  Route::post('login/reset/finalize_password', array('as' => 'login.complete_reset', 'uses' => 'UserController@complete_reset'));
+
+  Route::post('user', array('as' => 'user.store', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@store'));
+
+  Route::post('login', array('as' => 'user.auth', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@auth'));
+  Route::get('login/reset/begin', array('as' => 'login.start_reset', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@start_reset'));
+  Route::post('login/reset/send_token', array('as' => 'login.send_token', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@send_token'));
+  Route::get('login/reset/finalize_password/{user_id}/{token}', array('as' => 'login.finalize_password', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@finalize_password'));
+  Route::post('login/reset/finalize_password', array('as' => 'login.complete_reset', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@complete_reset'));
 });
 
 Route::group(array('before' => 'auth'), function() {
-	Route::get('user/logout', array("as" => "user.logout", 'uses' => "UserController@logout"));
-	Route::post('user/leaveteam', array('uses' => 'UserController@leaveteam'));
+	Route::post('user/leaveteam', array('uses' => 'SC2CTL\DotCom\Controllers\UserController@leaveteam'));
 	Route::get('/team/create', array('as' => 'team.create', "uses" => 'TeamController@create'));
 	Route::post('team', array('as' => 'team.store', 'uses' => 'TeamController@store'));
 	Route::post('notification/{id}/mark', array('as' => 'notification.mark', 'uses' => 'NotificationController@mark'));
@@ -84,8 +76,8 @@ Route::group(array('before' => 'auth|perm:create_notifications'), function() {
 });
 
 Route::group(array('before' => "auth|is_user"), function() {
-	Route::get('user/{id}/edit', array('as' => 'user.edit', 'uses' => 'UserController@edit'));
-	Route::post('user/{id}', array('as' => 'user.update', 'uses' => 'UserController@update'));
+	Route::get('user/{id}/edit', array('as' => 'user.edit', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@edit'));
+	Route::post('user/{id}', array('as' => 'user.update', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@update'));
 	Route::post('user/{id}/changepic', array('as' => 'user.changepic', 'uses' => 'AssetController@uploadProfileImage'));
 });
 
@@ -163,10 +155,10 @@ Route::group(array('before' => 'auth|perm:superupser'), function() {
   Route::delete('team/{id}', array('as' => 'team.destroy', 'uses' => 'TeamController@destroy'));
 });
 
-Route::get('user/checktaken/{type}/{val}', 'UserController@checkTaken');
-Route::get('user/search/{term}', 'UserController@search');
-Route::get('user', array('as' => 'user.index', 'uses' => 'UserController@index'));
-Route::get('user/{id}', array('as' => 'user.profile', 'uses' => 'UserController@show'));
+Route::get('user/checktaken/{type}/{val}', 'SC2CTL\DotCom\Controllers\UserController@checkTaken');
+Route::get('user/search/{term}', 'SC2CTL\DotCom\Controllers\UserController@search');
+Route::get('user', array('as' => 'user.index', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@index'));
+Route::get('user/{id}', array('as' => 'user.profile', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@show'));
 
 Route::get('team', array('as' => 'team.index', 'uses' => 'TeamController@index'));
 Route::get('team/{id}', array('as' => 'team.profile', 'uses' => 'TeamController@show'));
@@ -180,7 +172,7 @@ Route::group(array('before' => 'auth|perm:delete_teams'), function() {
 });
 
 Route::group(array('before' => 'auth|perm:delete_users'), function() {
-  Route::delete('user/{id}', array('before' => 'deleteuser', 'as' => 'user.destroy', 'uses' => 'UserController@destory'));
+  Route::delete('user/{id}', array('before' => 'deleteuser', 'as' => 'user.destroy', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@destory'));
 });
 
 Route::group(array('before' => 'auth|perm:admin'), function() {

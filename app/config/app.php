@@ -106,10 +106,8 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-        'Cartalyst\Sentry\SentryServiceProvider',
-        'Intervention\Image\ImageServiceProvider',
+        'Zizaco\Confide\ServiceProvider',
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
-        'Boparaiamrit\Facebook\FacebookServiceProvider',
 	),
 
 	/*
@@ -169,16 +167,13 @@ return array(
 		'Route'           => 'Illuminate\Support\Facades\Route',
 		'Schema'          => 'Illuminate\Support\Facades\Schema',
 		'Seeder'          => 'Illuminate\Database\Seeder',
-        'Sentry'          => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Session'         => 'Illuminate\Support\Facades\Session',
 		'SSH'             => 'Illuminate\Support\Facades\SSH',
 		'Str'             => 'Illuminate\Support\Str',
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-        'Image'           => 'Intervention\Image\Facades\Image',
-        'Facebook'    => 'Boparaiamrit\Facebook\FacebookFacade',
-
+        'Confide'         => 'Zizaco\Confide\Facade',
 	),
 
 );

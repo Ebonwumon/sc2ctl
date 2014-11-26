@@ -5,17 +5,12 @@ Login
 @stop
 
 @section('content')
-<div class="floating-color">
   <strong>Important!</strong>
   <p>
-    If you were registered in SC2CTL season 1, your password has been removed. You will
-    need to do a password reset in order to set a new password.
-  </p>
-  <p>
-    If there are problems, or you have forgetten your email that you registered with,
+    If there are problems, or you have forgotten your email that you registered with,
     send an email to adult@sc2ctl.com and we'll get you set up with the proper account.
   </p>
-  {{ Form::open(array('route' => 'user.auth', 'class' => "pure-form pure-form-aligned")) }}
+  {{ Form::open([ 'route' => 'user.auth', 'class' => "pure-form pure-form-aligned" ]) }}
     <div class="pure-control-group">
       {{ Form::label('email') }}
       {{ Form::text('email') }}
@@ -34,11 +29,10 @@ Login
     </div>
   {{ Form::close() }}
 
-  <div class="centered">
+  <div class="call-to-action">
     <a href="{{ URL::route('user.register') }}" class="pure-button pure-button-primary pure-button-massive">
       No account? Register here
     </a>
   </div>
-</div>
 
 @stop
