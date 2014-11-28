@@ -1,4 +1,6 @@
 <?php
+use SC2CTL\DotCom\EloquentModels\Role;
+
 class LineupController extends \BaseController {
 
 	/**
@@ -126,13 +128,13 @@ class LineupController extends \BaseController {
     $v = Lineup::validate($inputArr);
 
     if (!$v->passes()) {
-      return Redirect::route('team.profile', $lineup->team->id)->withErrors($v);
+      return Redirect::route('team.show', $lineup->team->id)->withErrors($v);
     }
     
     $lineup->fill($inputArr);
     $lineup->save();
 
-	  return Redirect::route('team.profile', $lineup->team->id);
+	  return Redirect::route('team.show', $lineup->team->id);
   }
 
 	/**

@@ -18,12 +18,14 @@
     <div class="pure-u-1-3">
         <h3>User</h3>
         <strong>Username: </strong> {{ $user->username }}
-        @if ($user->currentlyOnTeam())
+        @if ($user->currentlyOnATeam())
             <h3>Team</h3>
             {{ $user->team->full_name }}
         @endif
     </div>
     <div class="pure-u-1-3">
+        <strong>Profile Image:</strong>
+        <img src="{{ $user->profile_img }}" />
     </div>
     <div class="pure-u-1-3">
     </div>

@@ -22,6 +22,8 @@ class CreateTeams extends Migration {
             $table->string('social_twitch');
             $table->string('website');
             $table->string('description');
+
+            $table->softDeletes();
             $table->timestamps();
         });
 	}

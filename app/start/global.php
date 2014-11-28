@@ -13,10 +13,10 @@
 
 ClassLoader::addDirectories(array(
 
-	app_path().'/commands',
-	app_path().'/controllers',
-	app_path().'/models',
-	app_path().'/database/seeds',
+    app_path() . '/commands',
+    app_path() . '/controllers',
+    app_path() . '/models',
+    app_path() . '/database/seeds',
 
 ));
 
@@ -31,7 +31,7 @@ ClassLoader::addDirectories(array(
 |
 */
 
-Log::useFiles(storage_path().'/logs/laravel.log');
+Log::useFiles(storage_path() . '/logs/laravel.log');
 
 /*
 |--------------------------------------------------------------------------
@@ -46,23 +46,36 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 |
 */
 
-App::error(function(Exception $exception, $code)
-{
-	Log::error($exception);
+App::error(function (Exception $exception, $code) {
+    Log::error($exception);
+    if (!Config::get('app.debug')) {
+        return Response::view('errors.500', array(), 500);
+    }
+
 });
 
-App::missing(function($exception)
-{
-  Log::error($exception);
-  return Response::view('errors/404', array(), 404);
+App::error(function (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) {
+    App::abort('404', "Could not find the specified resource");
 });
 
-App::error(function(Symfony\Component\HttpKernel\Exception\HttpException $exception, $code)
-{
-  Log::error($exception); 
-  if ($code == 401) {
-    return Response::view('errors/401', array(), 401);
-  }
+App::error(function (\SC2CTL\DotCom\Exceptions\MustBeTeamlessException $exception) {
+    $errors = new \Illuminate\Support\MessageBag([
+        'errors' => "You must not be currently on a team to perform that action."
+    ]);
+    return Response::view('errors.401', [ 'errors' => $errors ], 401);
+});
+
+App::missing(function ($exception) {
+    Log::error($exception);
+    return Response::view('errors.404', array(), 404);
+});
+
+App::error(function (Symfony\Component\HttpKernel\Exception\HttpException $exception, $code) {
+    Log::error($exception);
+    if ($code == 401) {
+        return Response::view('errors.401', array(), 401);
+    }
+    return Response::view('errors.500', array(), 500);
 });
 
 /*
@@ -76,9 +89,8 @@ App::error(function(Symfony\Component\HttpKernel\Exception\HttpException $except
 |
 */
 
-App::down(function()
-{
-	return Response::view("errors/down", array(), 503);
+App::down(function () {
+    return Response::view("errors/down", array(), 503);
 });
 
 /*
@@ -92,6 +104,6 @@ App::down(function()
 |
 */
 
-require app_path().'/filters.php';
+require app_path() . '/filters.php';
 
-require app_path().'/ioc.php';
+require app_path() . '/ioc.php';

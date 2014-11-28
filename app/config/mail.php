@@ -54,7 +54,7 @@ return array(
     |
     */
 
-    'from' => array('address' => null, 'name' => null),
+    'from' => array('address' => 'adult@sc2ctl.com', 'name' => 'SC2CTL Admin'),
 
     /*
     |--------------------------------------------------------------------------

@@ -5,7 +5,7 @@ Choose your new password
 @stop
 
 @section('content')
-{{ Form::open([ 'route' => 'login.complete_reset', 'class' => 'pure-form pure-form-aligned' ]) }}
+{{ Form::open([ 'route' => 'reminder.complete_reset', 'class' => 'pure-form pure-form-aligned' ]) }}
     {{ Form::hidden('token', $token) }}
 
     <div class="pure-control-group">

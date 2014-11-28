@@ -8,6 +8,91 @@ Manage Team
 
 @stop
 
+STUFF
+
+            @if ($edit)
+      @if($team->canCreateLineups(Sentry::getUser()))
+			<a href="{{ URL::route('lineup.create', $team->id) }}" class="pure-button pure-button-primary">
+				New Lineup
+			</a>
+      @endif
+      <br />
+      <br />
+
+      @if ($team->canAddMembers(Sentry::getUser()))
+        <div class="splash-bg padded-content">
+          {{ Form::open(array('route' => array('team.add', $team->id), 'class' => 'pure-form')) }}
+            <legend>Add Members</legend>
+            <div class="pure-controls">
+              {{ Form::select('user_id', User::listTeamless()) }}
+              <br />
+              <input type="submit" class="pure-button pure-button-primary" value="Quick Add To Team" />
+            </div>
+          {{ Form::close() }}
+        </div>
+        <br />
+      @endif
+
+      @if ($team->canRemoveMembers(Sentry::getUser()))
+        <div class="splash-bg padded-content">
+          {{ Form::open(array('route' => array('team.remove', $team->id), 'class' => 'pure-form')) }}
+            <legend>Remove Members</legend>
+            <div class="pure-controls">
+              {{ Form::select('user_id', $team->members->lists('qualified_name', 'id')) }}
+              <br />
+              <input type="submit" class="pure-button pure-button-bad" value="Remove From Team" />
+            </div>
+          {{ Form::close() }}
+        </div>
+      @endif
+    @endif
+		</div>
+  </div>
+</div>
+
+
+<br />
+@if (Sentry::check())
+  <div class="pure-control-panel">
+    @if(!$edit && ($team->canCreateLineups(Sentry::getUser()) || $team->canEditLineups(Sentry::getUser())))
+      <a class="pure-button pure-button-primary" href="{{ URL::route('team.edit', $team->id) }}">
+        Alter/Create Lineups
+      </a>
+    @endif
+    @if($team->canEditTeam(Sentry::getUser()))
+      <a class="pure-button pure-button-secondary" href="{{ URL::route('team.editinfo', $team->id) }}">
+        Edit Info
+      </a>
+    @endif
+    @if (Sentry::getUser()->team_id && Sentry::getUser()->team_id == $team->id)
+      {{ Form::open(array('route' => array('team.remove', $team->id))) }}
+        {{ Form::hidden('user_id', Sentry::getUser()->id) }}
+        <input type="submit" value="Leave Team" class="pure-button pure-button-bad" />
+      {{ Form::close() }}
+    @endif
+  </div>
+@endif
+</div>
+
+<script>
+	function bindRemoteCallback(obj) {
+		if ($(obj).hasClass('delete')) {
+			$(obj).parents('tr:first').hide('fast');
+			return true;
+		}
+		deselect($(obj).parent().find('.remoteAction'));
+		$(obj).addClass('selected');
+	}
+</script>
+
+
+
+
+
+ENDSTUFF
+
+
+
 @section('content')
 <div class="padded-content">
 <h2>{{ $team->name }}</h2>	

@@ -1,15 +1,8 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application & Route Filters
-|--------------------------------------------------------------------------
-|
-| Below you will find the "before" and "after" events for the application
-| which may be used to do any work before or after a request into your
-| application. Here you may also register your custom route filters.
-|
-*/
+use SC2CTL\DotCom\Filters\IsUserFilter;
+use SC2CTL\DotCom\Filters\RequiresBnetFilter;
+use SC2CTL\DotCom\ViewComposers\ErrorPartialComposer;
 
 App::before(function ($request) {
     //
@@ -19,6 +12,13 @@ App::before(function ($request) {
 App::after(function ($request, $response) {
     //
 });
+
+/*
+ * Register the filters for our application domain
+ */
+
+Route::filter('is_user', IsUserFilter::class);
+Route::filter('requires_bnet', RequiresBnetFilter::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -127,14 +127,6 @@ Route::filter('change_rank', function ($route, $request) {
         App::abort('401', "You're not Authorized to do that");
     }
 });
-Route::filter('is_user', function ($route, $request) {
-    if (!Auth::getUser()->hasAccess('edit_profiles')) {
-        if (Auth::getUser()->id != $route->getParameter('id')) {
-            App::abort('401', "You're not Authorized to do that");
-        }
-    }
-});
-
 Route::filter('lineup_captain', function ($route, $request) {
     $lineup = Lineup::findOrFail($route->getParameter('id'));
     if (!$lineup->canRename(Auth::getUser())) {
@@ -205,6 +197,8 @@ View::composer('user/profileCardPartial', function ($view) {
         $view->with('replay_url', "#");
     }
 });
+
+View::composer('errors/errorPartial', ErrorPartialComposer::class);
 
 View::composer('dogetip/create', function ($view) {
     $default = ($view['user_id']) ? $view['user_id'] : null;

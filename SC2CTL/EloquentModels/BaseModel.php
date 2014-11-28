@@ -14,7 +14,11 @@ class BaseModel extends \Depotwarehouse\Toolbox\DataManagement\EloquentModels\Ba
 
     public function newPivot(Model $parent, array $attributes, $table, $exists)
     {
-        return new Enrollment($parent, $attributes, $table, $exists);
+        if ($parent instanceof User || $parent instanceof Team || $table == "team_enrollments") {
+            return new Enrollment($parent, $attributes, $table, $exists);
+        }
+
+        return parent::newPivot($parent, $attributes, $table, $exists);
     }
 
 } 

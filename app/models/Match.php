@@ -1,4 +1,5 @@
 <?php
+use SC2CTL\DotCom\EloquentModels\Role;
 
 /**
  * Match

@@ -1,4 +1,4 @@
-<a href="{{ URL::route('team.profile', $lineup->team->id) }}" class="nolink">
+<a href="{{ URL::route('team.show', $lineup->team->id) }}" class="nolink">
   <div class="profile-card @if($smallCard) profile-card-small @endif centered">
     <div class="logo-img">
       <img src="{{ $lineup->team->logo_url }}" />

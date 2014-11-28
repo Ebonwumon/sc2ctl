@@ -1,5 +1,7 @@
 <?php
 
+use SC2CTL\DotCom\EloquentModels\Role;
+
 class RoleController extends \BaseController {
 
 	/**

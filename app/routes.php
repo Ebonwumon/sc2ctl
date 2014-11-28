@@ -2,10 +2,6 @@
 
 Route::group([ 'namespace' => 'SC2CTL\DotCom\Controllers' ], function() {
 
-    Route::group( [ 'before' => 'auth' ], function () {
-        Route::post('logout', [ 'as' => 'user.logout', 'uses' => 'AuthController@logout' ]);
-    });
-
     Route::group([ 'before' => 'guest' ], function() {
         Route::get('login', [ 'as' => 'user.login', 'uses' => 'AuthController@login' ]);
         Route::post('auth', [ 'as' => 'user.auth', 'uses' => 'AuthController@auth' ]);
@@ -16,6 +12,30 @@ Route::group([ 'namespace' => 'SC2CTL\DotCom\Controllers' ], function() {
         Route::post('login/reset/finalize_password', [ 'as' => 'reminder.complete_reset', 'uses' => 'ReminderController@complete_reset' ]);
     });
 
+    Route::group( [ 'before' => 'auth' ], function () {
+        Route::post('logout', [ 'as' => 'user.logout', 'uses' => 'AuthController@logout' ]);
+        Route::get('bnet_connect', [ 'as' => 'bnet.connect', 'uses' => "BnetAuthController@bnet_connect" ]);
+        Route::get('bnet_auth', [ 'as' => 'bnet.auth', 'uses' => "BnetAuthController@bnet_auth" ]);
+
+        Route::group([ 'before' => 'teamless_user|requires_bnet'], function() {
+            Route::get('team/create', [ 'as' => 'team.create', "uses" => 'TeamController@create' ]);
+            Route::post('team', [ 'as' => 'team.store', 'uses' => 'TeamController@store' ]);
+        });
+
+        Route::group([ 'before' => 'edit_team' ], function() {
+            Route::get('/team/{id}/edit', [ 'as' => 'team.edit', "uses" => "TeamController@edit" ]);
+        });
+
+
+        Route::group([ 'before' => 'is_user' ], function() {
+            Route::get('user/{id}/edit', [ 'as' => 'user.edit', 'uses' => 'UserController@edit' ]);
+            Route::post('user/{id}', [ 'as' => 'user.update', 'uses' => 'UserController@update' ]);
+        });
+    });
+
+
+    Route::get('team', [ 'as' => 'team.index', 'uses' => 'TeamController@index' ]);
+    Route::get('team/{id}', [ 'as' => 'team.show', 'uses' => 'TeamController@show' ]);
     Route::get('user/{id}', [ 'as' => 'user.show', 'uses' => 'UserController@show' ]);
 
 });
@@ -65,8 +85,7 @@ Route::group(array('before' => 'guest'), function() {
 
 Route::group(array('before' => 'auth'), function() {
 	Route::post('user/leaveteam', array('uses' => 'SC2CTL\DotCom\Controllers\UserController@leaveteam'));
-	Route::get('/team/create', array('as' => 'team.create', "uses" => 'TeamController@create'));
-	Route::post('team', array('as' => 'team.store', 'uses' => 'TeamController@store'));
+
 	Route::post('notification/{id}/mark', array('as' => 'notification.mark', 'uses' => 'NotificationController@mark'));
 });
 
@@ -84,11 +103,7 @@ Route::group(array('before' => 'auth|perm:create_notifications'), function() {
 	Route::post('notification', array('as' => 'notification.store', 'uses' => 'NotificationController@store'));
 });
 
-Route::group(array('before' => "auth|is_user"), function() {
-	Route::get('user/{id}/edit', array('as' => 'user.edit', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@edit'));
-	Route::post('user/{id}', array('as' => 'user.update', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@update'));
-	Route::post('user/{id}/changepic', array('as' => 'user.changepic', 'uses' => 'AssetController@uploadProfileImage'));
-});
+
 
 //TODO make can_report
 Route::group(array('before' => "auth|can_report:match"), function() {
@@ -106,13 +121,11 @@ Route::group(array('before' => "auth|can_report:game"), function() {
 Route::get('game/forfeit', array('as' => 'game.forfeit', function() { return View::make('game/forfeit'); }));
 
 Route::group(array('before' => "auth|can_manage_team_members"), function() {
-  Route::post('team/{id}/add', array('as' => 'team.add', 'uses' => 'TeamController@add'));
+  // TODO add enrollment here.
 });
 
 // TODO make team_owner and team_officer, team_captain
 Route::group(array('before' => 'auth|team_owner'), function() {
-  Route::put('team/{id}/addcontact', array('as' => 'team.addcontact', 'uses' => 'TeamController@addcontact'));
-	Route::put('team/{id}/addleader', array('as' => 'team.addleader', 'uses' => 'TeamController@addleader'));
   Route::get('lineup/create/{id}', array('as' => 'lineup.create', 'uses' => "LineupController@create"));
   Route::delete('lineup/{id}', array('as' => 'lineup.delete', 'uses' => "LineupController@destroy"));
 	Route::post('team/{id}/lineup', array('as' => 'lineup.store', 'uses' => "LineupController@store"));
@@ -133,7 +146,6 @@ Route::post('team/{id}/remove', array('before' => 'auth|remove_member',
                                       'uses' => 'TeamController@remove'));
 
 Route::group(array('before' => 'auth|lineup_captain_on_team'), function() {
-	Route::get('/team/{id}/edit', array('as' => 'team.edit', "uses" => "TeamController@edit"));
 });
 
 Route::group(array('before' => 'auth|lineup_officer'), function() {
@@ -169,9 +181,8 @@ Route::get('user/search/{term}', 'SC2CTL\DotCom\Controllers\UserController@searc
 Route::get('user', array('as' => 'user.index', 'uses' => 'SC2CTL\DotCom\Controllers\UserController@index'));
 
 
-Route::get('team', array('as' => 'team.index', 'uses' => 'TeamController@index'));
-Route::get('team/{id}', array('as' => 'team.profile', 'uses' => 'TeamController@show'));
-Route::get('team/search/{term}', array('as' => 'team.search', 'uses' => 'TeamController@search'));
+
+
 
 //TODO proper authorization
 Route::post('team/{id}', array('as' => 'team.update', 'uses' => 'TeamController@update'));

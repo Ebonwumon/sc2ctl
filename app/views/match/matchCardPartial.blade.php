@@ -11,7 +11,7 @@
       <span>
     <?php $profile =
         ($matchScore[$keys[0]]['id'] == 0) ? "#"
-            : URL::route('team.profile', $matchScore[$keys[0]]['id']);
+            : URL::route('team.show', $matchScore[$keys[0]]['id']);
 
     ?>
           <a href="{{ $profile }}">{{ $keys[0] }}</a>
@@ -29,7 +29,7 @@
       <span>
     <?php $profile =
         ($matchScore[$keys[1]]['id'] == 0) ? "#"
-            : URL::route('team.profile', $matchScore[$keys[1]]['id']);
+            : URL::route('team.show', $matchScore[$keys[1]]['id']);
 
     ?>
           <a href="{{ $profile }}">{{ $keys[1] }}</a>

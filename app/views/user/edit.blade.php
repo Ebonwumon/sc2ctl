@@ -5,51 +5,41 @@ Edit Profile
 @stop
 
 @section('content')
-<div class="splash">
-  {{ Form::model($user, array('route' => array('user.update', $user->id), 'class' => "pure-form pure-form-aligned")) }}
+{{ Form::model($user, [ 'route' => [ 'user.update', $user->id ], 'method' => 'PUT', 'class' => "pure-form pure-form-aligned" ]) }}
+
     <legend>Edit Profile</legend>
+
     <div class="pure-control-group">
-      {{ Form::label('email') }}
-      {{ Form::input('email', 'email') }} 
-    </div>
-    <div class="pure-control-group">
-      {{ Form::label('bnet_name') }}
-      {{ Form::text('bnet_name') }}
+        {{ Form::label('email') }}
+        {{ Form::input('email', 'email') }}
     </div>
 
     <div class="pure-control-group">
-      {{ Form::label('bnet_url') }}
-      {{ Form::text('bnet_url') }}
+        {{ Form::label('username') }}
+        {{ Form::text('username') }}
     </div>
 
-    <div class="pure-control-group">
-      {{ Form::label('char_code') }}
-      {{ Form::input('number', 'char_code') }}
-    </div>
-
-    <div class="pure-control-group">
-    {{ Form::label('league') }}
-    {{ Form::select('league', array('Bronze' => 'Bronze', 'Silver' => 'Silver', 'Gold' => 'Gold', 
-                        'Platinum' => 'Platinum', 'Diamond' => 'Diamond', 'Master' => 'Master', 
-                        'Grandmaster' => 'Grandmaster')) }}
-    </div>
-
-    <div class="fileUpload pure-button pure-button-secondary expand-left">
-      <i class="fa fa-cloud-upload fa-lg"></i>
-      <span class="fileUpload-text">
-        Change Picture 
-      </span>
-      <span class="spinner"></span>
-      <input type="file" name="img" class="upload" 
+    <div class="file-upload">
+        <i class="fa fa-cloud-upload fa-lg"></i>
+        <span class="file-upload-text">
+            Change Picture
+        </span>
+        <span class="spinner"></span>
+        <input type="file" name="img" class="upload"
              data-action-url="{{ URL::route('user.update', $user->id) }}"/>
     </div>
-    
+
     <div class="pure-controls">
-      {{ Form::submit('Update', array('class' => "pure-button pure-button-good")) }}
+      {{ Form::submit('Update', [ 'class' => 'button success' ]) }}
     </div>
-  {{ Form::close() }}
-</div>
+
+{{ Form::close() }}
+
+<a href="{{ URL::route('bnet.connect') }}" class="button">Connect Battle.net Account</a>
+
+{{ Form::close() }}
 <script>
+
 $('input[name=img]').change(function() {
   var obj = this;	
   var button = $(obj).parents('.fileUpload');

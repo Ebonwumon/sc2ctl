@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c0b471ba0c01eb6e1bfe10b38775b699",
+    "hash": "13648d915216353b1d6ec40cb115ffd0",
     "packages": [
         {
             "name": "cartalyst/sentry",
@@ -188,17 +188,63 @@
             "time": "2014-01-17 12:21:18"
         },
         {
-            "name": "depotwarehouse/toolbox",
-            "version": "1.0.4",
+            "name": "depotwarehouse/oauth2-bnet",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/tpavlek/Toolbox.git",
-                "reference": "631af36a722c7365217feb8c7149e06201ffe025"
+                "url": "https://github.com/tpavlek/oauth2-bnet.git",
+                "reference": "e747e9fda4e0aa0416052a736a75ebf1ef3299ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tpavlek/Toolbox/zipball/631af36a722c7365217feb8c7149e06201ffe025",
-                "reference": "631af36a722c7365217feb8c7149e06201ffe025",
+                "url": "https://api.github.com/repos/tpavlek/oauth2-bnet/zipball/e747e9fda4e0aa0416052a736a75ebf1ef3299ed",
+                "reference": "e747e9fda4e0aa0416052a736a75ebf1ef3299ed",
+                "shasum": ""
+            },
+            "require": {
+                "league/oauth2-client": "~0.3",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.2.*"
+            },
+            "suggest": {
+                "illuminate/support": "Laravel integration"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Depotwarehouse\\OAuth2\\Client\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Troy Pavlek",
+                    "email": "troy@depotwarehouse.net",
+                    "homepage": "http://tpavlek.me",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Battle.net provider for league/oauth2-client",
+            "time": "2014-11-27 23:43:02"
+        },
+        {
+            "name": "depotwarehouse/toolbox",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tpavlek/Toolbox.git",
+                "reference": "b7596496e552188d4b4edb5bd998cff106f66084"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tpavlek/Toolbox/zipball/b7596496e552188d4b4edb5bd998cff106f66084",
+                "reference": "b7596496e552188d4b4edb5bd998cff106f66084",
                 "shasum": ""
             },
             "require": {
@@ -225,7 +271,7 @@
                     "email": "troy@depotwarehouse.net"
                 }
             ],
-            "time": "2014-11-19 15:53:11"
+            "time": "2014-11-27 11:09:04"
         },
         {
             "name": "filp/whoops",
@@ -284,6 +330,98 @@
                 "zf2"
             ],
             "time": "2014-10-26 09:05:09"
+        },
+        {
+            "name": "guzzle/guzzle",
+            "version": "v3.9.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/guzzle3.git",
+                "reference": "54991459675c1a2924122afbb0e5609ade581155"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/guzzle3/zipball/54991459675c1a2924122afbb0e5609ade581155",
+                "reference": "54991459675c1a2924122afbb0e5609ade581155",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.3",
+                "symfony/event-dispatcher": "~2.1"
+            },
+            "replace": {
+                "guzzle/batch": "self.version",
+                "guzzle/cache": "self.version",
+                "guzzle/common": "self.version",
+                "guzzle/http": "self.version",
+                "guzzle/inflection": "self.version",
+                "guzzle/iterator": "self.version",
+                "guzzle/log": "self.version",
+                "guzzle/parser": "self.version",
+                "guzzle/plugin": "self.version",
+                "guzzle/plugin-async": "self.version",
+                "guzzle/plugin-backoff": "self.version",
+                "guzzle/plugin-cache": "self.version",
+                "guzzle/plugin-cookie": "self.version",
+                "guzzle/plugin-curlauth": "self.version",
+                "guzzle/plugin-error-response": "self.version",
+                "guzzle/plugin-history": "self.version",
+                "guzzle/plugin-log": "self.version",
+                "guzzle/plugin-md5": "self.version",
+                "guzzle/plugin-mock": "self.version",
+                "guzzle/plugin-oauth": "self.version",
+                "guzzle/service": "self.version",
+                "guzzle/stream": "self.version"
+            },
+            "require-dev": {
+                "doctrine/cache": "~1.3",
+                "monolog/monolog": "~1.0",
+                "phpunit/phpunit": "3.7.*",
+                "psr/log": "~1.0",
+                "symfony/class-loader": "~2.1",
+                "zendframework/zend-cache": "2.*,<2.3",
+                "zendframework/zend-log": "2.*,<2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.9-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Guzzle": "src/",
+                    "Guzzle\\Tests": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                },
+                {
+                    "name": "Guzzle Community",
+                    "homepage": "https://github.com/guzzle/guzzle/contributors"
+                }
+            ],
+            "description": "Guzzle is a PHP HTTP client library and framework for building RESTful web service clients",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http client",
+                "rest",
+                "web service"
+            ],
+            "time": "2014-08-11 04:32:36"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -695,6 +833,131 @@
                 "laravel"
             ],
             "time": "2014-10-04 18:48:27"
+        },
+        {
+            "name": "laravelbook/ardent",
+            "version": "v2.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravelbook/ardent.git",
+                "reference": "0a0238b8040abc1c71401ce27a8edf2619fa5bed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravelbook/ardent/zipball/0a0238b8040abc1c71401ce27a8edf2619fa5bed",
+                "reference": "0a0238b8040abc1c71401ce27a8edf2619fa5bed",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "~4.1",
+                "illuminate/support": "~4.1",
+                "illuminate/validation": "~4.1",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "LaravelBook\\Ardent": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Max Ehsan",
+                    "email": "contact@laravelbook.com",
+                    "homepage": "http://laravelbook.com/",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Igor Santos",
+                    "email": "igorsantos07+dev@gmail.com",
+                    "homepage": "http://www.igorsantos.com.br",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Self-validating smart models for Laravel 4's Eloquent O/RM",
+            "homepage": "http://laravelbook.com/",
+            "keywords": [
+                "Active Record",
+                "activerecord",
+                "database",
+                "eloquent",
+                "framework",
+                "laravel",
+                "orm",
+                "sql",
+                "validation"
+            ],
+            "time": "2014-02-25 20:39:04"
+        },
+        {
+            "name": "league/oauth2-client",
+            "version": "dev-add_bnet_accountId",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tpavlek/oauth2-client.git",
+                "reference": "f781892dcbb36167a42048d25697c9c1fbd58206"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tpavlek/oauth2-client/zipball/f781892dcbb36167a42048d25697c9c1fbd58206",
+                "reference": "f781892dcbb36167a42048d25697c9c1fbd58206",
+                "shasum": ""
+            },
+            "require": {
+                "guzzle/guzzle": "~3.7",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~1.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\OAuth2\\Client\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "League\\OAuth2\\Client\\Test\\": "test/src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Bilbie",
+                    "email": "hello@alexbilbie.com",
+                    "homepage": "http://www.alexbilbie.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "OAuth 2.0 Client Library",
+            "keywords": [
+                "authentication",
+                "authorization",
+                "identity",
+                "idp",
+                "oauth",
+                "oauth2",
+                "single sign on",
+                "sso"
+            ],
+            "support": {
+                "source": "https://github.com/tpavlek/oauth2-client/tree/add_bnet_accountId"
+            },
+            "time": "2014-11-27 14:36:10"
         },
         {
             "name": "monolog/monolog",
@@ -2024,48 +2287,45 @@
             "time": "2014-10-26 07:41:27"
         },
         {
-            "name": "zizaco/confide",
-            "version": "4.1.1",
+            "name": "zizaco/entrust",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Zizaco/confide.git",
-                "reference": "7af8093506da1b08eb2111e916509e4f195736b8"
+                "url": "https://github.com/Zizaco/entrust.git",
+                "reference": "04f6f35c27b1d963fd9ee905957b1a2c07bdb485"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Zizaco/confide/zipball/7af8093506da1b08eb2111e916509e4f195736b8",
-                "reference": "7af8093506da1b08eb2111e916509e4f195736b8",
+                "url": "https://api.github.com/repos/Zizaco/entrust/zipball/04f6f35c27b1d963fd9ee905957b1a2c07bdb485",
+                "reference": "04f6f35c27b1d963fd9ee905957b1a2c07bdb485",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "~4.2|~5.0",
+                "illuminate/support": "~4.0|5.0.*@dev",
+                "laravelbook/ardent": "~2.4",
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "illuminate/auth": "~4.2",
-                "illuminate/console": "~4.2",
-                "illuminate/database": "~4.2",
+                "illuminate/database": "~4.0|5.0.*@dev",
                 "mockery/mockery": "~0.9",
                 "phpunit/phpunit": "~4.0",
-                "satooshi/php-coveralls": "~0.6"
+                "symfony/process": "~2.3"
             },
             "suggest": {
-                "zizaco/entrust": "add Role-based Permissions to Laravel 4"
+                "zizaco/confide": "Confide is an authentication solution for Laravel 4 that couples very well with Entrust"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev",
-                    "dev-username-optional": "4.1-dev"
+                    "dev-master": "1.3-dev"
                 }
             },
             "autoload": {
                 "classmap": [
-                    "src/migrations",
                     "src/commands"
                 ],
                 "psr-4": {
-                    "Zizaco\\Confide\\": "src/Confide/"
+                    "Zizaco\\Entrust\\": "src/Entrust/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2079,16 +2339,17 @@
                 },
                 {
                     "name": "Zizaco Zizuini",
-                    "homepage": "http://www.zizaco.net"
+                    "email": "zizaco@gmail.com"
                 }
             ],
-            "description": "Confide is an authentication solution for Laravel 4",
+            "description": "This package provides a flexible way to add Role-based Permissions to Laravel 4",
             "keywords": [
                 "auth",
                 "illuminate",
-                "laravel"
+                "laravel",
+                "roles"
             ],
-            "time": "2014-11-26 14:58:50"
+            "time": "2014-09-26 15:53:59"
         }
     ],
     "packages-dev": [
@@ -3064,10 +3325,18 @@
             "time": "2014-11-20 13:22:25"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "0.4.0",
+            "alias_normalized": "0.4.0.0",
+            "version": "dev-add_bnet_accountId",
+            "package": "league/oauth2-client"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "illuminate/pagination": 20
+        "illuminate/pagination": 20,
+        "league/oauth2-client": 20
     },
     "prefer-stable": false,
     "platform": [],

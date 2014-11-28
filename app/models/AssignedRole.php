@@ -4,7 +4,7 @@
  * AssignedRole
  *
  * @property-read \User $user
- * @property-read \Role $role
+ * @property-read \SC2CTL\DotCom\EloquentModels\Role $role
  */
 class AssignedRole extends Eloquent {
 	

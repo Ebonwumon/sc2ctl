@@ -1,5 +1,6 @@
 <?php
 use Cartalyst\Sentry\Users\Eloquent\User as SentryUserModel;
+use SC2CTL\DotCom\EloquentModels\Role;
 
 /**
  * User
