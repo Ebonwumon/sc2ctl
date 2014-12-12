@@ -8,29 +8,31 @@ About the League
 
 <div class="splash">
     <div class="content">
-        <h1>SC2CTL</h1>
-        <p>
-            The SC2CTL is designed as the premier, community-oriented team league. From the ground up, the league was
-            designed for maximum participation of those involved, while not forgetting the joy that can be found from being
-            determined as the sole winner. League seasons are long and maximize the amount of play every team gets before
-            being eliminated.
-        </p>
-
         @if (Auth::check())
-                <a href="{{ URL::route('team.create') }}" class="button">
-                    Register a Team
-                </a>
-            @else
-                <a href="{{ URL::route('user.register') }}" class="button">
-                    Register Now
-                </a>
-            @endif
-            <br />
-            <a href="{{ URL::route('help') }}" class="button">
-                Help
+            <a href="{{ URL::route('team.create') }}" class="button">
+                Register a Team
             </a>
+        @else
+            <a href="{{ URL::route('user.register') }}" class="button">
+                Register Now
+            </a>
+        @endif
+        <br />
+        <a href="{{ URL::route('help') }}" class="button">
+            Help
+        </a>
     </div>
 </div>
+
+<section class="section">
+    <p>
+        The SC2CTL is designed as the premier, community-oriented team league. From the ground up, the league was
+        designed for maximum participation of those involved, while not forgetting the joy that can be found from being
+        determined as the sole winner. League seasons are long and maximize the amount of play every team gets before
+        being eliminated.
+    </p>
+
+</section>
 
 <section class="section">
     <h2 class="section-header">History</h2>

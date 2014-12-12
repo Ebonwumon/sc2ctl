@@ -42,6 +42,13 @@ header.navigation {
   margin-top: -1em;
 }
 
+div.logo-img {
+  background-image: $splash-image-url;
+  background-size: cover;
+  height: 10vh;
+  min-height: 600px;
+}
+
 div.splash {
   position: relative;
   min-height: $splash-height-percentage;
@@ -80,7 +87,7 @@ div.splash:before {
   display: block;
   background-image: $splash-image-url;
   background-size: cover;
-  opacity: 0.4;
+  opacity: 0.8;
   filter: alpha(opacity=40);
   height:100%;
   background-color: #000;
@@ -91,10 +98,17 @@ div.splash:before {
 
 }
 
-.content-wrapper section.section:first-of-type {
+.content-wrapper section.section:nth-of-type(1) {
+  text-align: center;
+  p { color: black; font-size: 150%; line-height: 1.5em; padding-left: 10%; padding-right: 10%; }
+
+}
+
+.content-wrapper section.section:nth-of-type(2) {
   $background-color: #81BFE6;
   background: $background-color;
   color: darken( $background-color, 40%);
+  //color: whitesmoke;
 }
 
 
@@ -231,14 +245,19 @@ div.splash:before {
       width: 60%;
       padding-left: 20%;
       h1 {
-        display: block;
+        //display: block;
         font-size:600%;
         color: $splash-foreground-color;
       }
 
       p {
-
+        display: none;
       }
+      .button {
+        position: relative;
+        top: 20em;
+      }
+
     }
   }
 
