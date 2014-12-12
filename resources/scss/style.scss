@@ -100,6 +100,7 @@ div.splash:before {
 
 .content-wrapper section.section:nth-of-type(1) {
   text-align: center;
+  background: $highlight-secondary-color;
   p { color: black; font-size: 150%; line-height: 1.5em; padding-left: 10%; padding-right: 10%; }
 
 }
@@ -108,7 +109,6 @@ div.splash:before {
   $background-color: #81BFE6;
   background: $background-color;
   color: darken( $background-color, 40%);
-  //color: whitesmoke;
 }
 
 
@@ -167,7 +167,7 @@ div.splash:before {
       }
     }
 
-    .img-container.start { background: #75ce66; }
+    .img-container.start { background: $highlight-secondary-color; }
     .img-container.wait { background: #E8E81C; }
     .img-container.video { background: #D9273C; }
   }
