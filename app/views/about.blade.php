@@ -6,209 +6,218 @@ About the League
 
 @section('content')
 
-<div class="pure-g">
-<div class="pure-u-1">
-<div class="pure-g">
-<div class="pure-u-1-3">
-<div class="l-box">
-<img src="/img/main_logo_med.jpg" />
-</div>
-</div>
-<div class="pure-u-2-3">
-<div class="l-box splash-content">
-<h1 class="splash-head">SC2CTL</h1>
-<h2 class="splash-subhead">
-The SC2CTL is designed as the premier, community-oriented team league.
-From the ground up, the league was designed for maximum participation
-of those involved, while not forgetting the joy that can be found from
-being determined as the sole winner. The league spans a minimum 10 weeks
-and every team involved will play a minimum of six weeks
-</h2>
-<p>
-@if (Auth::check())
-<a href="{{ URL::route('team.create') }}"
-class="pure-button pure-button-primary pure-button-large">
-Register a Team
-</a>
-@else
-<a href="{{ URL::route('user.register') }}" class="pure-button pure-button-primary pure-button-large">Register Now</a>
-@endif
-<br />
-<a href="{{ URL::route('help') }}"
-class="pure-button pure-button-secondary pure-button-large">
-Help
-</a>
+<div class="splash">
+    <div class="content">
+        <h1>SC2CTL</h1>
+        <p>
+            The SC2CTL is designed as the premier, community-oriented team league. From the ground up, the league was
+            designed for maximum participation of those involved, while not forgetting the joy that can be found from being
+            determined as the sole winner. League seasons are long and maximize the amount of play every team gets before
+            being eliminated.
+        </p>
 
-</p>
-</div>
-</div>
-</div>
-</div>
-<br />
-<div class="pure-u-1 splash about">
-<div class="pure-g-r">
-<div class="pure-u-3-4">
-<h2>League Format Summary</h2>
-<p class="l-box">
-The league has three phases, two group phases and a playoff bracket. In the group phases
-you fight out round robin games against your peers to vie for your place in the playoffs
-and find the rival you need to defeat on your way there.
-<br />
-The league format is designed for optimal playtime and inclusiveness of those involved.
-Every single team in the league will play a minimum of six matches, and you can't be eliminated
-until after the six-week group stage. The league focuses on your fun, and will do everything it
-can to make sure you continue having it.
-</p>
-</div>
-<div class="pure-u-1-4">
-<div class="l-box">
-<h3>Interested in the full details of the format?</h3>
-<a href="{{ URL::route('home.format') }}" class="pure-button pure-button-primary pure-button-large">
-View Format
-</a>
-</div>
-</div>
-</div>
-</div>
-<div class="pure-u-1 splash about">
-<div class="pure-g-r">
-<div class="pure-u-3-4">
-<h2>Maps</h2>
-<div class="l-box">
-<p>
-The SC2CTL map pool is designed to be reminicent of the current ladder map
-pool, with key variations that allow for exciting play. We tend to use the
-best core maps from the map pool, and add a couple additional maps from the
-community to round out our pool of seven. This setup allows us to get the
-best play possible through showing the maps that people are comfortable with
-while adding an extra competitive element: if one practices the unique maps
-and their opponent does not, one might get the upper hand!
-</p>
-
-<strong>
-Map pool reorders each week and will be updated here.
-</strong>
-</div>
-</div>
-<div class="pure-u-1-4">
-<table class="pure-table">
-<thead>
-<tr>
-<th>#</th>
-<th>Name</th>
-</tr>
-</thead>
-<tr>
-<td>1</td>
-<td>Galaxy - Veridian</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Waystation LE</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Habitation Station LE</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Merry Go Round LE</td>
-</tr>
-<tr>
-<td>5</td>
-<td>King Sejong Station LE</td>
-</tr>
-<tr>
-<td>6</td>
-<td>Galaxy - Bloodmist</td>
-</tr>
-<tr>
-<td>7</td>
-<td>Overgrowth LE</td>
-</tr>
-</table>
-</div>
-</div>
+        @if (Auth::check())
+                <a href="{{ URL::route('team.create') }}" class="button">
+                    Register a Team
+                </a>
+            @else
+                <a href="{{ URL::route('user.register') }}" class="button">
+                    Register Now
+                </a>
+            @endif
+            <br />
+            <a href="{{ URL::route('help') }}" class="button">
+                Help
+            </a>
+    </div>
 </div>
 
+<section class="section">
+    <h2 class="section-header">History</h2>
+    <section class="timeline" id="league-history">
+        <div class="block">
+            <div class="img-container wait">
+                <img src="/img/icon/light-bulb.svg" />
+            </div>
 
-<div class="splash about pure-u-1">	
-<h2 style="display:inline;">Prizes</h2>
-<span class="splash-subhead">provided by MYTHLOGIC.COM</span>
-<br />
-<p>
-SC2CTL does its best to provide the community with the best possible prizes to award
-the considerable dedication that we see every team put in every week. This prizing
-is only made possible through the generousity of our sponsors. This season, MYTHLOGIC computers has
-signed on to afford every Starcraft II Community team the opportunity to play in a competitive environment.
-</p>
-<strong>SC2CTL Competitive</strong>
-$400/$200/$100 (for first, second and third respectively)
-<br />
-<strong>SC2CTL Advanced</strong>
-$50/$20 (for first and second respectively)
-<br />
-<strong>SC2CTL Casual</strong>
-$20 (for first place)
-<br />
-<br />
-<strong>Other prizes will be made available at a later date for all participants!</strong>
+
+            <div class="content">
+                <h2>The idea is born</h2>
+                <p>
+                    While playing in the Team League organized by the "Strength in Numbers" forum (who absorbed
+                    the former FXO NA), <a href="https://twitter.com/troypavlek">Troy</a> was very displeased
+                    with the organization and cohesiveness of the experience. He thought he could do better.
+                </p>
+                <span class="date">May 10, 2013</span>
+            </div>
+        </div>
+
+        <div class="block">
+            <div class="img-container">
+                <img src="/img/icon/home.svg" />
+            </div>
+
+            <div class="content">
+                <h2>Version 1 Launches!</h2>
+                <p>
+                    After many frantic bouts of 13-hour programming days and skipping out on handing in
+                    University assignments and quizzes, Version 1 of the site is ready to launch! The
+                    <a href="http://www.reddit.com/r/starcraft/comments/1he2o8/introducing_sc2ctl_the_starcraft_ii_community/">
+                        inaugural reddit post
+                    </a> is met with a relatively tepid response.
+                </p>
+                <span class="date">June 30th, 2013</span>
+            </div>
+        </div>
+        <div class="block">
+            <div class="img-container start">
+                <img src="/img/icon/dollars.svg" />
+            </div>
+
+            <div class="content">
+                <h2>Das Keyboard Sponsors SC2CTL Season 1!</h2>
+                <p>
+                    In a fantastic sponsor pickup for a small, new league, SC2CTL picks up Das Keyboard as a
+                    sponsor. Das offers up 5 mechanical keyboards to the winning team along with a selection of
+                    swag items for the lower leagues.
+                    <a href="http://www.reddit.com/r/starcraft/comments/1i4dhf/das_keyboard_sponsors_sc2ctl_the_starcraft_ii/">
+                        the reddit thread</a> gets a lot of attention and SC2CTL has 80 teams register.
+                </p>
+                <span class="date">July 11, 2013</span>
+            </div>
+        </div>
+
+        <div class="block">
+            <div class="img-container video">
+                <img src="/img/icon/camera.svg" />
+            </div>
+
+            <div class="content">
+                <h2>WingnutSC and Gallagation join the team</h2>
+                <p>
+                    <a href="https://twitter.com/wingnutSC">WingnutSC</a> and
+                    <a href="https://twitter.com/gallagation">Gallagation</a> join the SC2CTL team as
+                    casters-in-chief. In a partnership made in heaven the duo would go on to cast over 50
+                    matches totalling hundreds of hours of game time.
+                </p>
+                <span class="date">July 13, 2013</span>
+            </div>
+        </div>
+
+        <div class="block">
+            <div class="img-container video">
+                <img src="/img/icon/camera.svg" />
+            </div>
+
+            <div class="content">
+                <h2>The S1 finals are cast in a show with casters live at Michigan University</h2>
+                <p>
+                    In an absolutely <a href="http://vods.sc2ctl.com/vod/2013/09/25/Team%20Gravity-YMCMB/">incredible finals</a>
+                    Team Gravity takes it over the favourites to win YOUNGMONEYCASHMONEYBILLIONAIRES. Players like
+                    Hendralisk and MaSa are defeated by some up-and-coming North American players.
+                </p>
+                <span class="date">September 22, 2013</span>
+            </div>
+        </div>
+
+        <div class="block">
+            <div class="img-container video">
+                <img src="/img/icon/camera.svg" />
+            </div>
+
+            <div class="content">
+                <h2>Youmacon 2013</h2>
+                <p>
+                    SC2CTL hosts the Starcraft 2 tournament at Youmacon detroit. Wintergaming takes the victory
+                    with some clutch zerg play and takes home $700.
+                </p>
+                <span class="date">November 2, 2013</span>
+            </div>
+        </div>
+
+        <div class="block">
+            <div class="img-container start">
+                <img src="/img/icon/dollars.svg" />
+            </div>
+
+            <div class="content">
+                <h2>SC2CTL hosts the largest Dogecoin showmatch ever!</h2>
+                <p>
+                    Throught some <a href="http://www.reddit.com/r/starcraft/comments/1u6qym/in_one_week_clarity_gaming_will_play_root_seed_in/">
+                    incredible community generosity</a> SC2CTL raises over a million dogecoins for a showmatch
+                    between Clarity and SEED. Just after the showmatch, these cryptocoins were worth well over
+                    two thousand USD.
+                </p>
+                <span class="date">January 7, 2014</span>
+            </div>
+        </div>
+
+        <div class="block">
+            <div class="img-container start">
+                <img src="/img/icon/dollars.svg" />
+            </div>
+
+            <div class="content">
+                <h2>Season 2 is announced, MYTHLOGIC joins as a sponsor</h2>
+                <p>
+                    Continuing a strong one-two punch, 2014 continues with SC2CTL Season 2. MYTHLOGIC joins on as
+                    a sponsor, offering over $1100 in prizes, giveaways and support. WignutSC and Gallagation reprise
+                    their roles as lead casters. Over 100 teams register in the league, making SC2CTL the largest
+                    Team League in the world by enrollment two years running.
+
+                    Also announced are <a href="http://www.reddit.com/r/starcraft/comments/21dmzo/sc2ctl_season_2_sponsored_by_mythlogic_over_1000/">
+                        some interesting new prize awards</a> including The Bellcurve Award and CombatEXTreme.
+                </p>
+                <span class="date">March 25, 2014</span>
+            </div>
+        </div>
+
+        <div class="block">
+            <div class="img-container video">
+                <img src="/img/icon/camera.svg" />
+            </div>
+
+            <div class="content">
+                <h2>Grubby and iNcontroL guest cast on the Season 2 Finals</h2>
+                <p>
+                    SC2CTL hits its highest peak stream viewership of over 3000 sustained viewers as Grubby and
+                    iNcontroL join on to guest cast the Season 2 finals.
+
+                    MicroGamerZ takes it over Miraculous Gaming in a <a href="http://vods.sc2ctl.com/vod/2014/07/05/MirG-MicroGamerZ/">fantastic series.</a>
+                </p>
+                <span class="date">June 28, 2014</span>
+            </div>
+        </div>
+
+        <div class="block">
+            <div class="img-container video">
+                <img src="/img/icon/camera.svg" />
+            </div>
+
+            <div class="content">
+                <h2>Youmacon 2014</h2>
+                <p>
+                    The team is back for another year of hosting Youmacon. This year's finals are an intense
+                    match between Winter and DesRow, with DesRow taking the title this year.
+                </p>
+                <span class="date">November 3, 2014</span>
+            </div>
+        </div>
+
+        <div class="block">
+            <div class="img-container wait">
+                <img src="/img/icon/light-bulb.svg" />
+            </div>
+        </div>
+    </section>
+
+    <h2 class="tease">What's next for SC2CTL...?</h2>
+</section>
+<div class="call-to-action">
+    <h2 class="title">Keep up with us</h2>
+    <h2 class="call-to-action">Subscribe to the newsletter</h2>
+    <a href="http://eepurl.com/BZ3OD" class="button massive">Subscribe</a>
 </div>
 
-<div class="splash about pure-u-1">
-<div class="pure-g-r">
-<div class="pure-u-1">
-<h2>Features</h2>
-</div>
-<div class="pure-u-1-3">
-<h3>Replays with GGTracker</h3>
-<p class="feature">
-All replays for matches are uploaded to <a href="http://ggtracker.com">GGTracker</a>
-which allows for every team to easily track their progress and make improvements
-to their game throughout the season. It also allows us to perform interesting statistics
-like programmatically determining improvement.
-</p>
-</div>
-<div class="pure-u-1-3">
-<h3>Format</h3>
-<p class="feature">
-Every part of the format, from proleague matches to Swiss Rounds, is designed to
-allow for every member of each team to participate in the maximum number of games
-possible throughout the league before being eliminated.
-</p>
-</div>
-<div class="pure-u-1-3">
-<h3>Autopilot</h3>
-<p class="feature">
-The site required minimal admin intervention in the league, except to advance to
-playoffs, and resolve conflicts. That means that there's no waiting on admins to
-update results and brackets, just you and your teams playing Starcraft II.
-</p>
-</div>
-</div>
-</div>
-
-<div class="splash about pure-u-1">
-<div class="pure-g-r">
-<div class="pure-u-1">
-<h2>Rules</h2>
-</div>
-<div class="pure-u-2-3">
-<p>
-SC2CTL is a fun league, which is run mostly on the principle of <a href="https://twitter.com/wilw/status/5966220832">Wheaton's Law</a>.
-In general if you have a rules question, a good way to figure out the answer is to ask yourself: "is what I'm about to do promoting
-the spirit of having a fun and enjoyable experience for all". If yes, you're likely good. But you should still probably read the full
-rules anyway. Just to be sure. And cultural differences. And stuff.
-</p>
-</div>
-<div class="pure-u-1-3">
-For more information read the:<br />
-<a href="{{ URL::route('home.rules') }}" class="pure-button pure-button-primary pure-button-large">
-Full Rules
-</a>
-</div>
-</div>
-</div>
-</div>
 
 @stop

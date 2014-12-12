@@ -5,3 +5,4 @@ composer.phar
 Thumbs.db
 .env.*
 .idea
+node_modules/

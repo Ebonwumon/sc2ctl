@@ -26,6 +26,11 @@ class Team extends BaseModel
         'website' => [self::FILLABLE, self::UPDATEABLE],
     ];
 
+    public function lineups()
+    {
+        // TODO
+    }
+
     public function members()
     {
         return $this->belongsToMany(User::class, 'team_enrollments', 'team_id', 'user_id')

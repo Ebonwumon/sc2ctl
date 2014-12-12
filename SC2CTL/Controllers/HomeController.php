@@ -1,6 +1,7 @@
 <?php
 
 namespace SC2CTL\DotCom\Controllers;
+use Redirect;
 use View;
 
 class HomeController extends BaseController
@@ -8,7 +9,8 @@ class HomeController extends BaseController
 
     public function index()
     {
-        return View::make('index');
+        return Redirect::route('home.about');
+        //return View::make('index');
     }
 
     public function about()
@@ -29,11 +31,6 @@ class HomeController extends BaseController
     public function rules()
     {
         return View::make('rules');
-    }
-
-    public function finals()
-    {
-        return View::make('tournament/finals');
     }
 
     public function help()

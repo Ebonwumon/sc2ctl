@@ -28,8 +28,7 @@ class ErrorPartialComposer extends Composer {
         unset($arr['warn']);
         unset($arr['errors']);
 
-        $errors_arr = array_merge($errors_arr, $arr);
-
+        $errors_arr = array_merge($errors_arr, array_flatten($arr));
         $view->with('success', $success);
         $view->with('warn', $warn);
         $view->with('errors_arr', $errors_arr);

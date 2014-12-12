@@ -20,7 +20,7 @@
         <strong>Username: </strong> {{ $user->username }}
         @if ($user->currentlyOnATeam())
             <h3>Team</h3>
-            {{ $user->team->full_name }}
+            {{ $user->getTeam()->qualified_name }}
         @endif
     </div>
     <div class="pure-u-1-3">

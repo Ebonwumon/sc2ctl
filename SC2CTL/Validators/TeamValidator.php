@@ -17,7 +17,7 @@ class TeamValidator implements BaseValidatorInterface {
     {
         $rules = [
             'name' => "Required|unique:teams|Between:3,128",
-            "tag" => "Required|unique:teams|Between:3,6|alpha",
+            "tag" => "Required|unique:teams|Between:3,6|alpha_num",
             "social_fb" => "url",
             "social_twitter" => "url",
             "social_twitch" => "url",

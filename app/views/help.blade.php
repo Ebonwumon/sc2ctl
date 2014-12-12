@@ -5,27 +5,24 @@ Help
 @stop
 
 @section('content')
-<div class="splash">
-  <div class="centered">
-    <h2>SC2CTL Help</h2>
-  </div>
-  <p>
+<h2>SC2CTL Help</h2>
+<p>
     Below you will find many links to videos outlining how to perform a task on SC2CTL.
     If you think another tutorial should be added or you find one that is outdated, please
     <a href="{{ URL::route('home.contact') }}">contact an adult</a>.
-  </p>
+</p>
 
-  <ul>
+<ul>
     <li>
-      <a href="http://blog.sc2ctl.com/post/80741397820/changes-to-team-structure-in-season-2">
-        How do I register in a tournament?
-      </a>
+        <a href="http://blog.sc2ctl.com/post/80741397820/changes-to-team-structure-in-season-2">
+            How do I register in a tournament?
+        </a>
     </li>
     <li>
-      <a href="https://www.youtube.com/watch?v=pwFG-FDDUPU">
-        How to manage teams.
-      </a>
-  </ul>
-</div>
+        <a href="https://www.youtube.com/watch?v=pwFG-FDDUPU">
+            How to manage teams.
+        </a>
+    </li>
+</ul>
 
 @stop

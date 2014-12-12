@@ -55,7 +55,7 @@ App::error(function (Exception $exception, $code) {
 });
 
 App::error(function (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) {
-    App::abort('404', "Could not find the specified resource");
+    return Response::view('errors.404', array(), 404);
 });
 
 App::error(function (\SC2CTL\DotCom\Exceptions\MustBeTeamlessException $exception) {

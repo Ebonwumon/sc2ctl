@@ -20,7 +20,7 @@
             </p>
             <p>
                 <strong>Founder</strong>:
-                <a href="{{ URL::route('user.show', $team->user_id) }}">
+                <a href="{{ URL::route('user.show', $team->getOwner()->id) }}">
                     {{ $team->getOwner()->bnet->qualified_name }}
                 </a>
                 @if ($team->website)
@@ -42,13 +42,11 @@
         </div>
     </div>
 
-	<div class="pure-u-1-3">
-		<div class="team-lineups">
-		    @forelse ($team->lineups as $lineup)
-                @include('team.lineupPartial')
-		    @empty
-		        No lineups configured for this team!
-		    @endforelse
+    <div class="pure-u-1-3">
+        <div class="team-lineups">
+            </div>
+        </div>
+    </div>
 
 
 

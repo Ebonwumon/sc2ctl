@@ -47,19 +47,6 @@ Route::group([ 'namespace' => 'SC2CTL\DotCom\Controllers' ], function() {
 
 });
 
-
-
-Route::get('finals', array('as' => 'home.finals', 'uses' => 'SC2CTL\DotCom\Controllers\HomeController@finals'));
-Route::get('dogecoin', array('as' => 'dogecoin', 'uses' => 'SC2CTL\DotCom\Controllers\HomeController@dogecoin'));
-
-Route::get('blog', array('as' => 'blog.index', 'uses' => 'BlogController@index'));
-Route::get('blog/{id}', array('as' => 'blog.profile', 'uses' => 'BlogController@show'));
-Route::get('stats', array('as' => 'stats', 'uses' => 'StatsController@index'));
-Route::get('stats/highest_median_winrate', 'StatsController@highestMedianWR');
-Route::get('stats/every_man_on_the_field/{id}', 'StatsController@allPlayedInTournament');
-Route::get('stream', array('as' => 'stream', 'uses' => 'SC2CTL\DotCom\Controllers\HomeController@stream'));
-Route::get('stream/teams', array('as' => 'stream.getTeams', 'uses' => 'SC2CTL\DotCom\Controllers\HomeController@getTeams'));
-
 Route::get('game/{id}', array('as' => 'game.profile', 'uses' => 'GameController@show'));
 
 Route::get('lineup/{id}', array('as' => 'lineup.show', 'uses' => 'LineupController@show'));

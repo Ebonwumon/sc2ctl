@@ -28,11 +28,12 @@ Login
       </a>
     </div>
   {{ Form::close() }}
-
-  <div class="call-to-action">
-    <a href="{{ URL::route('user.register') }}" class="pure-button pure-button-primary pure-button-massive">
-      No account? Register here
-    </a>
-  </div>
+    <br />
+    <div class="call-to-action">
+        <h2 class="title">No Account?</h2>
+        <a href="{{ URL::route('user.register') }}" class="button massive">
+            Register here
+        </a>
+    </div>
 
 @stop
