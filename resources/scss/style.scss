@@ -66,7 +66,7 @@ div.splash {
       display: none;
     }
 
-    p { color: $splash-foreground-color; font-size: 150%; line-height: 1.5em;}
+    p { word-wrap: break-word; color: $splash-foreground-color; font-size: 150%; line-height: 1.5em;}
 
 
     .button {

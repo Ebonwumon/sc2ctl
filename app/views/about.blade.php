@@ -107,45 +107,50 @@ About the League
         </div>
 
         <div class="block">
-            <div class="img-container video">
-                <img src="/img/icon/camera.svg" />
-            </div>
+	    <a href="http://vods.sc2ctl.com/vod/2013/09/25/Team%20Gravity-YMCMB/">	
+                <div class="img-container video">
+                    <img src="/img/icon/camera.svg" />
+                </div>
+           </a>
 
             <div class="content">
                 <h2>The S1 finals are cast in a show with casters live at Michigan University</h2>
                 <p>
                     In an absolutely <a href="http://vods.sc2ctl.com/vod/2013/09/25/Team%20Gravity-YMCMB/">incredible finals</a>
-                    Team Gravity takes it over the favourites to win YOUNGMONEYCASHMONEYBILLIONAIRES. Players like
-                    Hendralisk and MaSa are defeated by some up-and-coming North American players.
+                    we see Team Gravity take on the favourites to win YOUNGMONEYCASHMONEYBILLIONAIRES. Players like
+                    Hendralisk and MaSa are fielded against some up-and-coming American players.
                 </p>
                 <span class="date">September 22, 2013</span>
             </div>
         </div>
 
         <div class="block">
-            <div class="img-container video">
-                <img src="/img/icon/camera.svg" />
-            </div>
+            <a href="http://vods.sc2ctl.com/vod/2013/11/08/Winter-Triforks/">
+                <div class="img-container video">
+                    <img src="/img/icon/camera.svg" />
+                </div>
+            </a>
 
             <div class="content">
                 <h2>Youmacon 2013</h2>
                 <p>
-                    SC2CTL hosts the Starcraft 2 tournament at Youmacon detroit. Wintergaming takes the victory
-                    with some clutch zerg play and takes home $700.
+                    SC2CTL hosts the Starcraft 2 tournament at Youmacon detroit.
                 </p>
                 <span class="date">November 2, 2013</span>
             </div>
         </div>
 
         <div class="block">
-            <div class="img-container start">
-                <img src="/img/icon/dollars.svg" />
-            </div>
+            <a href="http://vods.sc2ctl.com/vod/2014/01/08/Clarity-SEED/">
+                <div class="img-container start">
+                    <img src="/img/icon/dollars.svg" />
+                </div>
+            </a>
 
             <div class="content">
                 <h2>SC2CTL hosts the largest Dogecoin showmatch ever!</h2>
                 <p>
-                    Throught some <a href="http://www.reddit.com/r/starcraft/comments/1u6qym/in_one_week_clarity_gaming_will_play_root_seed_in/">
+                    Through some <a href="http://www.reddit.com/r/starcraft/comments/1u6qym/in_one_week_clarity_gaming_will_play_root_seed_in/">
                     incredible community generosity</a> SC2CTL raises over a million dogecoins for a showmatch
                     between Clarity and SEED. Just after the showmatch, these cryptocoins were worth well over
                     two thousand USD.
@@ -175,9 +180,11 @@ About the League
         </div>
 
         <div class="block">
-            <div class="img-container video">
-                <img src="/img/icon/camera.svg" />
-            </div>
+            <a href="http://vods.sc2ctl.com/vod/2014/07/05/MirG-MicroGamerZ/">
+                <div class="img-container video">
+                    <img src="/img/icon/camera.svg" />
+                </div>
+            </a>
 
             <div class="content">
                 <h2>Grubby and iNcontroL guest cast on the Season 2 Finals</h2>
@@ -185,7 +192,7 @@ About the League
                     SC2CTL hits its highest peak stream viewership of over 3000 sustained viewers as Grubby and
                     iNcontroL join on to guest cast the Season 2 finals.
 
-                    MicroGamerZ takes it over Miraculous Gaming in a <a href="http://vods.sc2ctl.com/vod/2014/07/05/MirG-MicroGamerZ/">fantastic series.</a>
+                    MicroGamerZ takes on Miraculous Gaming in a <a href="http://vods.sc2ctl.com/vod/2014/07/05/MirG-MicroGamerZ/">fantastic series.</a>
                 </p>
                 <span class="date">June 28, 2014</span>
             </div>
@@ -199,8 +206,7 @@ About the League
             <div class="content">
                 <h2>Youmacon 2014</h2>
                 <p>
-                    The team is back for another year of hosting Youmacon. This year's finals are an intense
-                    match between Winter and DesRow, with DesRow taking the title this year.
+                    The team is back for another year of hosting Youmacon pulling in the likes of Winter and DesRow
                 </p>
                 <span class="date">November 3, 2014</span>
             </div>
