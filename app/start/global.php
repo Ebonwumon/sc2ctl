@@ -48,6 +48,8 @@ Log::useFiles(storage_path() . '/logs/laravel.log');
 
 App::error(function (Exception $exception, $code) {
     Log::error($exception);
+
+    // TODO remove this debug switch
     if (!Config::get('app.debug')) {
         return Response::view('errors.500', array(), 500);
     }
@@ -72,10 +74,21 @@ App::missing(function ($exception) {
 
 App::error(function (Symfony\Component\HttpKernel\Exception\HttpException $exception, $code) {
     Log::error($exception);
-    if ($code == 401) {
-        return Response::view('errors.401', array(), 401);
+    switch ($code) {
+        case 401:
+            return Response::view('errors.401', [ ], 401);
+        break;
+        case 405:
+            $errors = new \Illuminate\Support\MessageBag([
+                'errors' => 'The method you have requested is not allowed!'
+            ]);
+            return Response::view('errors.401', [ 'errors' => $errors], 401);
+        break;
+        default:
+            return Response::view('errors.500', [ ], 500);
+        break;
     }
-    return Response::view('errors.500', array(), 500);
+
 });
 
 /*

@@ -11,7 +11,8 @@
         "guzzlehttp/guzzle": "~5.0",
         "zizaco/entrust": "~1.3",
         "league/oauth2-client": "dev-add_bnet_accountId as 0.4.0",
-        "depotwarehouse/oauth2-bnet": "~1.1.1"
+        "depotwarehouse/oauth2-bnet": "~1.1.1",
+        "intervention/image": "~2.0"
     },
     "autoload": {
         "psr-4": {

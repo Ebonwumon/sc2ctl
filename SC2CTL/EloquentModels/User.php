@@ -26,7 +26,7 @@ class User extends BaseModel implements UserInterface
 
     public function getProfileImgAttribute()
     {
-        $img_path = Config::get('storage.profile_img_path');
+        $img_path = Config::get('storage.user_profile_img_path');
 
         if (file_exists(public_path() . $img_path . "uid_{$this->id}.jpg")) {
             return $img_path . "uid_{$this->id}.jpg";

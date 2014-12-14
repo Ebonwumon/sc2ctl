@@ -29,7 +29,8 @@ Route::group([ 'namespace' => 'SC2CTL\DotCom\Controllers' ], function() {
 
         Route::group([ 'before' => 'is_user' ], function() {
             Route::get('user/{id}/edit', [ 'as' => 'user.edit', 'uses' => 'UserController@edit' ]);
-            Route::post('user/{id}', [ 'as' => 'user.update', 'uses' => 'UserController@update' ]);
+            Route::put('user/{id}', [ 'as' => 'user.update', 'uses' => 'UserController@update' ]);
+            Route::post('assets/user/{id}/upload_profile_img', [ 'as' => 'assets.user_profile_img', 'uses' => 'AssetController@uploadUserProfileImage' ]);
         });
     });
 

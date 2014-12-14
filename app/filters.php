@@ -3,6 +3,8 @@
 use SC2CTL\DotCom\Filters\IsUserFilter;
 use SC2CTL\DotCom\Filters\RequiresBnetFilter;
 use SC2CTL\DotCom\ViewComposers\ErrorPartialComposer;
+use SC2CTL\DotCom\ViewComposers\UserEditComposer;
+use SC2CTL\DotCom\ViewComposers\UserShowComposer;
 
 App::before(function ($request) {
     //
@@ -20,6 +22,8 @@ App::after(function ($request, $response) {
 Route::filter('is_user', IsUserFilter::class);
 Route::filter('requires_bnet', RequiresBnetFilter::class);
 
+View::composer('user.show', UserShowComposer::class);
+View::composer('user.edit', UserEditComposer::class);
 /*
 |--------------------------------------------------------------------------
 | Authentication Filters
@@ -142,7 +146,6 @@ Route::filter('lineup_captain_on_team', function ($route, $request) {
     //Todo
 });
 
-
 View::composer('team/profile', function ($view) {
     if (!isset($view['edit'])) {
         $view->with('edit', false);
@@ -199,6 +202,8 @@ View::composer('user/profileCardPartial', function ($view) {
 });
 
 View::composer('errors/errorPartial', ErrorPartialComposer::class);
+
+
 
 View::composer('dogetip/create', function ($view) {
     $default = ($view['user_id']) ? $view['user_id'] : null;

@@ -1,9 +1,9 @@
-<a href="{{ URL::route('team.show', $team->id) }}" class="nolink">
-  <div class="profile-card @if($smallCard) profile-card-small @endif centered">
-    <div class="logo-img">
-      <img src="{{ $team->logo_url }}" />
+<a href="{{ URL::route('team.show', $team->id) }}">
+    <div class="profile-card">
+        <div class="logo-img">
+            <img src="{{ $team->logo_img }}" />
+        </div>
+        <span class="primary-name">[{{ $team->tag }}]</span>
+        <span class="secondary-name">{{ $team->name }}</span>
     </div>
-    <span class="primary-name impact">[{{ $team->tag }}]</span>
-    <span class="secondary-name impact">{{ $team->name }}</span>
-   </div>
 </a>

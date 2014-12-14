@@ -8,19 +8,21 @@ About the League
 
 <div class="splash">
     <div class="content">
-        @if (Auth::check())
-            <a href="{{ URL::route('team.create') }}" class="button">
-                Register a Team
+        <div class="buttons">
+            @if (Auth::check())
+                <a href="{{ URL::route('team.create') }}" class="button">
+                    Register a Team
+                </a>
+            @else
+                <a href="{{ URL::route('user.register') }}" class="button">
+                    Register Now
+                </a>
+            @endif
+            <br />
+            <a href="{{ URL::route('help') }}" class="button">
+                Help
             </a>
-        @else
-            <a href="{{ URL::route('user.register') }}" class="button">
-                Register Now
-            </a>
-        @endif
-        <br />
-        <a href="{{ URL::route('help') }}" class="button">
-            Help
-        </a>
+        </div>
     </div>
 </div>
 

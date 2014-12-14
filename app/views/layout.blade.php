@@ -51,12 +51,23 @@
                                 <a href="{{ URL::route('user.login') }}">Sign In</a>
                             </li>
                         @endif
+
                     </ul>
+                    @if(isset($page_actions))
+                        <div class="page-actions">
+                            <h2>Page Actions</h2>
+                            <ul>
+                                @foreach ($page_actions as $action)
+                                    <li><a href="{{ $action['url'] }}">{{ $action['name'] }}</a></li>
+                                @endforeach
+                            </ul>
+                        </div>
+
+                    @endif
                 </nav>
             </header>
             <div class="content-wrapper">
                 @include('errors/errorPartial')
-
                 @yield('content')
             </div>
             <script>

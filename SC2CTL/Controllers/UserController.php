@@ -92,7 +92,7 @@ class UserController extends BaseController
         try {
             $this->repository->update($id, $attributes);
         } catch (ValidationException $exception) {
-            return Redirect::route('user.edit')
+            return Redirect::route('user.edit', $id)
                 ->withErrors($exception->get())
                 ->withInput();
         }

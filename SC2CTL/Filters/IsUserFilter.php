@@ -23,7 +23,7 @@ class IsUserFilter extends BeforeFilter {
      */
     function filter(Route $route, Request $request, $value = null)
     {
-        // TODO check for edit_profils permission
+        // TODO check for edit_profiles permission
         if (Auth::user()->id != $route->getParameter('id')) {
             App::abort('401', "You are not authorized to access that resource");
         }

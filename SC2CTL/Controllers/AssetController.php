@@ -3,15 +3,48 @@
 namespace SC2CTL\DotCom\Controllers;
 
 use Config;
-use Game;
+use Illuminate\Support\MessageBag;
 use Image;
 use Input;
-use Response;
-use SimpleXMLElement;
-use User;
+use Redirect;
+use SC2CTL\DotCom\Repositories\UserRepository;
+
 
 class AssetController extends BaseController
 {
+
+    protected $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
+    public function uploadUserProfileImage($id)
+    {
+        $user = $this->userRepository->find($id);
+
+        if (!Input::hasFile('img')) {
+            return Redirect::route('user.edit', $id)->withErrors(new MessageBag([
+                'errors' => "You did not upload an image"
+            ]));
+        }
+        $file = Input::file('img');
+        $path = $file->getRealPath();
+
+        $img = Image::make($path);
+        $arr = explode(".", $file->getClientOriginalName());
+        $ext = array_pop($arr);
+        $img->resize(200, 200, function ($constraint) {
+            $constraint->upsize();
+            $constraint->aspectRatio();
+        });
+
+        $profile_img_path = Config::get('storage.user_profile_img_path');
+        $img->save(public_path() . $profile_img_path . '/uid_' . $id . ".jpg");
+
+        return Redirect::route('user.show', $id);
+    }
 
     public function uploadReplay($id)
     {
@@ -85,7 +118,7 @@ class AssetController extends BaseController
         return Response::json(array('status' => 0, 'replay_url' => $replayUrl));
     }
 
-    public function uploadUserProfileImage($id)
+    public function uploaddUserProfileImage($id)
     {
         $user = User::find($id);
         if (!Input::hasFile('image'))

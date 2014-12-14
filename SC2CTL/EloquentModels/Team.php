@@ -2,6 +2,7 @@
 
 namespace SC2CTL\DotCom\EloquentModels;
 
+use Config;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use Log;
@@ -41,6 +42,21 @@ class Team extends BaseModel
     public function getQualifiedNameAttribute()
     {
         return "[{$this->tag}] {$this->name}";
+    }
+
+    /**
+     * Get the web-compatible path to the team's logo image.
+     *
+     * @return string
+     */
+    public function getLogoImgAttribute()
+    {
+        $img_path = Config::get('storage.team_profile_img_path');
+
+        if (file_exists(public_path() . $img_path . "tid_{$this->id}.jpg")) {
+            return $img_path . "tid_{$this->id}.jpg";
+        }
+        return $img_path . "tid_0.jpg";
     }
 
     /**

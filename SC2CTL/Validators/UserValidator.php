@@ -41,7 +41,7 @@ class UserValidator implements BaseValidatorInterface
     {
         $rules = [
             'username' => "alpha_dash|between:3,80|unique:users,username,{$current_id}",
-            'email' => "email,unique:users,email,{$current_id}",
+            'email' => "email|unique:users,email,{$current_id}",
             'password' => 'confirmed',
         ];
 

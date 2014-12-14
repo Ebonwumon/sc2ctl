@@ -108,7 +108,8 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
-        'Depotwarehouse\OAuth2\Client\FrameworkIntegration\Laravel\BattleNetOAuth2ServiceProvider'
+        'Depotwarehouse\OAuth2\Client\FrameworkIntegration\Laravel\BattleNetOAuth2ServiceProvider',
+        'Intervention\Image\ImageServiceProvider'
 	),
 
 	/*
@@ -175,6 +176,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
         'Entrust'    => 'Zizaco\Entrust\EntrustFacade',
+        'Image' => 'Intervention\Image\Facades\Image'
     ),
 
 );

@@ -1,6 +1,8 @@
 @import "forms";
 @import "vars";
 @import "headers";
+@import "user";
+@import "notifications";
 
 html, body { height: 100%; }
 
@@ -17,12 +19,19 @@ header.navigation {
   }
 
   li {
-    a {
+    a, input[type=submit] {
+      margin: 0 auto;
       padding: 0.5rem 25px 0.5rem 45px;
       display: block;
       text-decoration: none;
       font-size:150%;
       color: #f5f5f5;
+      background: none;
+      border: none;
+    }
+    input[type=submit]:focus {
+      outline: 0;
+      border: none;
     }
     a:hover { border-bottom: 3px ; }
   }
@@ -36,17 +45,11 @@ header.navigation {
     padding: 0 25px 0 45px;
     color:#FFDB05;
   }
+
 }
 
 .content-wrapper {
   margin-top: -1em;
-}
-
-div.logo-img {
-  background-image: $splash-image-url;
-  background-size: cover;
-  height: 10vh;
-  min-height: 600px;
 }
 
 div.splash {
@@ -55,10 +58,11 @@ div.splash {
   background-color: #000;
 
   .content {
+    $left-padding: 10%;
     text-align: center;
     position:absolute;
     width: 80%;
-    padding-left: 10%;
+    padding-left: $left-padding;
 
     height:100%;
 
@@ -68,6 +72,13 @@ div.splash {
 
     p { color: $splash-foreground-color; font-size: 150%; line-height: 1.5em;}
 
+    .buttons {
+      padding-left: $left-padding;
+      position:absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
 
     .button {
       @extend .button.xlarge;
@@ -111,6 +122,7 @@ div.splash:before {
   color: darken( $background-color, 40%);
 }
 
+.error-img { width: 100%; }
 
 /* Our timeline style */
 
@@ -187,11 +199,56 @@ div.splash:before {
   background: $default-background-color;
 }
 
+div.call-to-action {
+  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  background: $highlight-color;
+
+  .title {
+    color: #f5f5f5;
+    font-size: 300%;
+  }
+
+  h2.call-to-action {
+    font-size: 250%;
+    color: black;
+  }
+
+  .button {
+    color: black;
+    background-color: $default-background-color;
+  }
+
+  .button:hover {
+    background-color: darken($default-background-color, 20%);
+  }
+}
+
+h2.tease {
+  margin-top: 6rem;
+  text-align: center;
+  font-size: 300%;
+  font-weight: bold;
+  line-height: 1em;
+}
+
+div.sponsor {
+  img {
+    width: 100%;
+  }
+}
+
 @media only screen and (max-width: 70rem) {
   .timeline {
     .block {
+      /* so the image lines up with the pointer on responsive site */
+      .img-container {
+         margin-top: 0.5rem;
+      }
       .content {
         margin-left: 3rem;
+
       }
       .content::before {
         left: auto;
@@ -202,6 +259,8 @@ div.splash:before {
     }
   }
 }
+
+
 @media only screen and (min-width: 70rem) {
 
   header.navigation {
@@ -217,6 +276,9 @@ div.splash:before {
     }
 
     li {
+      input[type=submit] {
+        margin: 0;
+      }
       a {
         padding: 0.5rem 25px 0.5rem 45px;
         display: block;
@@ -253,12 +315,12 @@ div.splash:before {
         color: $splash-foreground-color;
       }
 
+      .buttons {
+        padding-left: $sidebar-width;
+      }
+
       p {
         display: none;
-      }
-      .button {
-        position: relative;
-        top: 20em;
       }
 
     }
@@ -321,40 +383,6 @@ div.splash:before {
     display: table;
     clear:both;
   }
-}
-
-div.call-to-action {
-  text-align: center;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  background: $highlight-color;
-
-  .title {
-    color: #f5f5f5;
-    font-size: 300%;
-  }
-
-  h2.call-to-action {
-    font-size: 250%;
-    color: black;
-  }
-
-  .button {
-    color: black;
-    background-color: $default-background-color;
-  }
-
-  .button:hover {
-    background-color: darken($default-background-color, 20%);
-  }
-}
-
-h2.tease {
-  margin-top: 6rem;
-  text-align: center;
-  font-size: 300%;
-  font-weight: bold;
-  line-height: 1em;
 }
 
 
