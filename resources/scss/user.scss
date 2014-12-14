@@ -1,0 +1,21 @@
+.user-profile.panel {
+  height: 100%;
+
+  .img-wrapper {
+    display: inline-block;
+    float: left;
+  }
+  .content {
+    padding-left: 1em;
+    padding-right: 1em;
+    display: inline-block;
+  }
+}
+
+.multi-panel {
+  .panel:nth-of-type(1) {
+    $background-color: #81BFE6;
+    background: $background-color;
+
+  }
+}
