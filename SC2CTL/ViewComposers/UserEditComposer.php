@@ -3,6 +3,7 @@
 namespace SC2CTL\DotCom\ViewComposers;
 
 use Illuminate\View\View;
+use SC2CTL\DotCom\EloquentModels\User;
 use SC2CTL\DotCom\Permissions\IsUserTrait;
 use URL;
 
@@ -19,11 +20,16 @@ class UserEditComposer extends Composer {
     {
         $page_actions = [];
 
-        if ($this->isUser($view['user'])) {
-            $page_actions[] = [
-                'name' => 'Connect B.Net',
-                'url' => URL::route('bnet.connect')
-            ];
+        /** @var User $user */
+        $user = $view['user'];
+        if ($this->isUser($user)) {
+            if (!$user->hasConnectedBattleNet()) {
+                $page_actions[] = [
+                    'name' => 'Connect B.Net',
+                    'url' => URL::route('bnet.connect')
+                ];
+            }
+
         }
 
         if (count($page_actions) > 0) {
