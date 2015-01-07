@@ -27,7 +27,6 @@ Rules
         they may be attempting to impersonate an admin:
         <ol>
           <li><strong>bonywonix (Founder)</strong> - Battle.net: bonywonix#268 - email: adult@sc2ctl.com - skype: bonywonix</li>
-          <li><strong>FostA (Head Admin</strong> - email: child@sc2ctl.com</li>
         </ol>
       </li>
       <li>The casters for SC2CTL are:

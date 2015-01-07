@@ -34,6 +34,7 @@
 .button.cancel:hover { background: rgb(202, 60, 60); color:white; }
 .button.twitter { background: #9AE4E8; color: black; }
 .button.facebook { background: #3D62B3; color: white; }
+.button.gplus { background: #D34836; color:white; }
 
 $bad-color: rgb(202, 60, 60);
 .button.bad { background: $bad-color; color: white; }
@@ -42,8 +43,6 @@ $bad-color: rgb(202, 60, 60);
 $secondary-color: rgb(95, 198, 218);
 .button.secondary { background: $secondary-color; }
 .button.secondary:hover { background: darken($secondary-color, 5%); }
-
-.pure-button-gplus { background: #D34836; color:white; }
 
 .pure-button-orange { background: rgb(223, 117, 20); }
 .pure-button-brown { background: #7C4316; color:white;}
