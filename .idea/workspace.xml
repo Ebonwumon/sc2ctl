@@ -2,22 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4aa746e1-60d3-4824-9473-ab08fbad52c2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/img/user/profile/uid_1.jpg" afterPath="$PROJECT_DIR$/public/img/user/profile/uid_1.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/database/migrations/2014_11_26_140301_create_bnet_user.php" afterPath="$PROJECT_DIR$/app/database/migrations/2014_11_26_140301_create_bnet_user.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SC2CTL/EloquentModels/BattleNetUser.php" afterPath="$PROJECT_DIR$/SC2CTL/EloquentModels/BattleNetUser.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SC2CTL/Repositories/BattleNetUserRepository.php" afterPath="$PROJECT_DIR$/SC2CTL/Repositories/BattleNetUserRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SC2CTL/Controllers/BnetAuthController.php" afterPath="$PROJECT_DIR$/SC2CTL/Controllers/BnetAuthController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SC2CTL/Filters/RequiresBnetFilter.php" afterPath="$PROJECT_DIR$/SC2CTL/Filters/RequiresBnetFilter.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SC2CTL/ViewComposers/UserEditComposer.php" afterPath="$PROJECT_DIR$/SC2CTL/ViewComposers/UserEditComposer.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/all.css" afterPath="$PROJECT_DIR$/public/css/all.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/team/create.blade.php" afterPath="$PROJECT_DIR$/app/views/team/create.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/team/index.blade.php" afterPath="$PROJECT_DIR$/app/views/team/index.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/team/profileCardPartial.blade.php" afterPath="$PROJECT_DIR$/app/views/team/profileCardPartial.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/routes.php" afterPath="$PROJECT_DIR$/app/routes.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/scss/style.scss" afterPath="$PROJECT_DIR$/resources/scss/style.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SC2CTL/EloquentModels/Team.php" afterPath="$PROJECT_DIR$/SC2CTL/EloquentModels/Team.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/team/show.blade.php" afterPath="$PROJECT_DIR$/app/views/team/show.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="sc2ctl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,8 +33,8 @@
       <file leaf-file-name="Team.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SC2CTL/EloquentModels/Team.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1440">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.48125938" vertical-offset="705" max-vertical-offset="1728">
+              <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -76,9 +64,11 @@
         <option value="$PROJECT_DIR$/vendor/depotwarehouse/oauth2-bnet/src/Provider/BattleNetUser.php" />
         <option value="$PROJECT_DIR$/SC2CTL/ViewComposers/UserEditComposer.php" />
         <option value="$PROJECT_DIR$/app/routes.php" />
-        <option value="$PROJECT_DIR$/app/database/migrations/2014_11_26_140301_create_bnet_user.php" />
-        <option value="$PROJECT_DIR$/SC2CTL/Controllers/BnetAuthController.php" />
         <option value="$PROJECT_DIR$/SC2CTL/EloquentModels/BattleNetUser.php" />
+        <option value="$PROJECT_DIR$/SC2CTL/Controllers/BnetAuthController.php" />
+        <option value="$PROJECT_DIR$/app/database/migrations/2014_11_26_140301_create_bnet_user.php" />
+        <option value="$PROJECT_DIR$/app/views/team/show.blade.php" />
+        <option value="$PROJECT_DIR$/SC2CTL/EloquentModels/Team.php" />
       </list>
     </option>
   </component>
@@ -365,6 +355,54 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="team" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sc2ctl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sc2ctl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="img" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="icon" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sc2ctl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sc2ctl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="img" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="icon" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="leagues" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1295,27 +1333,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/database/migrations/2014_11_26_140301_create_bnet_user.php">
+    <entry file="file://$PROJECT_DIR$/SC2CTL/EloquentModels/BattleNetUser.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53973013" vertical-offset="0" max-vertical-offset="990">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.18890555" vertical-offset="36" max-vertical-offset="1710">
+          <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
           <folding>
-            <marker date="1421102963507" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1421102963507" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1421102963507" expanded="true" signature="-1:-1" placeholder=" Run the migrations. ..." />
-            <marker date="1421102963507" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421102963507" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1421102963507" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1421102963507" expanded="true" signature="-1:-1" placeholder=" Reverse the migrations. ..." />
-            <marker date="1421102963507" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SC2CTL/Controllers/BnetAuthController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.75712144" vertical-offset="953" max-vertical-offset="1620">
-          <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.4467766" vertical-offset="656" max-vertical-offset="1620">
+          <caret line="61" column="19" selection-start-line="61" selection-start-column="19" selection-end-line="61" selection-end-column="19" />
           <folding>
             <marker date="1421103139187" expanded="false" signature="-1:-1" placeholder="..." />
             <marker date="1421103139187" expanded="true" signature="-1:-1" placeholder="{...}" />
@@ -1343,35 +1389,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SC2CTL/EloquentModels/BattleNetUser.php">
+    <entry file="file://$PROJECT_DIR$/public/img/icon/leagues/gold.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/database/migrations/2014_11_26_140301_create_bnet_user.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18890555" vertical-offset="36" max-vertical-offset="1710">
-          <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.59370315" vertical-offset="0" max-vertical-offset="990">
+          <caret line="23" column="49" selection-start-line="23" selection-start-column="49" selection-end-line="23" selection-end-column="49" />
           <folding>
-            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1421103148040" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103483187" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1421103483187" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103483187" expanded="true" signature="-1:-1" placeholder=" Run the migrations. ..." />
+            <marker date="1421103483187" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1421103483187" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103483187" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103483187" expanded="true" signature="-1:-1" placeholder=" Reverse the migrations. ..." />
+            <marker date="1421103483187" expanded="true" signature="-1:-1" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/team/show.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32533732" vertical-offset="17" max-vertical-offset="1062">
+          <caret line="13" column="58" selection-start-line="13" selection-start-column="58" selection-end-line="13" selection-end-column="58" />
+          <folding>
+            <marker date="1421103650010" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103650010" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103650010" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103650010" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103650010" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103650010" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103650010" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103650010" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103650010" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103650010" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103650010" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421103650010" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/storage.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="694">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1418831224304" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SC2CTL/EloquentModels/Team.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1440">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.48125938" vertical-offset="705" max-vertical-offset="1728">
+          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
           <folding />
         </state>
       </provider>

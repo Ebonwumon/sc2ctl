@@ -21,7 +21,7 @@ class CreateBnetUser extends Migration {
             $table->string('profile_url');
 
             $table->string('race');
-            $table->string('league');
+            $table->string('league')->nullable();
             $table->integer('terran_wins');
             $table->integer('protoss_wins');
             $table->integer('zerg_wins');

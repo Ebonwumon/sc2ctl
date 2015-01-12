@@ -11,10 +11,10 @@
             <img src="{{ $team->banner_img }}" />
         </div>
         <div class="team-logo">
-            <img class="team-logo" src="{{ $team->logo_url }}" />
+            <img class="team-logo" src="{{ $team->logo_img }}" />
         </div>
         <div class="team-info">
-            <h1 class="splash-head">{{ $team->name }}</h1>
+            <h1>{{ $team->name }}</h1>
             <p class="team-description">
                 {{ $team->description }}
             </p>

@@ -17,14 +17,14 @@ class Team extends BaseModel
     }
 
     protected $meta = [
-        'id' => [self::GUARDED],
-        'name' => [self::FILLABLE, self::UPDATEABLE, self::SEARCHABLE],
-        'tag' => [self::FILLABLE, self::UPDATEABLE, self::SEARCHABLE],
-        'description' => [self::FILLABLE, self::UPDATEABLE, self::SEARCHABLE],
-        'social_fb' => [self::FILLABLE, self::UPDATEABLE],
-        'social_twitter' => [self::FILLABLE, self::UPDATEABLE],
-        'social_twitch' => [self::FILLABLE, self::UPDATEABLE],
-        'website' => [self::FILLABLE, self::UPDATEABLE],
+        'id' => [ self::GUARDED ],
+        'name' => [ self::FILLABLE, self::UPDATEABLE, self::SEARCHABLE ],
+        'tag' => [ self::FILLABLE, self::UPDATEABLE, self::SEARCHABLE ],
+        'description' => [ self::FILLABLE, self::UPDATEABLE, self::SEARCHABLE ],
+        'social_fb' => [ self::FILLABLE, self::UPDATEABLE ],
+        'social_twitter' => [ self::FILLABLE, self::UPDATEABLE ],
+        'social_twitch' => [ self::FILLABLE, self::UPDATEABLE ],
+        'website' => [ self::FILLABLE, self::UPDATEABLE ],
     ];
 
     public function lineups()
@@ -52,6 +52,21 @@ class Team extends BaseModel
     public function getLogoImgAttribute()
     {
         $img_path = Config::get('storage.team_profile_img_path');
+
+        if (file_exists(public_path() . $img_path . "tid_{$this->id}.jpg")) {
+            return $img_path . "tid_{$this->id}.jpg";
+        }
+        return $img_path . "tid_0.jpg";
+    }
+
+    /**
+     * Get the web-compatible path to the team's banner image.
+     *
+     * @return string
+     */
+    public function getBannerImgAttribute()
+    {
+        $img_path = Config::get('storage.team_profile_banner_path');
 
         if (file_exists(public_path() . $img_path . "tid_{$this->id}.jpg")) {
             return $img_path . "tid_{$this->id}.jpg";
