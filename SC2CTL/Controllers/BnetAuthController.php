@@ -28,7 +28,8 @@ class BnetAuthController extends BaseController
         return Redirect::to($this->provider->getAuthorizationUrl());
     }
 
-    public function bnet_auth() {
+    public function bnet_auth()
+    {
         // Was the OAuth return successful?
         if (Input::has('code') and $code = Input::get('code')) {
             try {
@@ -40,6 +41,16 @@ class BnetAuthController extends BaseController
                 $bnet_user = $this->provider->getUserDetails($token);
                 $attributes = (array)$bnet_user;
                 $attributes['user_id'] = Auth::user()->id;
+                // The ID field is not fillable, so we make sure to set it as bnet_id.
+                $attributes['bnet_id'] = $attributes['id'];
+                unset($attributes['id']);
+
+                if ($this->repository->isAccountUsed($attributes['bnet_id'])) {
+                    return Redirect::route('user.show', Auth::user()->id)
+                        ->withErrors(new MessageBag([
+                            'errors' => "Someone has already connected to that BNet Account"
+                        ]));
+                }
 
                 $this->repository->create($attributes);
 
@@ -48,8 +59,7 @@ class BnetAuthController extends BaseController
             } catch (ValidationException $exception) {
                 return Redirect::route('user.edit', Auth::user()->id)
                     ->withErrors($exception->get());
-            }
-            catch (\Exception $exception) {
+            } catch (\Exception $exception) {
                 Log::error("Exception connecting to BNET API");
                 Log::error($exception);
                 return Redirect::route('user.edit', Auth::user()->id)->withErrors(new \Illuminate\Support\MessageBag([
@@ -57,18 +67,26 @@ class BnetAuthController extends BaseController
                 ]));
             }
         }
-            // Were there OAuth errors?
-            if (Input::has('error') and $error = Input::get('error')) {
-                return Redirect::route('user.edit')
-                    ->withErrors(new MessageBag([
-                        'errors' => "Error connecting to Battle.net: {$error} - " . Input::get('error_description')
-                    ]));
-            }
-
-            // No code or error, something odd happened.
-            return Redirect::route('user.edit', Auth::user()->id)->withErrors(new \Illuminate\Support\MessageBag(
-                [ 'errors' => 'An unexpected error occured, please try again later' ]
-            ));
+        // Were there OAuth errors?
+        if (Input::has('error') and $error = Input::get('error')) {
+            return Redirect::route('user.edit')
+                ->withErrors(new MessageBag([
+                    'errors' => "Error connecting to Battle.net: {$error} - " . Input::get('error_description')
+                ]));
         }
+
+        // No code or error, something odd happened.
+        return Redirect::route('user.edit', Auth::user()->id)->withErrors(new \Illuminate\Support\MessageBag(
+            [ 'errors' => 'An unexpected error occured, please try again later' ]
+        ));
+    }
+
+    public function bnet_disconnect()
+    {
+        $bnet_id = Auth::user()->bnet->id;
+        $this->repository->destroy($bnet_id);
+        return Redirect::route('user.show', Auth::user()->id);
+    }
+
 
 } 

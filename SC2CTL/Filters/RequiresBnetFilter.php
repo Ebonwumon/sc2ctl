@@ -6,6 +6,7 @@ use App;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
+use Illuminate\Support\MessageBag;
 use Redirect;
 use SC2CTL\DotCom\EloquentModels\User;
 
@@ -27,7 +28,10 @@ class RequiresBnetFilter extends BeforeFilter
         /** @var User $user */
         $user = Auth::user();
         if (!$user->hasConnectedBattleNet()) {
-            App::abort(401, "You need to associate a Battle.net account to do that.");
+            return Redirect::route('user.show', $user->id)
+                ->withErrors(new MessageBag([
+                    "You need to associate a Battle.net account to do that."
+                ]));
         }
     }
 }

@@ -1,5 +1,5 @@
 <a href="{{ URL::route('team.show', $team->id) }}">
-    <div class="profile-card">
+    <div class="team-profile-card">
         <div class="logo-img">
             <img src="{{ $team->logo_img }}" />
         </div>

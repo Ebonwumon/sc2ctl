@@ -4,5 +4,4 @@ composer.phar
 .DS_Store
 Thumbs.db
 .env.*
-.idea
 node_modules/

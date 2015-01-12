@@ -14,4 +14,15 @@ class BattleNetUserRepository extends BaseRepository
         $this->validator = $validator;
     }
 
+    /**
+     * Checks if there exists a bnet_user using that particular, unique bnet_id.
+     *
+     * @param $bnet_id
+     * @return bool
+     */
+    public function isAccountUsed($bnet_id)
+    {
+        return $this->model->where('bnet_id', $bnet_id)->count() > 0;
+    }
+
 } 

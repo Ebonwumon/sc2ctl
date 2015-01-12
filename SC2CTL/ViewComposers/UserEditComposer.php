@@ -23,7 +23,12 @@ class UserEditComposer extends Composer {
         /** @var User $user */
         $user = $view['user'];
         if ($this->isUser($user)) {
-            if (!$user->hasConnectedBattleNet()) {
+            if ($user->hasConnectedBattleNet()) {
+                $page_actions[] = [
+                    'name' => 'Remove B.Net',
+                    'url' => URL::route('bnet.disconnect')
+                ];
+            } else {
                 $page_actions[] = [
                     'name' => 'Connect B.Net',
                     'url' => URL::route('bnet.connect')

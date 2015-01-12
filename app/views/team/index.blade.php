@@ -15,11 +15,15 @@ All Teams
 @endif
 
 <div class="pure-g">
-    @foreach ($teams as $team)
+    @forelse ($teams as $team)
         <div class="pure-u-1 pure-u-md-1-3">
             @include ('team/profileCardPartial')
         </div>
-    @endforeach
+    @empty
+        <div class="pure-u-1">
+            <h2 class="centered">There are no currently registered teams.</h2>
+        </div>
+    @endforelse
 </div>
 
 @stop

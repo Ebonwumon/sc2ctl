@@ -239,6 +239,35 @@ div.sponsor, div.contact {
   }
 }
 
+div.logo-img {
+  float:left;
+  margin-right: 1rem;
+}
+
+div.team-profile-card {
+  background: black;
+  display: inline-block;
+  min-width:30rem;
+  padding:0.5rem;
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+
+  .primary-name {
+    color: whitesmoke;
+    font-size:200%;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .secondary-name {
+    font-size: 140%;
+    color: darken(whitesmoke, 5%);
+    display: block;
+  }
+
+}
+
 @media only screen and (max-width: 70rem) {
   .timeline {
     .block {

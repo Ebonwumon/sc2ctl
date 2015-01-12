@@ -2,8 +2,12 @@
 
 namespace SC2CTL\DotCom\EloquentModels;
 
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class BattleNetUser extends BaseModel
 {
+
+    use SoftDeletingTrait;
 
     public $table = "bnet_users";
 
