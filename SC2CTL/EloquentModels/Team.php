@@ -29,7 +29,8 @@ class Team extends BaseModel
 
     public function lineups()
     {
-        // TODO
+        //TODO
+        //return $this->belongsTo(\Lineup::class);
     }
 
     public function members()

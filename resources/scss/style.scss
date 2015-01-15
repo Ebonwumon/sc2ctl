@@ -49,7 +49,7 @@ header.navigation {
 }
 
 .content-wrapper {
-  margin-top: -1em;
+  height: 100%;
 }
 
 div.splash {
@@ -117,9 +117,47 @@ div.splash:before {
 }
 
 .content-wrapper section.section:nth-of-type(2) {
-  $background-color: #81BFE6;
+  $background-color: $section-2-color;
   background: $background-color;
   color: darken( $background-color, 40%);
+}
+
+.team-info-grid {
+  position:relative;
+  height:100%;
+}
+
+.team-info-col {
+  height:100%;
+}
+
+.team-info-panel {
+  height:100%;
+  background-color: $section-1-color;
+}
+
+.team-info {
+  padding: 1rem;
+}
+
+.image-header {
+  position:relative;
+
+  .team-banner img {
+    width: 100%;
+  }
+
+  .team-logo img {
+    position: absolute;
+    left: 3%;
+    bottom: -20px;
+  }
+}
+
+.team-lineups {
+  overflow-y: auto;
+  height:100%;
+  background: $section-2-color;
 }
 
 .error-img { width: 100%; }
