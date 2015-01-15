@@ -5,6 +5,7 @@ namespace SC2CTL\DotCom\ViewComposers;
 use Illuminate\View\View;
 use SC2CTL\DotCom\EloquentModels\Team;
 use SC2CTL\DotCom\Permissions\IsUserTrait;
+use URL;
 
 class TeamShowComposer extends Composer {
 
@@ -18,17 +19,17 @@ class TeamShowComposer extends Composer {
      */
     function compose(View $view)
     {
+        $page_actions = [];
+
         /** @var Team $team */
         $team = $view['team'];
 
         if ($this->isUser($team->getOwner())) {
-            if (!$user->hasConnectedBattleNet()) {
-                $page_actions[] = [
-                    'name' => 'Connect B.Net',
-                    'url' => URL::route('bnet.connect')
-                ];
-            }
-
+            //TODO maybe there are other permissions to do this.
+            $page_actions[] = [
+                'name' => "Edit Info",
+                'url' => URL::route('team.edit', $team->id)
+            ];
         }
 
         if (count($page_actions) > 0) {

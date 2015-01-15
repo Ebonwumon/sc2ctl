@@ -89,6 +89,5 @@ class Team extends BaseModel
             Log::error("Team ID: {$this->id} does not seem to have an owner");
             throw $exception;
         }
-
     }
 }

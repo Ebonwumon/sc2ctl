@@ -3,6 +3,7 @@
 use SC2CTL\DotCom\Filters\IsUserFilter;
 use SC2CTL\DotCom\Filters\RequiresBnetFilter;
 use SC2CTL\DotCom\ViewComposers\ErrorPartialComposer;
+use SC2CTL\DotCom\ViewComposers\TeamShowComposer;
 use SC2CTL\DotCom\ViewComposers\UserEditComposer;
 use SC2CTL\DotCom\ViewComposers\UserShowComposer;
 
@@ -24,6 +25,8 @@ Route::filter('requires_bnet', RequiresBnetFilter::class);
 
 View::composer('user.show', UserShowComposer::class);
 View::composer('user.edit', UserEditComposer::class);
+
+View::composer('team.show', TeamShowComposer::class);
 /*
 |--------------------------------------------------------------------------
 | Authentication Filters
