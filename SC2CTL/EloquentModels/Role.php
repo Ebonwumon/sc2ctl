@@ -5,13 +5,13 @@ namespace SC2CTL\DotCom\EloquentModels;
 class Role extends BaseModel
 {
 
-    const MEMBER = "member";
-    const OFFICER = "officer";
-    const CAPTAIN = "captain";
-    const TEAM_OWNER = "owner";
-    const CASTER = "caster";
-    const MOD = "mod";
-    const ADMIN = "admin";
+    const ROLE_MEMBER = "member";
+    const ROLE_OFFICER = "officer";
+    const ROLE_CAPTAIN = "captain";
+    const ROLE_TEAM_OWNER = "owner";
+    const ROLE_CASTER = "caster";
+    const ROLE_MOD = "mod";
+    const ROLE_ADMIN = "admin";
 
     public function __construct(array $attributes = array())
     {

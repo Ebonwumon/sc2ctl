@@ -61,7 +61,7 @@ class User extends BaseModel implements UserInterface
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'user_roles', 'role_id', 'id');
+        return $this->belongsToMany(Role::class, 'assigned_roles', 'role_id', 'id');
     }
 
     /**

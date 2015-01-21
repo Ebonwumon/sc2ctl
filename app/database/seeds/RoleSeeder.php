@@ -11,14 +11,12 @@ class RoleSeeder extends Seeder
         $refl = new ReflectionClass(Role::class);
         foreach ($refl->getConstants() as $name => $value) {
 
-            // We don't want any of our non-integer constants here.
-            if (!is_numeric($value)) {
+            if (strpos($name, "ROLE_") !== 0) {
                 continue;
             }
 
             Role::create([
                 'id' => $value,
-                'name' => strtolower($name)
             ]);
         }
     }

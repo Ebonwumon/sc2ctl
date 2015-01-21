@@ -2,6 +2,7 @@
 
 use SC2CTL\DotCom\Filters\IsUserFilter;
 use SC2CTL\DotCom\Filters\RequiresBnetFilter;
+use SC2CTL\DotCom\Filters\RequiresTeamPermission;
 use SC2CTL\DotCom\ViewComposers\ErrorPartialComposer;
 use SC2CTL\DotCom\ViewComposers\TeamShowComposer;
 use SC2CTL\DotCom\ViewComposers\UserEditComposer;
@@ -22,6 +23,7 @@ App::after(function ($request, $response) {
 
 Route::filter('is_user', IsUserFilter::class);
 Route::filter('requires_bnet', RequiresBnetFilter::class);
+Route::filter('team_permission', RequiresTeamPermission::class);
 
 View::composer('user.show', UserShowComposer::class);
 View::composer('user.edit', UserEditComposer::class);

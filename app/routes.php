@@ -1,13 +1,5 @@
 <?php
 
-use SC2CTL\DotCom\EloquentModels\User;
-
-Route::get('test', function() {
-    $user = User::find(1);
-    $calculator = new \SC2CTL\DotCom\Roles\Calculator();
-    $calculator->getTeamRoles($user);
-});
-
 Route::group([ 'namespace' => 'SC2CTL\DotCom\Controllers' ], function() {
 
     Route::group([ 'before' => 'guest' ], function() {
@@ -32,8 +24,9 @@ Route::group([ 'namespace' => 'SC2CTL\DotCom\Controllers' ], function() {
             Route::post('team', [ 'as' => 'team.store', 'uses' => 'TeamController@store' ]);
         });
 
-        Route::group([ 'before' => 'edit_team' ], function() {
+        Route::group([ 'before' => 'team_permission:edit_team' ], function() {
             Route::get('/team/{id}/edit', [ 'as' => 'team.edit', "uses" => "TeamController@edit" ]);
+            Route::post('team/{id}', [ 'as' => 'team.update', 'uses' => 'TeamController@update' ]);
         });
 
 
@@ -184,7 +177,7 @@ Route::get('user', array('as' => 'user.index', 'uses' => 'SC2CTL\DotCom\Controll
 
 
 //TODO proper authorization
-Route::post('team/{id}', array('as' => 'team.update', 'uses' => 'TeamController@update'));
+
 
 Route::group(array('before' => 'auth|perm:delete_teams'), function() {
   Route::delete('team/{id}', array('before' => 'deleteteam', 'as' => 'team.destroy', 'uses' => 'TeamController@destroy'));

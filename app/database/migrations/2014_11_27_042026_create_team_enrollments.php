@@ -17,7 +17,7 @@ class CreateTeamEnrollments extends Migration {
 
             $table->integer('user_id')->unsigned();
             $table->integer('team_id')->unsigned();
-            $table->integer('role_id')->unsigned();
+            $table->string('role_id');
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('team_id')->references('id')->on('teams');
