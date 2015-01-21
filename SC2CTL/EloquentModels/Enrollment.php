@@ -16,7 +16,7 @@ class Enrollment extends Pivot
         parent::__construct($parent, $attributes, $table, $exists);
     }
 
-    protected $dates = ['deleted_at'];
+    protected $dates = [ 'deleted_at' ];
 
     public function role()
     {

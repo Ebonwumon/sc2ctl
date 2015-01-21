@@ -14,8 +14,9 @@ class EntrustSetupTables extends Migration
     {
         // Creates the roles table
         Schema::create('roles', function (Blueprint $table) {
-            $table->increments('id')->unsigned();
-            $table->string('name')->unique();
+            $table->string('id');
+            $table->primary('id');
+
             $table->timestamps();
         });
 
@@ -23,7 +24,8 @@ class EntrustSetupTables extends Migration
         Schema::create('assigned_roles', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->integer('role_id')->unsigned();
+            $table->string('role_id');
+
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('role_id')->references('id')->on('roles');
@@ -31,18 +33,18 @@ class EntrustSetupTables extends Migration
 
         // Creates the permissions table
         Schema::create('permissions', function (Blueprint $table) {
-            $table->increments('id')->unsigned();
-            $table->string('name')->unique();
+            $table->string('id');
+            $table->primary('id');
             $table->string('display_name');
+
             $table->timestamps();
         });
 
         // Creates the permission_role (Many-to-Many relation) table
         Schema::create('permission_role', function (Blueprint $table) {
-            $table->increments('id')->unsigned();
-            $table->integer('permission_id')->unsigned();
-            $table->integer('role_id')->unsigned();
-            $table->foreign('permission_id')->references('id')->on('permissions'); // assumes a users table
+            $table->string('permission_id');
+            $table->string('role_id');
+            $table->foreign('permission_id')->references('id')->on('permissions');
             $table->foreign('role_id')->references('id')->on('roles');
         });
     }

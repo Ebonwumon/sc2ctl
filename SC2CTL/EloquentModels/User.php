@@ -10,7 +10,7 @@ class User extends BaseModel implements UserInterface
 {
     use SoftDeletingTrait;
 
-    protected $hidden = ['password'];
+    protected $hidden = [ 'password' ];
 
     public function __construct(array $attributes = array())
     {
@@ -18,10 +18,10 @@ class User extends BaseModel implements UserInterface
     }
 
     protected $meta = [
-        'id' => [self::GUARDED],
-        'username' => [self::FILLABLE, self::UPDATEABLE, self::SEARCHABLE],
-        'email' => [self::FILLABLE, self::UPDATEABLE, self::SEARCHABLE],
-        'password' => [self::FILLABLE, self::UPDATEABLE]
+        'id' => [ self::GUARDED ],
+        'username' => [ self::FILLABLE, self::UPDATEABLE, self::SEARCHABLE ],
+        'email' => [ self::FILLABLE, self::UPDATEABLE, self::SEARCHABLE ],
+        'password' => [ self::FILLABLE, self::UPDATEABLE ]
     ];
 
     public function getProfileImgAttribute()
@@ -41,7 +41,12 @@ class User extends BaseModel implements UserInterface
 
     public function team()
     {
-        return $this->belongsToMany(Team::class, 'team_enrollments', 'user_id', 'team_id');
+        return $this->belongsToMany(Team::class, 'team_enrollments', 'team_id', 'id');
+    }
+
+    public function hasTeam()
+    {
+        return $this->team()->count() > 0;
     }
 
     /**
@@ -52,6 +57,11 @@ class User extends BaseModel implements UserInterface
     public function getTeam()
     {
         return $this->team()->first();
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_roles', 'role_id', 'id');
     }
 
     /**
@@ -119,4 +129,5 @@ class User extends BaseModel implements UserInterface
     {
         // TODO: Implement getRememberTokenName() method.
     }
+
 }

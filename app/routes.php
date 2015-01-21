@@ -1,5 +1,13 @@
 <?php
 
+use SC2CTL\DotCom\EloquentModels\User;
+
+Route::get('test', function() {
+    $user = User::find(1);
+    $calculator = new \SC2CTL\DotCom\Roles\Calculator();
+    $calculator->getTeamRoles($user);
+});
+
 Route::group([ 'namespace' => 'SC2CTL\DotCom\Controllers' ], function() {
 
     Route::group([ 'before' => 'guest' ], function() {
