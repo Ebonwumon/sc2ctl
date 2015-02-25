@@ -21,12 +21,6 @@
                             <a href="{{ URL::route('home.about') }}">About</a>
                         </li>
                         <li>
-                            <a href="{{ URL::route('team.index') }}">Teams</a>
-                        </li>
-                        <li>
-                            <a href="{{ URL::route('tournament.index') }}">Tournaments</a>
-                        </li>
-                        <li>
                             <a href="{{ URL::route('home.sponsors') }}">Sponsors</a>
                         </li>
                         <li>

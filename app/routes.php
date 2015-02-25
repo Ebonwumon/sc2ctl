@@ -19,15 +19,15 @@ Route::group([ 'namespace' => 'SC2CTL\DotCom\Controllers' ], function() {
         Route::get('bnet_connect', [ 'as' => 'bnet.connect', 'uses' => "BnetAuthController@bnet_connect" ]);
         Route::get('bnet_auth', [ 'as' => 'bnet.auth', 'uses' => "BnetAuthController@bnet_auth" ]);
 
-        Route::group([ 'before' => 'teamless_user|requires_bnet'], function() {
+        /*Route::group([ 'before' => 'teamless_user|requires_bnet'], function() {
             Route::get('team/create', [ 'as' => 'team.create', "uses" => 'TeamController@create' ]);
             Route::post('team', [ 'as' => 'team.store', 'uses' => 'TeamController@store' ]);
-        });
+        }); */ // TODO
 
-        Route::group([ 'before' => 'team_permission:edit_team' ], function() {
+        /*Route::group([ 'before' => 'team_permission:edit_team' ], function() {
             Route::get('/team/{id}/edit', [ 'as' => 'team.edit', "uses" => "TeamController@edit" ]);
             Route::post('team/{id}', [ 'as' => 'team.update', 'uses' => 'TeamController@update' ]);
-        });
+        }); */ // TODO
 
 
         Route::group([ 'before' => 'is_user' ], function() {
@@ -40,8 +40,8 @@ Route::group([ 'namespace' => 'SC2CTL\DotCom\Controllers' ], function() {
     Route::get('/', [ 'as' => 'home.index', "uses" => 'HomeController@index' ]);
     Route::get('contact', [ 'as' => 'home.contact', "uses" => 'HomeController@contact' ]);
     Route::get('about', [ 'as' => 'home.about', 'uses' => 'HomeController@about' ]);
-    Route::get('format', [ 'as' => 'home.format', 'uses' => 'HomeController@format' ]);
-    Route::get('rules', [ 'as' => 'home.rules', 'uses' => 'HomeController@rules' ]);
+    //Route::get('format', [ 'as' => 'home.format', 'uses' => 'HomeController@format' ]);
+    //Route::get('rules', [ 'as' => 'home.rules', 'uses' => 'HomeController@rules' ]);
     Route::get('sponsors', [ 'as' => 'home.sponsors', 'uses' => 'HomeController@sponsors' ]);
     Route::get('help', [ 'as' => 'help', 'uses' => 'HomeController@help' ]);
 

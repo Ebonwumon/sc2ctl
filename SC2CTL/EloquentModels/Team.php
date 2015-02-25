@@ -11,22 +11,6 @@ class Team extends BaseModel
 {
     use SoftDeletingTrait;
 
-    public function __construct(array $attributes = array())
-    {
-        parent::__construct($attributes);
-    }
-
-    protected $meta = [
-        'id' => [ self::GUARDED ],
-        'name' => [ self::FILLABLE, self::UPDATEABLE, self::SEARCHABLE ],
-        'tag' => [ self::FILLABLE, self::UPDATEABLE, self::SEARCHABLE ],
-        'description' => [ self::FILLABLE, self::UPDATEABLE, self::SEARCHABLE ],
-        'social_fb' => [ self::FILLABLE, self::UPDATEABLE ],
-        'social_twitter' => [ self::FILLABLE, self::UPDATEABLE ],
-        'social_twitch' => [ self::FILLABLE, self::UPDATEABLE ],
-        'website' => [ self::FILLABLE, self::UPDATEABLE ],
-    ];
-
     public function lineups()
     {
         //TODO

@@ -5,7 +5,7 @@ return [
         'mysql' => [
             'database' => 'sc2ctl',
             'username' => 'root',
-            'password' => 'green'
+            'password' => ''
         ]
     ]
 ];

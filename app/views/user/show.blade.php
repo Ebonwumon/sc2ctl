@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-@if (Auth::check() && Auth::user()->id == $user->id)
+@if (Auth::check() && Auth::user()->id == $user->id && Auth::user()->hasActiveNotifications())
 <div class="call-to-action">
     <h2 class="title">Notifications (1)</h2>
     <a href="#" class="button large">View Notifications</a>

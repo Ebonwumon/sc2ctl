@@ -11,16 +11,6 @@ class PasswordReminder extends BaseModel
 
     public $table = "password_reminders";
 
-    public function __construct(array $attributes = array())
-    {
-        parent::__construct($attributes);
-    }
-
-    protected $meta = [
-        'email' => [self::FILLABLE],
-        'token' => [self::FILLABLE]
-    ];
-
     public function setUpdatedAtAttribute($value)
     {
         // We do nothing, we don't want updated at timestamps.

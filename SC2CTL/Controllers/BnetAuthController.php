@@ -81,7 +81,7 @@ class BnetAuthController extends BaseController
         ));
     }
 
-    public function bnet_disconnect()
+    public function ch_disconnect()
     {
         $bnet_id = Auth::user()->bnet->id;
         $this->repository->destroy($bnet_id);

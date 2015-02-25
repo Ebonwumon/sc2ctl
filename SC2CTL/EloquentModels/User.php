@@ -12,18 +12,6 @@ class User extends BaseModel implements UserInterface
 
     protected $hidden = [ 'password' ];
 
-    public function __construct(array $attributes = array())
-    {
-        parent::__construct($attributes);
-    }
-
-    protected $meta = [
-        'id' => [ self::GUARDED ],
-        'username' => [ self::FILLABLE, self::UPDATEABLE, self::SEARCHABLE ],
-        'email' => [ self::FILLABLE, self::UPDATEABLE, self::SEARCHABLE ],
-        'password' => [ self::FILLABLE, self::UPDATEABLE ]
-    ];
-
     public function getProfileImgAttribute()
     {
         $img_path = Config::get('storage.user_profile_img_path');
@@ -32,6 +20,12 @@ class User extends BaseModel implements UserInterface
             return $img_path . "uid_{$this->id}.jpg";
         }
         return $img_path . "uid_0.jpg";
+    }
+
+    public function hasActiveNotifications()
+    {
+        // TODO must implement this.
+        return false;
     }
 
     public function bnet()

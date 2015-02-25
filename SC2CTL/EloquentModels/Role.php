@@ -13,15 +13,6 @@ class Role extends BaseModel
     const ROLE_MOD = "mod";
     const ROLE_ADMIN = "admin";
 
-    public function __construct(array $attributes = array())
-    {
-        parent::__construct($attributes);
-    }
-
-    protected $meta = [
-        'id' => [ self::FILLABLE ],
-    ];
-
     public function permissions()
     {
         return $this->belongsToMany(Permission::class, 'permission_role', 'permission_id', 'id');
